@@ -18,10 +18,11 @@ export default function Input(props: Props) {
       <label className="text-moore font-bold">{props.label}</label>
       <input
         className={clsx(
-          'w-full',
+          'w-full bg-white/75',
           'mt-2 py-3 px-4',
+          'text-gray',
           'outline-none caret-moore',
-          'border border-gray-400 rounded',
+          'border border-gray-lighter rounded',
           'hover:border-moore',
           'focus:ring focus:ring-moore/40',
           props.className

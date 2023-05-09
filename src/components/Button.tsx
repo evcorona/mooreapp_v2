@@ -20,8 +20,10 @@ export default function Button(props: Props) {
         'font-semibold tracking-wide',
         'p-2 rounded-full',
         'border-transparent',
+        'hover:bg-black',
         {
-          'cursor-not-allowed bg-moore/60': props.isDisabled,
+          'cursor-not-allowed text-white/50 bg-moore-dark/30 hover:bg-moore-dark/30':
+            props.isDisabled,
           'cursor-wait': props.isLoading,
           'bg-moore text-white': props.priority === 'primary',
         },

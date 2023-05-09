@@ -23,14 +23,11 @@ export default function Login(): JSX.Element {
   const { mutateAsync, isLoading } = useMutation(login, {
     onSuccess: loginData => {
       sessionStorage.setItem('moore-jwt', loginData.token)
-      console.log(loginData.role)
       loginData.role === 'Administrador'
         ? window.location.assign('/administrator')
         : window.location.assign('/collaborator')
     },
-    onError: error => {
-      errorHandler(error as AxiosError)
-    },
+    onError: error => errorHandler(error as AxiosError),
   })
 
   const {
@@ -62,7 +59,7 @@ export default function Login(): JSX.Element {
     >
       <form
         className={clsx(
-          'p-4 md:p-8 rounded',
+          'px-4 py-8 md:p-8 rounded',
           'flex flex-col gap-2',
           'bg-white/80'
         )}
@@ -102,7 +99,7 @@ export default function Login(): JSX.Element {
             'border-0 bg-brand/50 hover:bg-brand/60': isValid,
           })}
         >
-          {isLoading ? 'Enviando...' : 'Ingresar'}
+          {isLoading ? 'Iniciando...' : 'Iniciar sesión'}
         </Button>
       </form>
     </main>

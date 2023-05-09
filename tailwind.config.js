@@ -6,6 +6,16 @@ export default {
   ],
   theme: {
     extend: {
+      width: {
+        icon: '2rem',
+        'icon-sm': '1.5rem',
+        'icon-lg': '4rem',
+        'icon-xl': '6rem',
+        'icon-xxl': '8rem',
+      },
+      container: {
+        center: true,
+      },
       backgroundImage: {
         login: "url('./src/images/bg-login.png')",
         main: "url('./src/images/bg-main.png')",
@@ -23,8 +33,13 @@ export default {
           error: '#ef4444',
           success: '#22c55e',
         },
+        gray: {
+          DEFAULT: '#6b7280',
+          light: '#f3f4f6',
+          lighter: '#9ca3af',
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [require('daisyui')],
 }

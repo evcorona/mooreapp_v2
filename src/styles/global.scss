@@ -18,7 +18,24 @@ code {
     monospace;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+  background-color: transparent !important;
+}
+
 ::selection {
   color: #02b1fc;
   background: #a8d2eaae;
+}
+
+.App {
+  background-image: url('../images/bg-main.png');
+  background-repeat: repeat;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: -1;
 }
