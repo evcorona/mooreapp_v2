@@ -18,7 +18,7 @@ export default function Button(props: Props) {
       className={clsx(
         'flex justify-center gap-4',
         'font-semibold tracking-wide',
-        'p-2 rounded-full',
+        'p-2 rounded',
         'border-transparent',
         'hover:bg-black',
         {
@@ -26,6 +26,7 @@ export default function Button(props: Props) {
             props.isDisabled,
           'cursor-wait': props.isLoading,
           'bg-moore text-white': props.priority === 'primary',
+          'bg-moore-dark text-white': props.priority === 'secondary',
         },
         props.className
       )}
