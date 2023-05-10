@@ -11,6 +11,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('../images/bg-main.png');
+  background-repeat: repeat;
+  height: 100vh;
 }
 
 code {
@@ -29,10 +32,4 @@ input[data-autocompleted] {
 ::selection {
   color: #02b1fc;
   background: #a8d2eaae;
-}
-
-.App {
-  background-image: url('../images/bg-main.png');
-  background-repeat: repeat;
-  width: 100vw;
 }

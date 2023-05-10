@@ -10,9 +10,8 @@ import AdminDashboard from './pages/Administrator/Dashboard'
 import AdminPageTemplate from './components/Template/AdminPageTemplate/AdminPageTemplate'
 import Administrator from './pages/Administrator/Clients'
 import Collaborator from './pages/Collaborator/Calendar'
-import Login from './pages/login'
+import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
-import UserDashboard from './pages/Collaborator/Dashboard'
 import { getAll as getAllActivities } from './lib/api/activities'
 import { getAll as getAllClients } from './lib/api/clients'
 import { getAll as getAllCollaborators } from './lib/api/collaborators'
@@ -50,7 +49,7 @@ export default function App() {
       />
       {isAdmin ? (
         <Routes>
-          <Route path="/" element={<AdminDashboard />} />
+          <Route path="/" element={<Administrator />} />
           <Route path="/administrator" element={<AdminDashboard />} />
           <Route
             path="/clients"
@@ -60,11 +59,14 @@ export default function App() {
                 routeBase="clients"
                 apiQuery={getAllClients}
                 dbSchema={DB_SCHEMA.admin.clients}
+                searchPlaceholder="por cliente"
+                details
               />
             }
-          />
-          <Route path="/clients/:id" element={<Administrator />} />
-          <Route path="/clients/create" element={<Administrator />} />
+          >
+            <Route path="/clients/:id" element={<Administrator />} />
+            <Route path="/clients/create" element={<Administrator />} />
+          </Route>
           <Route
             path="/projects"
             element={
@@ -73,11 +75,14 @@ export default function App() {
                 routeBase="projects"
                 apiQuery={getAllProjects}
                 dbSchema={DB_SCHEMA.admin.projects}
+                searchPlaceholder="por código de proyecto"
+                details
               />
             }
-          />
-          <Route path="/projects/:id" element={<Administrator />} />
-          <Route path="/projects/create" element={<Administrator />} />
+          >
+            <Route path="/projects/:id" element={<Administrator />} />
+            <Route path="/projects/create" element={<Administrator />} />
+          </Route>
           <Route
             path="/collaborators"
             element={
@@ -86,11 +91,14 @@ export default function App() {
                 routeBase="collaborator"
                 apiQuery={getAllCollaborators}
                 dbSchema={DB_SCHEMA.admin.collaborators}
+                searchPlaceholder="por nombre de colaborador"
+                details
               />
             }
-          />
-          <Route path="/collaborators/:id" element={<Administrator />} />
-          <Route path="/collaborators/create" element={<Administrator />} />
+          >
+            <Route path="/collaborators/:id" element={<Administrator />} />
+            <Route path="/collaborators/create" element={<Administrator />} />
+          </Route>
           <Route
             path="/activities"
             element={
@@ -99,14 +107,15 @@ export default function App() {
                 routeBase="activities"
                 apiQuery={getAllActivities}
                 dbSchema={DB_SCHEMA.admin.activities}
+                searchPlaceholder="por colaborador"
               />
             }
           />
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" element={<UserDashboard />} />
-          <Route path="/collaborator" element={<UserDashboard />} />
+          <Route path="/" element={<Collaborator />} />
+          <Route path="/collaborator" element={<Collaborator />} />
           <Route path="/activities" element={<Collaborator />} />
           <Route path="/activities/:id" element={<Collaborator />} />
           <Route path="/activities/create" element={<Collaborator />} />

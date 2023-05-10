@@ -12,7 +12,7 @@ export async function getAll(): Promise<CollaboratorsData[]> {
     .get(routes.collaborators, headers)
     .catch(error => console.error(error))
 
-  return _.get(response, 'data.data.collaborators', [])
+  return _.get(response, 'data.data.users', [])
 }
 
 export function errorHandler(error: AxiosError): void {

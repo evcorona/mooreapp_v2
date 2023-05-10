@@ -1,13 +1,14 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import { SyntheticEvent } from 'react'
 import clsx from 'clsx'
 
 interface Props {
   placeholder: string
-  setSearchInput: (data: string) => void
+  register?: any
+  onChange?: (e: SyntheticEvent) => void
 }
 
-//TODOL Fix search feature
-export default function SearchInput(props: Props) {
+export default function SearchInputNew(props: Props) {
   return (
     <div className="relative flex-grow active:border-moore">
       <div
@@ -26,7 +27,7 @@ export default function SearchInput(props: Props) {
         name="search"
         id="search"
         className={clsx(
-          'block w-full bg-white/75',
+          'block w-full bg-white',
           'pl-10 pr-4 py-2',
           'border rounded',
           'outline-none caret-moore',
@@ -35,7 +36,9 @@ export default function SearchInput(props: Props) {
           'hover:border-moore'
         )}
         placeholder={props.placeholder}
-        onChange={e => props.setSearchInput(e.target.value)}
+        {...props.register('search', {
+          onChange: props.onChange,
+        })}
       />
     </div>
   )

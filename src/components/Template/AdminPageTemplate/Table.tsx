@@ -1,15 +1,19 @@
+import { Link, useLocation } from 'react-router-dom'
+
 import Button from '~/components/Button'
 import { CollectionsDataType } from '~/types/objects'
-import { Link } from 'react-router-dom'
+import _ from 'lodash'
 
 interface TableProps {
   headers: string[]
   properties: string[]
   data: CollectionsDataType[]
-  page: string
+  details?: boolean
 }
 
 export default function Table(props: TableProps) {
+  const location = useLocation()
+
   return (
     <div className="hidden lg:block overflow-x-auto shadow-md p-4 rounded-md bg-white">
       <table className="table-compact w-full">
@@ -43,13 +47,13 @@ export default function Table(props: TableProps) {
                   </td>
                 )
               })}
-              <td className="pl-10">
-                <Link to={`/${props.page}/${data._id}`}>
-                  <Button className="bg-gray-lighter text-white">
-                    Detalles
-                  </Button>
-                </Link>
-              </td>
+              {props.details && (
+                <td className="pl-10">
+                  <Link to={`${location.pathname}/${data._id}`}>
+                    <Button className="bg-gray-lighter btn-sm">Detalles</Button>
+                  </Link>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

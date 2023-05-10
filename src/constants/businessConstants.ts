@@ -20,8 +20,8 @@ export const DB_SCHEMA = {
   admin: {
     clients: {
       clientName: 'Cliente',
-      group: 'Grupo',
       codeClient: 'Código',
+      group: 'Grupo',
       RFC: 'RFC',
       address: 'Domicilio',
     },

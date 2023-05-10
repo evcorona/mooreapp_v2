@@ -2,7 +2,10 @@ import { QueryFunction, useQuery } from 'react-query'
 import { useEffect, useState } from 'react'
 
 import { AxiosError } from 'axios'
+import Button from '~/components/Button'
+import Cards from './Cards'
 import { CollectionsDataType } from '~/types/objects'
+import NoResultsCard from './NoResultsCard'
 import Table from './Table'
 import Title from '../../Title'
 import ToolsBar from './ToolsBar'
@@ -14,6 +17,8 @@ interface AdminPageTemplateProps {
   routeBase: string
   apiQuery: QueryFunction
   dbSchema: any
+  searchPlaceholder: string
+  details?: boolean
 }
 
 export default function AdminPageTemplate(props: AdminPageTemplateProps) {
@@ -25,7 +30,7 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
     props.apiQuery,
     {
       onSuccess(data: CollectionsDataType[]) {
-        return data
+        if (!searchInput) setDataFiltered(data)
       },
       onError: error => errorHandler(error as AxiosError),
       keepPreviousData: true,
@@ -34,45 +39,58 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
 
   const headers: string[] = Object.values(props.dbSchema)
   const properties: string[] = Object.keys(props.dbSchema)
+  const collectionProperties: [string, string][] = Object.entries(
+    props.dbSchema
+  )
 
   function filterData() {
     let filterData: CollectionsDataType[] = allData
     if (searchInput) {
       filterData = filterData.filter((data: any) => {
-        const searchBy: any = _.first(headers)
+        const searchBy: any = _.first(properties)
         return data[searchBy].toLowerCase().includes(searchInput.toLowerCase())
       })
     }
     setDataFiltered(filterData)
   }
 
-  // useEffect(() => filterData(), [searchInput])
-  useEffect(() => filterData(), [allData])
+  useEffect(() => filterData(), [searchInput])
 
   if (isLoading) {
     return (
-      <div className="h-screen container mx-auto space-y-4 pt-20 animate-pulse">
-        <h1 className="text-black text-3xl font-semibold">Cargando...</h1>
-        <div className="h-16 bg-white/80" />
-        <div className="h-96 bg-white/80 shadow-md" />
+      <div className="h-screen container mx-auto space-y-4 pt-20 px-4">
+        <Title title={props.title} />
+        <div className="animate-pulse h-16 bg-white/80" />
+        <div className="animate-pulse h-96 bg-white/80 shadow-md" />
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto space-y-4 pt-20">
+    <div className="container mx-auto h-[90vh] space-y-4 pt-20 px-4">
       <Title title={props.title} />
       <ToolsBar
         setSearchInput={setSearchInput}
-        data={allData}
-        placeholder={props.title}
-      />
-      <Table
-        headers={headers}
-        properties={properties}
         data={dataFiltered}
-        page={props.routeBase}
+        placeholder={props.searchPlaceholder}
       />
+      {searchInput && _.isEmpty(dataFiltered) ? (
+        <NoResultsCard searchInput={searchInput} />
+      ) : (
+        <>
+          <Table
+            headers={headers}
+            properties={properties}
+            data={dataFiltered}
+            details={props.details}
+          />
+          <Cards
+            collectionProperties={collectionProperties}
+            data={dataFiltered}
+            details={props.details}
+          />
+        </>
+      )}
     </div>
   )
 }
