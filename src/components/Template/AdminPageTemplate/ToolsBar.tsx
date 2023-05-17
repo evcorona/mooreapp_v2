@@ -1,22 +1,25 @@
 import Button from '~/components/Button'
 import { CollectionsDataType } from '~/types/objects'
+import DateMonthPicker from './DateMonthPicker'
 import SearchInput from '~/components/Inputs/SearchInput'
 import clsx from 'clsx'
 import { exportToExcel } from 'react-json-to-excel'
 import format from 'date-fns/format'
 import { useForm } from 'react-hook-form'
+import { useLocation } from 'react-router-dom'
 
 interface ToolsBarProps {
-  setSearchInput: (data: string) => void
   data: CollectionsDataType[]
   placeholder: string
-}
-
-type FormData = {
-  search: string
+  startDate: Date | null
+  isRefetching: boolean
+  setStartDate: (date: Date | null) => void
+  setSearchInput: (data: string) => void
 }
 
 export default function ToolsBar(props: ToolsBarProps) {
+  const location = useLocation()
+
   function exportClients() {
     const exportData = props.data.map(({ _id, isActive, ...data }) => data)
     const fileName = `mooreapp_${props.placeholder}_${format(
@@ -26,7 +29,7 @@ export default function ToolsBar(props: ToolsBarProps) {
     exportToExcel(exportData, fileName)
   }
 
-  const { register, handleSubmit } = useForm<FormData>({
+  const { register, handleSubmit } = useForm<{ search: string }>({
     defaultValues: {
       search: '',
     },
@@ -51,12 +54,21 @@ export default function ToolsBar(props: ToolsBarProps) {
           placeholder={`Buscar ${props.placeholder}`}
           onChange={onChange}
           register={register}
+          isLoading={props.isRefetching}
         />
       </form>
+      {location.pathname === '/activities' && (
+        <DateMonthPicker
+          startDate={props.startDate}
+          setStartDate={props.setStartDate}
+          isLoading={props.isRefetching}
+        />
+      )}
       <div className="btn-group w-full md:w-fit">
         <Button
           secondary
           className="w-1/2 btn-sm md:btn-md"
+          isLoading={props.isRefetching}
           onClick={exportClients}
         >
           Exportar

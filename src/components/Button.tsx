@@ -12,11 +12,12 @@ export interface Props {
 }
 
 export default function Button(props: Props) {
+  const isDisabled = props.isDisabled || props.isLoading
   return (
     <button
       type={props.isSubmit ? 'submit' : 'button'}
       onClick={props.onClick}
-      disabled={props.isDisabled}
+      disabled={isDisabled}
       className={clsx(
         'flex justify-center gap-4',
         'font-semibold tracking-wide',

@@ -93,7 +93,7 @@ export default function Login(): JSX.Element {
         <Button
           isDisabled={!isValid || isLoading}
           isSubmit
-          priority="primary"
+          primary
           className={clsx('mt-2   ', {
             'border-2 border-brand-gray': !isValid,
             'border-0 bg-brand/50 hover:bg-brand/60': isValid,

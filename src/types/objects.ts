@@ -45,7 +45,7 @@ export type CollaboratorsData = {
 
 export type ActivitiesData = {
   _id: string
-  activityTYpe: string
+  activityType: string
   timeAmmount: number
   client: string
   concept: string

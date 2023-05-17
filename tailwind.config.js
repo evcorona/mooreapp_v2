@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx}',
-    './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/pages/**/**.{html,js,ts,jsx,tsx}',
+    './src/components/**/**.{html,js,ts,jsx,tsx}',
+    './src/App.tsx',
   ],
   theme: {
     extend: {
@@ -23,6 +24,7 @@ export default {
         noResults: "url('./src/images/no_results.svg')",
       },
       colors: {
+        black: '#212121',
         moore: {
           DEFAULT: '#29aae1',
           dark: '#007baf',

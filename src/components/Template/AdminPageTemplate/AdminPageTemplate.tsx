@@ -2,7 +2,6 @@ import { QueryFunction, useQuery } from 'react-query'
 import { useEffect, useState } from 'react'
 
 import { AxiosError } from 'axios'
-import Button from '~/components/Button'
 import Cards from './Cards'
 import { CollectionsDataType } from '~/types/objects'
 import NoResultsCard from './NoResultsCard'
@@ -24,10 +23,15 @@ interface AdminPageTemplateProps {
 export default function AdminPageTemplate(props: AdminPageTemplateProps) {
   const [searchInput, setSearchInput] = useState<string>('')
   const [dataFiltered, setDataFiltered] = useState<any>([])
+  const [startDate, setStartDate] = useState<Date | null>(new Date())
 
-  const { data: allData = [], isLoading } = useQuery(
-    props.routeBase,
-    props.apiQuery,
+  const {
+    data: allData = [],
+    isLoading,
+    isRefetching,
+  } = useQuery(
+    [props.routeBase, startDate],
+    () => props.apiQuery({ startDate }),
     {
       onSuccess(data: CollectionsDataType[]) {
         if (!searchInput) setDataFiltered(data)
@@ -67,12 +71,15 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
   }
 
   return (
-    <div className="container mx-auto h-[90vh] space-y-4 pt-20 px-4">
+    <div className="container mx-auto space-y-4 pt-20 px-4">
       <Title title={props.title} />
       <ToolsBar
         setSearchInput={setSearchInput}
         data={dataFiltered}
         placeholder={props.searchPlaceholder}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        isRefetching={isRefetching}
       />
       {searchInput && _.isEmpty(dataFiltered) ? (
         <NoResultsCard searchInput={searchInput} />

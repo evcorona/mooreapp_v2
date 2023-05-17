@@ -7,12 +7,24 @@ import api from './index'
 import { errors } from '../../constants/errors'
 import { toast } from 'react-toastify'
 
+function formatData(users: any[]) {
+  return users.map(user => {
+    return {
+      ...user,
+      employmentDate: user.employmentDate.split('T')[0],
+    }
+  })
+}
+
 export async function getAll(): Promise<CollaboratorsData[]> {
   const response = await api
     .get(routes.collaborators, headers)
     .catch(error => console.error(error))
 
-  return _.get(response, 'data.data.users', [])
+  const data = _.get(response, 'data.data.users', [])
+  const formattedData = formatData(data)
+
+  return formattedData
 }
 
 export function errorHandler(error: AxiosError): void {

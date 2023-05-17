@@ -5,6 +5,7 @@ import clsx from 'clsx'
 interface Props {
   placeholder: string
   register?: any
+  isLoading?: boolean
   onChange?: (e: SyntheticEvent) => void
 }
 
@@ -26,6 +27,7 @@ export default function SearchInputNew(props: Props) {
         type="text"
         name="search"
         id="search"
+        disabled={props.isLoading}
         className={clsx(
           'block w-full bg-white',
           'pl-10 pr-4 py-2',
@@ -33,7 +35,10 @@ export default function SearchInputNew(props: Props) {
           'outline-none caret-moore',
           'placeholder:text-gray-lighter ',
           'focus:ring focus:ring-moore/40',
-          'hover:border-moore'
+          'hover:border-moore',
+          {
+            'cursor-wait': props.isLoading,
+          }
         )}
         placeholder={props.placeholder}
         {...props.register('search', {

@@ -8,8 +8,8 @@ import { useEffect, useState } from 'react'
 
 import AdminDashboard from './pages/Administrator/Dashboard'
 import AdminPageTemplate from './components/Template/AdminPageTemplate/AdminPageTemplate'
-import Administrator from './pages/Administrator/Clients'
-import Collaborator from './pages/Collaborator/Calendar'
+import Administrator from './pages/Administrator/Details'
+import Collaborator from './pages/Collaborator/Dashboard'
 import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
 import { getAll as getAllActivities } from './lib/api/activities'
@@ -42,6 +42,7 @@ export default function App() {
 
   return (
     <div className="App">
+      <div className="fixed h-screen w-screen bg-main -z-50" />
       <NavBar
         items={navigationItems}
         // name={usr}
@@ -49,6 +50,7 @@ export default function App() {
       />
       {isAdmin ? (
         <Routes>
+          {/* <div className="main-image" /> */}
           <Route path="/" element={<Administrator />} />
           <Route path="/administrator" element={<AdminDashboard />} />
           <Route
@@ -122,7 +124,7 @@ export default function App() {
         </Routes>
       )}
       <footer className="mt-6 p-4 text-center text-xs">
-        MooreApp was made with 💙 by CrownSolutions 2023
+        MooreApp made with 💙 by CrownSolutions. v2.0 (2023)
       </footer>
     </div>
   )
