@@ -1,9 +1,14 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "[javascript]": {
+  "[javascript, typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "cSpell.language": "en, es-ES",
-  "cSpell.words": ["Ammount"]
+  "cSpell.words": ["Ammount"],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#007baf",
+    "titleBar.activeBackground": "#007baf",
+    "titleBar.activeForeground": "#f5f6fd"
+  }
 }
