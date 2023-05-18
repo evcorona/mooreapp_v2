@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import Administrator from './pages/Administrator/Dashboard'
-import Collaborator from './pages/Collaborator/Dashboard'
+import Administrator from './pages/Dashboard'
+import Collaborator from './pages/Dashboard'
 import Login from './pages/login'
 import NavBar from './components/NavBar/NavBar'
 import businessConstants from './constants/businessConstants'
