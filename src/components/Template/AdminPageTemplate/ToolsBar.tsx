@@ -1,9 +1,9 @@
 import Button from '~/components/Button'
+import { CSVLink } from 'react-csv'
 import { CollectionsDataType } from '~/types/objects'
 import DateMonthPicker from './DateMonthPicker'
 import SearchInput from '~/components/Inputs/SearchInput'
 import clsx from 'clsx'
-import { exportToExcel } from 'react-json-to-excel'
 import format from 'date-fns/format'
 import { useForm } from 'react-hook-form'
 import { useLocation } from 'react-router-dom'
@@ -11,23 +11,20 @@ import { useLocation } from 'react-router-dom'
 interface ToolsBarProps {
   data: CollectionsDataType[]
   placeholder: string
-  startDate: Date | null
+  startDate: Date
   isRefetching: boolean
-  setStartDate: (date: Date | null) => void
+  setStartDate: (date: Date) => void
   setSearchInput: (data: string) => void
 }
 
 export default function ToolsBar(props: ToolsBarProps) {
   const location = useLocation()
 
-  function exportClients() {
-    const exportData = props.data.map(({ _id, isActive, ...data }) => data)
-    const fileName = `mooreapp_${props.placeholder}_${format(
-      new Date(),
-      'yyyyMMdd'
-    )}`
-    exportToExcel(exportData, fileName)
-  }
+  const exportData = props.data.map(({ _id, isActive, ...data }) => data)
+  const fileName = `mooreapp${location.pathname.replace('/', '_')}_${format(
+    new Date(),
+    'yyyyMMdd'
+  )}.csv`
 
   const { register, handleSubmit } = useForm<{ search: string }>({
     defaultValues: {
@@ -43,7 +40,7 @@ export default function ToolsBar(props: ToolsBarProps) {
   return (
     <div
       className={clsx(
-        'flex-wrap flex justify-between items-center gap-4',
+        'flex flex-wrap items-center justify-between gap-4',
         'sticky top-20 z-40',
         'shadow-lg backdrop-blur-sm',
         'rounded-md p-4'
@@ -67,13 +64,14 @@ export default function ToolsBar(props: ToolsBarProps) {
       <div className="btn-group w-full md:w-fit">
         <Button
           secondary
-          className="w-1/2 btn-sm md:btn-md"
+          className="btn-sm w-1/2 md:btn-md"
           isLoading={props.isRefetching}
-          onClick={exportClients}
         >
-          Exportar
+          <CSVLink filename={fileName} data={exportData}>
+            Exportar
+          </CSVLink>
         </Button>
-        <Button primary className="w-1/2 btn-sm md:btn-md">
+        <Button primary className="btn-sm w-1/2 md:btn-md">
           Añadir
         </Button>
       </div>
