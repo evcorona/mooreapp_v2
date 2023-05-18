@@ -19,9 +19,9 @@ export default {
         center: true,
       },
       backgroundImage: {
-        login: "url('./public/static/images/bg-login.png')",
-        logo: "url('./public/static/images/logo-detailed.png')",
-        main: "url('./public/static/images/bg-main.png')",
+        login: "url('/src/images/bg-login.png')",
+        logo: "url('/src/images/logo-detailed.png')",
+        main: "url('/src/images/bg-main.png')",
       },
       colors: {
         moore: {
