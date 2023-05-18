@@ -1,8 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    './src/pages/**/**.{html,js,ts,jsx,tsx}',
-    './src/components/**/**.{html,js,ts,jsx,tsx}',
+    './src/images/*.{png}',
+    './src/pages/*.{ts,tsx}',
+    './src/pages/**/**.{ts,tsx}',
+    './src/components/**/**.{ts,tsx}',
+    './src/components/*.{ts,tsx}',
+    './src/pages/login.tsx',
     './src/App.tsx',
   ],
   theme: {
