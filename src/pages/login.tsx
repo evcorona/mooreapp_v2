@@ -53,13 +53,13 @@ export default function Login(): JSX.Element {
       className={clsx(
         'bg-login bg-cover bg-center',
         'h-screen w-screen',
-        'flex justify-center items-center',
+        'flex items-center justify-center',
         'p-4 md:p-6'
       )}
     >
       <form
         className={clsx(
-          'px-4 py-8 md:p-8 rounded',
+          'rounded px-4 py-8 md:p-8',
           'flex flex-col gap-2',
           'bg-white/80'
         )}
@@ -67,8 +67,8 @@ export default function Login(): JSX.Element {
       >
         <div
           className={clsx(
-            'bg-logo bg-contain bg-no-repeat bg-center',
-            'w-full h-36 mb-2',
+            'bg-logo bg-contain bg-center bg-no-repeat',
+            'mb-2 h-36 w-full',
             'rounded'
           )}
         />
@@ -95,8 +95,8 @@ export default function Login(): JSX.Element {
           isSubmit
           primary
           className={clsx('mt-2   ', {
-            'border-2 border-brand-gray': !isValid,
-            'border-0 bg-brand/50 hover:bg-brand/60': isValid,
+            'border-brand-gray border-2': !isValid,
+            'bg-brand/50 hover:bg-brand/60 border-0': isValid,
           })}
         >
           {isLoading ? 'Iniciando...' : 'Iniciar sesión'}

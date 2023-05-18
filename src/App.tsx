@@ -42,7 +42,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <div className="fixed h-screen w-screen bg-main -z-50" />
+      <div className="fixed -z-50 h-screen w-screen bg-main" />
       <NavBar
         items={navigationItems}
         // name={usr}

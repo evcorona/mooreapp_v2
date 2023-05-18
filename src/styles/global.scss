@@ -1,6 +1,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import 'tailwindcss/variants';
 
 @import 'react-toastify/dist/ReactToastify.css';
 @import 'react-datepicker/dist/react-datepicker.css';
@@ -11,11 +12,6 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
 
 input:-webkit-autofill,
@@ -31,11 +27,10 @@ input[data-autocompleted] {
   background: #a8d2eaae;
 }
 
-.main-image {
+.App {
   background-image: url('../images/bg-main.png');
   background-repeat: repeat;
   width: 100vw;
   height: 100vh;
-  // position: absolute;
   z-index: -1;
 }
