@@ -50,7 +50,6 @@ export default function App() {
       />
       {isAdmin ? (
         <Routes>
-          {/* <div className="main-image" /> */}
           <Route path="/" element={<Administrator />} />
           <Route path="/administrator" element={<AdminDashboard />} />
           <Route
