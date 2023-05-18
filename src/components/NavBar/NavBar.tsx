@@ -2,12 +2,12 @@ import { Link } from 'react-router-dom'
 import NavBarDesktop from './NavBarDesktop'
 import NavBarMobile from './NavBarMobile'
 import { NavBarProps } from '../../types/objects'
-import logo from '../../images/nav-logo.png'
+import logo from '../../../public/static/images/logo-minimized.png'
 
 export default function NavBar(props: NavBarProps) {
   return (
-    <nav className="bg-white shadow-lg text-gray mb-4">
-      <div className="navbar container mx-auto justify-between">
+    <nav className="mb-4 bg-white text-gray shadow-lg">
+      <div className="container navbar mx-auto justify-between">
         <div className="w-fit px-2">
           <Link className="w-28" to={'/'}>
             <img src={logo} alt="MooreApp" />

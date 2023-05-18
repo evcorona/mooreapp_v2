@@ -1,13 +1,10 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    './src/images/*.{png}',
-    './src/pages/*.{ts,tsx}',
-    './src/pages/**/**.{ts,tsx}',
-    './src/components/**/**.{ts,tsx}',
-    './src/components/*.{ts,tsx}',
-    './src/pages/login.tsx',
-    './src/App.tsx',
+    './src/pages/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -22,9 +19,9 @@ export default {
         center: true,
       },
       backgroundImage: {
-        login: "url('./src/images/bg-login.png')",
-        main: "url('./src/images/bg-main.png')",
-        logo: "url('./src/images/moore-logo.png')",
+        login: "url('./public/static/images/bg-login.png')",
+        logo: "url('./public/static/images/logo-detailed.png')",
+        main: "url('./public/static/images/bg-main.png')",
       },
       colors: {
         moore: {
