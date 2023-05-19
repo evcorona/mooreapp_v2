@@ -2,11 +2,10 @@ import { Link, useLocation } from 'react-router-dom'
 
 import Button from '~/components/Button'
 import { CollectionsDataType } from '~/types/objects'
-import { string } from 'zod'
 
 interface CardsProps {
   data: CollectionsDataType[]
-  collectionProperties: [string, string][]
+  collectionProperties: any
   details?: boolean
 }
 export default function Cards(props: CardsProps) {
@@ -17,25 +16,27 @@ export default function Cards(props: CardsProps) {
   const location = useLocation()
 
   return (
-    <div className="lg:hidden space-y-4">
+    <div className="space-y-4 lg:hidden">
       {bodyData.map((data, i) => {
         return (
           <div
             key={'card-' + i}
-            className="card card-compact w-full bg-base-100 shadow-xl hover:bg-gray-light hover:text-moore cursor-default"
+            className="card-compact card w-full cursor-default bg-base-100 shadow-xl hover:bg-gray-light hover:text-moore"
           >
             <div className="card-body flex">
-              <h2 className="card-title border-b-2 px-2 text-sm">{`${headerData[firstKey]}`}</h2>
-              {collectionProperties.map((property, k) => {
+              <h2 className="card-title border-b-2 px-2 text-sm">{`${
+                headerData[firstKey as keyof CollectionsDataType]
+              }`}</h2>
+              {collectionProperties.map((property: any, k: number) => {
                 const [key, header] = property
-                const value = data[key]
+                const value = data[key as keyof CollectionsDataType]
 
                 return (
                   <div key={'cardBody-' + k}>
                     <p className="text-xs">
                       <span className="font-semibold">{`${header}: `}</span>
                       {value ?? (
-                        <i className="bg-alert-warning rounded-full px-2 py-1 text-white">
+                        <i className="rounded-full bg-alert-warning px-2 py-1 text-white">
                           Pendiente
                         </i>
                       )}
@@ -46,7 +47,7 @@ export default function Cards(props: CardsProps) {
               {props.details && (
                 <div className="card-actions justify-end">
                   <Link to={`${location.pathname}/${data._id}`}>
-                    <Button className="bg-gray-lighter btn-sm">Detalles</Button>
+                    <Button className="btn-sm bg-gray-lighter">Detalles</Button>
                   </Link>
                 </div>
               )}
