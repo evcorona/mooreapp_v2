@@ -9,7 +9,6 @@ interface CardsProps {
   details?: boolean
 }
 export default function Cards(props: CardsProps) {
-  const [headerData, ...bodyData] = props.data
   const [firstProperty, ...collectionProperties] = props.collectionProperties
   const [firstKey] = firstProperty
 
@@ -17,16 +16,15 @@ export default function Cards(props: CardsProps) {
 
   return (
     <div className="space-y-4 lg:hidden">
-      {bodyData.map((data, i) => {
+      {props.data.map((data, i) => {
+        const titleCard = data[firstKey as keyof CollectionsDataType]
         return (
           <div
             key={'card-' + i}
             className="card-compact card w-full cursor-default bg-base-100 shadow-xl hover:bg-gray-light hover:text-moore"
           >
             <div className="card-body flex">
-              <h2 className="card-title border-b-2 px-2 text-sm">{`${
-                headerData[firstKey as keyof CollectionsDataType]
-              }`}</h2>
+              <h2 className="card-title border-b-2 px-2 text-sm">{`${titleCard}`}</h2>
               {collectionProperties.map((property: any, k: number) => {
                 const [key, header] = property
                 const value = data[key as keyof CollectionsDataType]
