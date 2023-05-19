@@ -1,4 +1,3 @@
-import { QueryFunction, useQuery } from 'react-query'
 import { useEffect, useState } from 'react'
 
 import { AxiosError } from 'axios'
@@ -10,11 +9,12 @@ import Title from '../../Title'
 import ToolsBar from './ToolsBar'
 import _ from 'lodash'
 import { errorHandler } from '../../../lib/api/clients'
+import { useLocation } from 'react-router-dom'
+import { useQuery } from 'react-query'
 
 interface AdminPageTemplateProps {
   title: string
-  routeBase: string
-  apiQuery: QueryFunction
+  apiQuery: any
   dbSchema: any
   searchPlaceholder: string
   details?: boolean
@@ -23,23 +23,20 @@ interface AdminPageTemplateProps {
 export default function AdminPageTemplate(props: AdminPageTemplateProps) {
   const [searchInput, setSearchInput] = useState<string>('')
   const [dataFiltered, setDataFiltered] = useState<any>([])
-  const [startDate, setStartDate] = useState<Date | null>(new Date())
+  const [startDate, setStartDate] = useState<Date>(new Date())
+  const { pathname } = useLocation()
 
   const {
     data: allData = [],
     isLoading,
     isRefetching,
-  } = useQuery(
-    [props.routeBase, startDate],
-    () => props.apiQuery({ startDate }),
-    {
-      onSuccess(data: CollectionsDataType[]) {
-        if (!searchInput) setDataFiltered(data)
-      },
-      onError: error => errorHandler(error as AxiosError),
-      keepPreviousData: true,
-    }
-  )
+  } = useQuery([pathname, startDate], () => props.apiQuery(startDate), {
+    onSuccess(data: CollectionsDataType[]) {
+      !searchInput ? setDataFiltered(data) : filterData(data)
+    },
+    onError: error => errorHandler(error as AxiosError),
+    keepPreviousData: true,
+  })
 
   const headers: string[] = Object.values(props.dbSchema)
   const properties: string[] = Object.keys(props.dbSchema)
@@ -47,10 +44,10 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
     props.dbSchema
   )
 
-  function filterData() {
-    let filterData: CollectionsDataType[] = allData
+  function filterData(dataToFilter: any[]) {
+    let filterData = dataToFilter
     if (searchInput) {
-      filterData = filterData.filter((data: any) => {
+      filterData = filterData.filter(data => {
         const searchBy: any = _.first(properties)
         return data[searchBy].toLowerCase().includes(searchInput.toLowerCase())
       })
@@ -58,20 +55,20 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
     setDataFiltered(filterData)
   }
 
-  useEffect(() => filterData(), [searchInput])
+  useEffect(() => filterData(allData), [searchInput])
 
   if (isLoading) {
     return (
-      <div className="h-screen container mx-auto space-y-4 pt-20 px-4">
+      <div className="container mx-auto h-screen space-y-4 px-4 pt-20">
         <Title title={props.title} />
-        <div className="animate-pulse h-16 bg-white/80" />
-        <div className="animate-pulse h-96 bg-white/80 shadow-md" />
+        <div className="h-16 animate-pulse bg-white/80" />
+        <div className="h-96 animate-pulse bg-white/80 shadow-md" />
       </div>
     )
   }
 
   return (
-    <div className="container mx-auto space-y-4 pt-20 px-4">
+    <div className="container mx-auto space-y-4 px-4 pt-20">
       <Title title={props.title} />
       <ToolsBar
         setSearchInput={setSearchInput}
@@ -81,8 +78,8 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
         setStartDate={setStartDate}
         isRefetching={isRefetching}
       />
-      {searchInput && _.isEmpty(dataFiltered) ? (
-        <NoResultsCard searchInput={searchInput} />
+      {_.isEmpty(dataFiltered) ? (
+        <NoResultsCard />
       ) : (
         <>
           <Table

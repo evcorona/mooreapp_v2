@@ -21,11 +21,11 @@ export default function Button(props: Props) {
       className={clsx(
         'flex justify-center gap-4',
         'font-semibold tracking-wide',
-        'p-2 rounded btn',
+        'btn rounded p-2',
         'border-transparent',
         'hover:bg-black hover:text-white',
         {
-          'cursor-not-allowed text-white/50 bg-moore-dark/30 hover:bg-moore-dark/30':
+          'cursor-not-allowed bg-moore-dark/30 text-white/50 hover:bg-moore-dark/30':
             props.isDisabled,
           'cursor-wait': props.isLoading,
           'bg-moore text-white': props.primary,

@@ -6,7 +6,7 @@ import es from 'date-fns/locale/es'
 registerLocale('es', es)
 
 interface DateMonthPickerProps {
-  startDate: Date | null
+  startDate: Date
   setStartDate: (date: Date) => void
   isLoading?: boolean
 }

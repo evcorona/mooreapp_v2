@@ -3,6 +3,7 @@ import { CSVLink } from 'react-csv'
 import { CollectionsDataType } from '~/types/objects'
 import DateMonthPicker from './DateMonthPicker'
 import SearchInput from '~/components/Inputs/SearchInput'
+import _ from 'lodash'
 import clsx from 'clsx'
 import format from 'date-fns/format'
 import { useForm } from 'react-hook-form'
@@ -66,6 +67,7 @@ export default function ToolsBar(props: ToolsBarProps) {
           secondary
           className="btn-sm w-1/2 md:btn-md"
           isLoading={props.isRefetching}
+          isDisabled={_.isEmpty(props.data)}
         >
           <CSVLink filename={fileName} data={exportData}>
             Exportar

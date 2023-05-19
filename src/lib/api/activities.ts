@@ -19,8 +19,8 @@ function formatData(activities: any[]) {
     }
   })
 }
-export async function getAll(query: any): Promise<ActivitiesData[]> {
-  const filterDate = startOfMonth(query.startDate ?? new Date())
+export async function getAll(startDate: Date): Promise<ActivitiesData[]> {
+  const filterDate = startOfMonth(startDate ?? new Date())
 
   const filterDateFormatted = format(filterDate, 'yyyy-MM-dd')
   const routePlusQuery = routes.activities + filterDateFormatted

@@ -57,7 +57,6 @@ export default function App() {
             element={
               <AdminPageTemplate
                 title="clientes"
-                routeBase="clients"
                 apiQuery={getAllClients}
                 dbSchema={DB_SCHEMA.admin.clients}
                 searchPlaceholder="por cliente"
@@ -73,7 +72,6 @@ export default function App() {
             element={
               <AdminPageTemplate
                 title="proyectos"
-                routeBase="projects"
                 apiQuery={getAllProjects}
                 dbSchema={DB_SCHEMA.admin.projects}
                 searchPlaceholder="por código de proyecto"
@@ -89,7 +87,6 @@ export default function App() {
             element={
               <AdminPageTemplate
                 title="colaboradores"
-                routeBase="collaborator"
                 apiQuery={getAllCollaborators}
                 dbSchema={DB_SCHEMA.admin.collaborators}
                 searchPlaceholder="por nombre de colaborador"
@@ -105,7 +102,6 @@ export default function App() {
             element={
               <AdminPageTemplate
                 title="actividades"
-                routeBase="activities"
                 apiQuery={getAllActivities}
                 dbSchema={DB_SCHEMA.admin.activities}
                 searchPlaceholder="por colaborador"
