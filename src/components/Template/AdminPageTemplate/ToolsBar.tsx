@@ -1,5 +1,3 @@
-import { Link, useLocation } from 'react-router-dom'
-
 import Button from '~/components/Button'
 import { CSVLink } from 'react-csv'
 import { CollectionsDataType } from '~/types/objects'
