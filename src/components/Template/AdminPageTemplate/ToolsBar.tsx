@@ -1,3 +1,5 @@
+import { Link, useLocation } from 'react-router-dom'
+
 import Button from '~/components/Button'
 import { CSVLink } from 'react-csv'
 import { CollectionsDataType } from '~/types/objects'
@@ -6,8 +8,8 @@ import SearchInput from '~/components/Inputs/SearchInput'
 import _ from 'lodash'
 import clsx from 'clsx'
 import format from 'date-fns/format'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useLocation } from 'react-router-dom'
 
 interface ToolsBarProps {
   data: CollectionsDataType[]
@@ -27,7 +29,9 @@ export default function ToolsBar(props: ToolsBarProps) {
     'yyyyMMdd'
   )}.csv`
 
-  const { register, handleSubmit } = useForm<{ search: string }>({
+  const { register, handleSubmit, getValues, reset } = useForm<{
+    search: string
+  }>({
     defaultValues: {
       search: '',
     },
@@ -37,6 +41,8 @@ export default function ToolsBar(props: ToolsBarProps) {
   function onChange(e: any) {
     props.setSearchInput(e.target.value)
   }
+
+  useEffect(() => reset(), [location.pathname])
 
   return (
     <div
@@ -52,6 +58,7 @@ export default function ToolsBar(props: ToolsBarProps) {
           placeholder={`Buscar ${props.placeholder}`}
           onChange={onChange}
           register={register}
+          value={getValues('search')}
           isLoading={props.isRefetching}
         />
       </form>

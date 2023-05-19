@@ -57,6 +57,11 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
 
   useEffect(() => filterData(allData), [searchInput])
 
+  useEffect(() => {
+    setSearchInput('')
+    setStartDate(new Date())
+  }, [location.pathname])
+
   if (isLoading) {
     return (
       <div className="container mx-auto h-screen space-y-4 px-4 pt-20">
