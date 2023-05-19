@@ -23,7 +23,7 @@ export default {
         logo: "url('/src/images/logo-detailed.png')",
         login: "url('/src/images/bg-login.png')",
         main: "url('/src/images/bg-main.png')",
-        noResults: "url('./src/images/no_results.svg')",
+        noResults: "url('/src/images/no_results.svg')",
       },
       colors: {
         black: '#212121',
