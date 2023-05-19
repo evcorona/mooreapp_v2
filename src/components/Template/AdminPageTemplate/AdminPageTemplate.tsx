@@ -1,0 +1,105 @@
+import { useEffect, useState } from 'react'
+
+import { AxiosError } from 'axios'
+import Cards from './Cards'
+import { CollectionsDataType } from '~/types/objects'
+import NoResultsCard from './NoResultsCard'
+import Table from './Table'
+import Title from '../../Title'
+import ToolsBar from './ToolsBar'
+import _ from 'lodash'
+import { errorHandler } from '../../../lib/api/clients'
+import { useLocation } from 'react-router-dom'
+import { useQuery } from 'react-query'
+
+interface AdminPageTemplateProps {
+  title: string
+  apiQuery: any
+  dbSchema: any
+  searchPlaceholder: string
+  details?: boolean
+}
+
+export default function AdminPageTemplate(props: AdminPageTemplateProps) {
+  const [searchInput, setSearchInput] = useState<string>('')
+  const [dataFiltered, setDataFiltered] = useState<any>([])
+  const [startDate, setStartDate] = useState<Date>(new Date())
+  const { pathname } = useLocation()
+
+  const {
+    data: allData = [],
+    isLoading,
+    isRefetching,
+  } = useQuery([pathname, startDate], () => props.apiQuery(startDate), {
+    onSuccess(data: CollectionsDataType[]) {
+      !searchInput ? setDataFiltered(data) : filterData(data)
+    },
+    onError: error => errorHandler(error as AxiosError),
+    keepPreviousData: true,
+  })
+
+  const headers: string[] = Object.values(props.dbSchema)
+  const properties: string[] = Object.keys(props.dbSchema)
+  const collectionProperties: [string, string][] = Object.entries(
+    props.dbSchema
+  )
+
+  function filterData(dataToFilter: any[]) {
+    let filterData = dataToFilter
+    if (searchInput) {
+      filterData = filterData.filter(data => {
+        const searchBy: any = _.first(properties)
+        return data[searchBy].toLowerCase().includes(searchInput.toLowerCase())
+      })
+    }
+    setDataFiltered(filterData)
+  }
+
+  useEffect(() => filterData(allData), [searchInput])
+
+  useEffect(() => {
+    setSearchInput('')
+    setStartDate(new Date())
+  }, [location.pathname])
+
+  if (isLoading) {
+    return (
+      <div className="container mx-auto h-screen space-y-4 px-4 pt-20">
+        <Title title={props.title} />
+        <div className="h-16 animate-pulse bg-white/80" />
+        <div className="h-96 animate-pulse bg-white/80 shadow-md" />
+      </div>
+    )
+  }
+
+  return (
+    <div className="container mx-auto space-y-4 px-4 pt-20">
+      <Title title={props.title} />
+      <ToolsBar
+        setSearchInput={setSearchInput}
+        data={dataFiltered}
+        placeholder={props.searchPlaceholder}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        isRefetching={isRefetching}
+      />
+      {_.isEmpty(dataFiltered) ? (
+        <NoResultsCard />
+      ) : (
+        <>
+          <Table
+            headers={headers}
+            properties={properties}
+            data={dataFiltered}
+            details={props.details}
+          />
+          <Cards
+            collectionProperties={collectionProperties}
+            data={dataFiltered}
+            details={props.details}
+          />
+        </>
+      )}
+    </div>
+  )
+}

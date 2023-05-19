@@ -6,7 +6,7 @@ import logo from '../../images/logo-minimized.png'
 
 export default function NavBar(props: NavBarProps) {
   return (
-    <nav className="mb-4 bg-white text-gray shadow-lg">
+    <nav className="fixed z-50 w-full bg-white text-gray shadow-lg">
       <div className="container navbar mx-auto justify-between">
         <div className="w-fit px-2">
           <Link className="w-28" to={'/'}>

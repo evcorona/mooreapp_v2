@@ -1,11 +1,21 @@
+import {
+  DB_SCHEMA,
+  NAVIGATION_ITEMS,
+  ROLES,
+} from './constants/businessConstants'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import Administrator from './pages/Dashboard'
-import Collaborator from './pages/Dashboard'
-import Login from './pages/login'
+import AdminDashboard from './pages/Administrator/Dashboard'
+import AdminPageTemplate from './components/Template/AdminPageTemplate/AdminPageTemplate'
+import Administrator from './pages/Administrator/Details'
+import Collaborator from './pages/Collaborator/Dashboard'
+import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
-import businessConstants from './constants/businessConstants'
+import { getAll as getAllActivities } from './lib/api/activities'
+import { getAll as getAllClients } from './lib/api/clients'
+import { getAll as getAllCollaborators } from './lib/api/collaborators'
+import { getAll as getAllProjects } from './lib/api/projects'
 
 export default function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false)
@@ -16,9 +26,7 @@ export default function App() {
     const payload = jwt && JSON.parse(atob(jwt.split('.')[1]))
     if (payload) {
       setIsLogged(true)
-      payload.rol === businessConstants.roles.admin
-        ? setIsAdmin(true)
-        : setIsAdmin(false)
+      payload.rol === ROLES.admin ? setIsAdmin(true) : setIsAdmin(false)
     } else {
       setIsLogged(false)
     }
@@ -29,11 +37,12 @@ export default function App() {
   }
 
   const navigationItems = isAdmin
-    ? businessConstants.navigation.admin
-    : businessConstants.navigation.user
+    ? NAVIGATION_ITEMS.admin
+    : NAVIGATION_ITEMS.user
 
   return (
     <div className="App">
+      <div className="fixed -z-50 h-screen w-screen bg-main" />
       <NavBar
         items={navigationItems}
         // name={usr}
@@ -42,17 +51,63 @@ export default function App() {
       {isAdmin ? (
         <Routes>
           <Route path="/" element={<Administrator />} />
-          <Route path="/administrator" element={<Administrator />} />
-          <Route path="/clients" element={<Administrator />} />
-          <Route path="/clients/:id" element={<Administrator />} />
-          <Route path="/clients/create" element={<Administrator />} />
-          <Route path="/projects" element={<Administrator />} />
-          <Route path="/projects/:id" element={<Administrator />} />
-          <Route path="/projects/create" element={<Administrator />} />
-          <Route path="/collaborators" element={<Administrator />} />
-          <Route path="/collaborators/:id" element={<Administrator />} />
-          <Route path="/collaborators/create" element={<Administrator />} />
-          <Route path="/activities" element={<Administrator />} />
+          <Route path="/administrator" element={<AdminDashboard />} />
+          <Route
+            path="/clients"
+            element={
+              <AdminPageTemplate
+                title="clientes"
+                apiQuery={getAllClients}
+                dbSchema={DB_SCHEMA.admin.clients}
+                searchPlaceholder="por cliente"
+                details
+              />
+            }
+          >
+            <Route path="/clients/:id" element={<Administrator />} />
+            <Route path="/clients/create" element={<Administrator />} />
+          </Route>
+          <Route
+            path="/projects"
+            element={
+              <AdminPageTemplate
+                title="proyectos"
+                apiQuery={getAllProjects}
+                dbSchema={DB_SCHEMA.admin.projects}
+                searchPlaceholder="por código de proyecto"
+                details
+              />
+            }
+          >
+            <Route path="/projects/:id" element={<Administrator />} />
+            <Route path="/projects/create" element={<Administrator />} />
+          </Route>
+          <Route
+            path="/collaborators"
+            element={
+              <AdminPageTemplate
+                title="colaboradores"
+                apiQuery={getAllCollaborators}
+                dbSchema={DB_SCHEMA.admin.collaborators}
+                searchPlaceholder="por nombre de colaborador"
+                details
+              />
+            }
+          >
+            <Route path="/collaborators/:id" element={<Administrator />} />
+            <Route path="/collaborators/create" element={<Administrator />} />
+          </Route>
+          <Route
+            path="/activities"
+            element={
+              <AdminPageTemplate
+                title="actividades"
+                apiQuery={getAllActivities}
+                dbSchema={DB_SCHEMA.admin.activities}
+                searchPlaceholder="por colaborador"
+              />
+            }
+          />
         </Routes>
       ) : (
         <Routes>
@@ -63,20 +118,9 @@ export default function App() {
           <Route path="/activities/create" element={<Collaborator />} />
         </Routes>
       )}
+      <footer className="mt-6 p-4 text-center text-xs">
+        MooreApp made with 💙 by CrownSolutions. v2.0 (2023)
+      </footer>
     </div>
   )
-}
-
-{
-  /* <QueryClientProvider client={queryClient}>
-      <div className="App">
-        
-        {!isLogged ? <Login /> : <Collaborator />}
-
-         {!self ? <Login /> : <p>Hello</p>}
-         <BrowserRouter>
-          <Routes></Routes>
-        </BrowserRouter> 
-      </div>
-    </QueryClientProvider> */
 }

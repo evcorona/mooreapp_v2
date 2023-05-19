@@ -19,7 +19,7 @@ export default function Input(props: Props) {
       <input
         className={clsx(
           'w-full bg-white/75',
-          'mt-2 py-3 px-4',
+          'mt-2 py-2 px-4',
           'text-gray',
           'outline-none caret-moore',
           'border border-gray-lighter rounded',

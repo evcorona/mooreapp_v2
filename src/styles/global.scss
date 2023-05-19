@@ -4,6 +4,9 @@
 @import 'tailwindcss/variants';
 
 @import 'react-toastify/dist/ReactToastify.css';
+@import 'react-datepicker/dist/react-datepicker.css';
+
+@import 'react-datePicker-custom';
 
 body {
   margin: 0;
@@ -25,10 +28,9 @@ input[data-autocompleted] {
 }
 
 .App {
-  background-image: url('.././images/bg-main.png');
+  background-image: url('../images/bg-main.png');
   background-repeat: repeat;
   width: 100vw;
   height: 100vh;
-  position: fixed;
   z-index: -1;
 }
