@@ -1,3 +1,5 @@
+import { useLocation, useNavigate } from 'react-router-dom'
+
 import Button from '~/components/Button'
 import { CSVLink } from 'react-csv'
 import { CollectionsDataType } from '~/types/objects'
@@ -8,7 +10,6 @@ import clsx from 'clsx'
 import format from 'date-fns/format'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useLocation } from 'react-router-dom'
 
 interface ToolsBarProps {
   data: CollectionsDataType[]
@@ -21,6 +22,7 @@ interface ToolsBarProps {
 
 export default function ToolsBar(props: ToolsBarProps) {
   const location = useLocation()
+  const navigate = useNavigate()
 
   const exportData = props.data.map(({ _id, isActive, ...data }) => data)
   const fileName = `mooreapp${location.pathname.replace('/', '_')}_${format(
@@ -48,7 +50,7 @@ export default function ToolsBar(props: ToolsBarProps) {
       className={clsx(
         'flex flex-wrap items-center justify-between gap-4',
         'sticky top-20 z-40',
-        'shadow-lg backdrop-blur-sm',
+        'bg-white/60 shadow-lg backdrop-blur-sm',
         'rounded-md p-4'
       )}
     >
@@ -79,7 +81,11 @@ export default function ToolsBar(props: ToolsBarProps) {
             Exportar
           </CSVLink>
         </Button>
-        <Button primary className="btn-sm w-1/2 md:btn-md">
+        <Button
+          primary
+          className="btn-sm w-1/2 md:btn-md"
+          onClick={() => navigate(`${location.pathname}/create`)}
+        >
           Añadir
         </Button>
       </div>

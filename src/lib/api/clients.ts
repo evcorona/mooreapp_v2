@@ -15,6 +15,12 @@ export async function getAll(): Promise<ClientsData[]> {
   return _.get(response, 'data.data.clients', [])
 }
 
+export async function createClient(data: ClientsData): Promise<ClientsData> {
+  const response = await api.post(routes.clients, data, headers)
+
+  return _.get(response, 'data.data.client')
+}
+
 export function errorHandler(error: AxiosError): void {
   if (!error.response) {
     toast.error(errors.api.network.message)

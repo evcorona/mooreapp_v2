@@ -4,7 +4,6 @@ export interface Props {
   type: 'text' | 'email' | 'password'
   label: string
   name: string
-  value?: string
   placeholder?: string
   error?: string
   register?: any
@@ -13,11 +12,11 @@ export interface Props {
   onChange?: (value: any) => string
 }
 
-export default function Input(props: Props) {
+export default function TextArea(props: Props) {
   return (
     <div className="w-full">
       <label className="font-bold text-moore">{props.label}</label>
-      <input
+      <textarea
         className={clsx(
           'w-full bg-white/75',
           'mt-2 px-4 py-2',
