@@ -10,6 +10,8 @@ import AdminDashboard from './pages/Administrator/Dashboard'
 import AdminPageTemplate from './components/Template/AdminPageTemplate/AdminPageTemplate'
 import Administrator from './pages/Administrator/Details'
 import Collaborator from './pages/Collaborator/Dashboard'
+import CreateClient from './pages/Administrator/Create/CreateClient'
+import CreateProject from './pages/Administrator/Create/CreateProject'
 import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
 import { getAll as getAllActivities } from './lib/api/activities'
@@ -63,10 +65,10 @@ export default function App() {
                 details
               />
             }
-          >
-            <Route path="/clients/:id" element={<Administrator />} />
-            <Route path="/clients/create" element={<Administrator />} />
-          </Route>
+          />
+          <Route path="/clients/:id" element={<Administrator />} />
+          <Route path="/clients/create" element={<CreateClient />} />
+
           <Route
             path="/projects"
             element={
@@ -78,10 +80,10 @@ export default function App() {
                 details
               />
             }
-          >
-            <Route path="/projects/:id" element={<Administrator />} />
-            <Route path="/projects/create" element={<Administrator />} />
-          </Route>
+          />
+          <Route path="/projects/:id" element={<Administrator />} />
+          <Route path="/projects/create" element={<CreateProject />} />
+
           <Route
             path="/collaborators"
             element={
@@ -93,10 +95,10 @@ export default function App() {
                 details
               />
             }
-          >
-            <Route path="/collaborators/:id" element={<Administrator />} />
-            <Route path="/collaborators/create" element={<Administrator />} />
-          </Route>
+          />
+          <Route path="/collaborators/:id" element={<Administrator />} />
+          <Route path="/collaborators/create" element={<CreateClient />} />
+
           <Route
             path="/activities"
             element={
