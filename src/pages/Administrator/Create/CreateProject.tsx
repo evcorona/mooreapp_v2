@@ -1,0 +1,165 @@
+import { ClientsData, CollaboratorsData } from '~/types/objects'
+import { createProject, errorHandler } from '~/lib/api/projects'
+import { useMutation, useQuery } from 'react-query'
+
+import { AxiosError } from 'axios'
+import Button from '~/components/Button'
+import ComboboxInput from '~/components/Inputs/ComboboxInput'
+import Input from '~/components/Inputs/Input'
+import Title from '~/components/Title'
+import clsx from 'clsx'
+import { getAll as getAllClients } from '../../../lib/api/clients'
+import { getManagers } from '../../../lib/api/collaborators'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const schema = z.object({
+  codeProject: z
+    .string()
+    .trim()
+    .toUpperCase()
+    .nonempty({ message: 'Campo requerido' }),
+  projectName: z
+    .string()
+    .trim()
+    .toUpperCase()
+    .nonempty({ message: 'Campo requerido' }),
+  client: z.object({
+    _id: z.string().nonempty({ message: 'Campo requerido' }),
+    value: z
+      .string()
+      .trim()
+      .toUpperCase()
+      .nonempty({ message: 'Campo requerido' }),
+  }),
+  manager: z.object({
+    _id: z.string().nonempty({ message: 'Campo requerido' }),
+    value: z
+      .string()
+      .trim()
+      .toUpperCase()
+      .nonempty({ message: 'Campo requerido' }),
+  }),
+})
+
+export default function CreateProject() {
+  const { data: allClients = [] } = useQuery<ClientsData[]>(
+    'clients',
+    getAllClients
+  )
+  const clientOptions = allClients.map(client => {
+    return { _id: client._id, value: client.clientName }
+  })
+
+  const { data: allManagers = [] } = useQuery<CollaboratorsData[]>(
+    'managers',
+    getManagers
+  )
+  const managersOptions = allManagers.map(manager => {
+    return { _id: manager._id, value: `${manager.name} ${manager.lastName}` }
+  })
+
+  const { mutateAsync, isLoading } = useMutation(createProject, {
+    onSuccess: () => {
+      alert('Enviado')
+    },
+    onError: error => errorHandler(error as AxiosError),
+  })
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+    control,
+  } = useForm({
+    defaultValues: {
+      codeProject: '',
+      projectName: '',
+      client: {},
+      manager: {},
+    },
+    mode: 'onChange',
+    resolver: zodResolver(schema),
+    shouldUseNativeValidation: false,
+  })
+
+  function onSubmit(values: any) {
+    const { client, manager, ...restValues } = values
+    const valuesConformed = {
+      clientID: client._id,
+      managerID: manager._id,
+      ...restValues,
+    }
+    mutateAsync(valuesConformed)
+  }
+
+  return (
+    <div className="container mx-auto space-y-4 px-4 pt-20 md:px-28">
+      <Title title="nuevo proyecto" />
+      <form
+        className={clsx(
+          'rounded px-4 py-8 md:p-8',
+          'flex flex-col gap-2',
+          'bg-white shadow-md'
+        )}
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Input
+          label="Nombre del proyecto"
+          type="text"
+          name="projectName"
+          register={register}
+          placeholder="Nombre del proyecto..."
+          error={errors?.projectName?.message}
+          required
+        />
+        <Input
+          label="Código del proyecto"
+          type="text"
+          name="codeProject"
+          register={register}
+          placeholder="XXX-XXXX"
+          error={errors?.codeProject?.message}
+          required
+        />
+        <ComboboxInput
+          name="client"
+          label="Cliente"
+          placeholder="Seleccionar un cliente del listado..."
+          options={clientOptions}
+          control={control}
+          error={errors?.client?.message}
+          required
+        />
+        <ComboboxInput
+          name="manager"
+          label="Gerente"
+          placeholder="Seleccionar un gerente del listado..."
+          options={managersOptions}
+          control={control}
+          error={errors?.manager?.message}
+          required
+        />
+
+        <div className="btn-group mt-4">
+          <Button outline className="w-1/2" onClick={() => reset()}>
+            Limpiar
+          </Button>
+          <Button
+            isDisabled={!isValid}
+            isSubmit
+            primary
+            className={clsx('w-1/2', {
+              'border-brand-gray border-2': !isValid,
+              'bg-brand/50 hover:bg-brand/60 border-0': isValid,
+            })}
+          >
+            {isLoading ? 'Guardando...' : 'Guardar'}
+          </Button>
+        </div>
+      </form>
+    </div>
+  )
+}

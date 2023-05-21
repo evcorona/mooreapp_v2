@@ -27,6 +27,17 @@ export async function getAll(): Promise<CollaboratorsData[]> {
   return formattedData
 }
 
+export async function getManagers(): Promise<CollaboratorsData[]> {
+  const response = await api
+    .get(routes.collaborators + 'filter/managers', headers)
+    .catch(error => console.error(error))
+
+  const data = _.get(response, 'data.data.managers', [])
+  const formattedData = formatData(data)
+
+  return formattedData
+}
+
 export function errorHandler(error: AxiosError): void {
   if (!error.response) {
     toast.error(errors.api.network.message)
