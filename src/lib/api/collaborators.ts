@@ -54,7 +54,7 @@ export function errorHandler(error: AxiosError): void {
 
   switch (error.response?.status) {
     case errors.api.duplicated.status:
-      toast.error(errors.api.duplicated.message)
+      toast.error(errors.api.duplicated.messageEmail)
       break
 
     default:

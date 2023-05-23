@@ -42,8 +42,16 @@ export function errorHandler(error: AxiosError): void {
     return
   }
 
+  switch (error.response?.status) {
+    case errors.api.duplicated.status:
+      toast.error(errors.api.duplicated.messageProject)
+      break
+
+    default:
+      toast.error(errors.api.unknown.message)
+      break
+  }
   //TODO: handle unauthorized error
 
-  toast.error(errors.api.unknown.message)
   return
 }

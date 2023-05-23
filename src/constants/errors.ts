@@ -18,7 +18,8 @@ export const errors = {
     },
     duplicated: {
       status: 409,
-      message: 'El email registrado ya existe',
+      messageEmail: 'El email registrado ya existe',
+      messageProject: 'El código del proyecto registrado ya existe',
     },
   },
 }
