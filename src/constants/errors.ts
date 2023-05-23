@@ -16,5 +16,10 @@ export const errors = {
       message:
         'Error desconocido, intenta de nuevo. Si persiste favor de reportarlo',
     },
+    duplicated: {
+      status: 409,
+      messageEmail: 'El email registrado ya existe',
+      messageProject: 'El código del proyecto registrado ya existe',
+    },
   },
 }

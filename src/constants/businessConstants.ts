@@ -28,8 +28,8 @@ export const DB_SCHEMA = {
     projects: {
       codeProject: 'Código',
       clientName: 'Cliente',
-      projectName: 'Tipo',
-      manager: 'Gerente',
+      projectType: 'Tipo',
+      managerName: 'Gerente',
     },
     collaborators: {
       name: 'Nombre',
