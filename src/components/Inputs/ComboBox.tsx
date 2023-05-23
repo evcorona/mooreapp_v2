@@ -5,7 +5,7 @@ import { ChevronUpDownIcon } from '@heroicons/react/24/outline'
 import { Controller } from 'react-hook-form'
 import clsx from 'clsx'
 
-interface ComboboxProps {
+interface ComboBoxProps {
   name: string
   label: string
   placeholder: string
@@ -15,7 +15,7 @@ interface ComboboxProps {
   control?: any
 }
 
-export default function ComboboxInput(props: ComboboxProps) {
+export default function ComboBox(props: ComboBoxProps) {
   const [selectedOption, setSelectedOption] = useState('')
   const [query, setQuery] = useState('')
 
@@ -32,6 +32,7 @@ export default function ComboboxInput(props: ComboboxProps) {
       control={props.control}
       defaultValue=""
       name={props.name}
+      rules={{ required: props.required }}
       render={({ field: { onChange } }) => (
         <Combobox
           as={'div'}
@@ -65,7 +66,7 @@ export default function ComboboxInput(props: ComboboxProps) {
             <Combobox.Button
               className={clsx(
                 'absolute inset-y-0 right-0 top-2',
-                'w-1/5 ',
+                'w-1/2',
                 'flex items-center justify-end',
                 'pr-2',
                 'text-gray-lighter active:text-moore'
@@ -87,7 +88,7 @@ export default function ComboboxInput(props: ComboboxProps) {
                 className={clsx(
                   'h-fit max-h-60 w-full overflow-scroll',
                   'absolute z-40 mt-2',
-                  'rounded-md bg-moore-dark py-4 shadow-lg backdrop-blur-sm',
+                  'rounded-md bg-moore-dark py-4 shadow-lg',
                   'border border-gray-lighter',
                   'text-sm font-semibold text-white',
                   'cursor-pointer'

@@ -11,6 +11,7 @@ import AdminPageTemplate from './components/Template/AdminPageTemplate/AdminPage
 import Administrator from './pages/Administrator/Details'
 import Collaborator from './pages/Collaborator/Dashboard'
 import CreateClient from './pages/Administrator/Create/CreateClient'
+import CreateCollaborator from './pages/Administrator/Create/CreateCollaborator'
 import CreateProject from './pages/Administrator/Create/CreateProject'
 import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
@@ -97,7 +98,10 @@ export default function App() {
             }
           />
           <Route path="/collaborators/:id" element={<Administrator />} />
-          <Route path="/collaborators/create" element={<CreateClient />} />
+          <Route
+            path="/collaborators/create"
+            element={<CreateCollaborator />}
+          />
 
           <Route
             path="/activities"

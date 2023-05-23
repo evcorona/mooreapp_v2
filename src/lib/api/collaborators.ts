@@ -38,6 +38,14 @@ export async function getManagers(): Promise<CollaboratorsData[]> {
   return formattedData
 }
 
+export async function createCollaborator(
+  data: CollaboratorsData
+): Promise<void> {
+  await api.post(routes.signup, data, headers)
+
+  return
+}
+
 export function errorHandler(error: AxiosError): void {
   if (!error.response) {
     toast.error(errors.api.network.message)
