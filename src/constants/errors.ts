@@ -16,5 +16,9 @@ export const errors = {
       message:
         'Error desconocido, intenta de nuevo. Si persiste favor de reportarlo',
     },
+    duplicated: {
+      status: 409,
+      message: 'El email registrado ya existe',
+    },
   },
 }
