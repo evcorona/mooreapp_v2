@@ -4,7 +4,7 @@ import { useMutation, useQuery } from 'react-query'
 
 import { AxiosError } from 'axios'
 import Button from '~/components/Button'
-import ComboboxInput from '~/components/Inputs/ComboboxInput'
+import ComboBox from '~/components/Inputs/ComboBox'
 import Input from '~/components/Inputs/Input'
 import Title from '~/components/Title'
 import clsx from 'clsx'
@@ -20,7 +20,7 @@ const schema = z.object({
     .trim()
     .toUpperCase()
     .nonempty({ message: 'Campo requerido' }),
-  projectName: z
+  projectType: z
     .string()
     .trim()
     .toUpperCase()
@@ -76,7 +76,7 @@ export default function CreateProject() {
   } = useForm({
     defaultValues: {
       codeProject: '',
-      projectName: '',
+      projectType: '',
       client: {},
       manager: {},
     },
@@ -106,13 +106,13 @@ export default function CreateProject() {
         )}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Input
-          label="Nombre del proyecto"
-          type="text"
-          name="projectName"
-          register={register}
-          placeholder="Nombre del proyecto..."
-          error={errors?.projectName?.message}
+        <ComboBox
+          name="client"
+          label="Cliente"
+          placeholder="Seleccionar un cliente del listado..."
+          options={clientOptions}
+          control={control}
+          error={errors?.client?.message}
           required
         />
         <Input
@@ -124,16 +124,16 @@ export default function CreateProject() {
           error={errors?.codeProject?.message}
           required
         />
-        <ComboboxInput
-          name="client"
-          label="Cliente"
-          placeholder="Seleccionar un cliente del listado..."
-          options={clientOptions}
-          control={control}
-          error={errors?.client?.message}
+        <Input
+          label="Tipo de proyecto"
+          type="text"
+          name="projectType"
+          register={register}
+          placeholder="Nombre del proyecto..."
+          error={errors?.projectType?.message}
           required
         />
-        <ComboboxInput
+        <ComboBox
           name="manager"
           label="Gerente"
           placeholder="Seleccionar un gerente del listado..."
