@@ -27,6 +27,10 @@ export default function ComboBox(props: ComboBoxProps) {
           return optionFormatted.includes(query.toUpperCase())
         })
 
+  if (!props.required) {
+    props.options.unshift({ _id: '', value: 'Sin definir' })
+  }
+
   return (
     <Controller
       control={props.control}
@@ -99,9 +103,9 @@ export default function ComboBox(props: ComboBoxProps) {
                     No hay resultados
                   </div>
                 ) : (
-                  filteredOptions.map(option => (
+                  filteredOptions.map((option, i) => (
                     <Combobox.Option
-                      key={option._id}
+                      key={'option-' + i}
                       value={option}
                       className={({ active }) =>
                         clsx('p-4 hover:bg-gray-light hover:text-moore', {
