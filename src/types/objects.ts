@@ -22,9 +22,9 @@ export type ClientsData = {
 
 export type ProjectsData = {
   _id: string
-  clientName: string
-  projectName: string
   codeProject: string
+  clientName: string
+  projectType: string
   isActive: boolean
 }
 

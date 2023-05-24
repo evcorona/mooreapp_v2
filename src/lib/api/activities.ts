@@ -14,11 +14,10 @@ function formatData(activities: any[]) {
     return {
       ...activity,
       activityDate: activity.activityDate.split('T')[0],
-      timeAmmount: `${activity.timeAmmount} horas`,
-      fee: `$ ${activity.fee}`,
     }
   })
 }
+
 export async function getAll(startDate: Date): Promise<ActivitiesData[]> {
   const filterDate = startOfMonth(startDate ?? new Date())
 
@@ -27,6 +26,22 @@ export async function getAll(startDate: Date): Promise<ActivitiesData[]> {
 
   const response = await api
     .get(routePlusQuery, headers)
+    .catch(error => console.error(error))
+
+  const data = _.get(response, 'data.data.activities', [])
+  const formattedData = formatData(data)
+
+  return formattedData
+}
+
+export async function getById(
+  id: string,
+  name: string,
+  collection: 'client' | 'project' | 'collaborator'
+): Promise<ActivitiesData[]> {
+  const routePlusId = routes.activities + `${collection}/${id}/${name}`
+  const response = await api
+    .get(routePlusId, headers)
     .catch(error => console.error(error))
 
   const data = _.get(response, 'data.data.activities', [])

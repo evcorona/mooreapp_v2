@@ -30,6 +30,17 @@ export async function getAll(): Promise<ProjectsData[]> {
   return formattedData
 }
 
+export async function getById(id: string): Promise<ProjectsData> {
+  const response = await api
+    .get(routes.projects + id, headers)
+    .catch(error => console.error(error))
+
+  const data = _.get(response, 'data.data.project', [])
+  const [formattedData] = formatData([data])
+
+  return formattedData
+}
+
 export async function createProject(data: ProjectsData): Promise<ProjectsData> {
   const response = await api.post(routes.projects, data, headers)
 
