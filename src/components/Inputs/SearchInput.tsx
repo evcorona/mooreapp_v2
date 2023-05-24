@@ -31,11 +31,12 @@ export default function SearchInputNew(props: Props) {
         disabled={props.isLoading}
         value={props.value ?? ''}
         className={clsx(
-          'block w-full bg-white',
+          'block w-full bg-white/50',
           'py-2 pl-10 pr-4',
-          'rounded border',
+          'rounded',
           'caret-moore outline-none',
-          'placeholder:text-gray-lighter ',
+          'placeholder:text-gray-lighter',
+          'border',
           'focus:ring focus:ring-moore/40',
           'hover:border-moore',
           {

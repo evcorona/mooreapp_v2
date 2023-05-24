@@ -39,6 +39,7 @@ export default function ListBox(props: ListBoxProps) {
           </Listbox.Label>
           <Listbox.Button
             className={clsx(
+              'input',
               'w-full bg-white/75',
               'mt-2 px-4 py-2',
               'text-left text-gray',

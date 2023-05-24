@@ -27,7 +27,14 @@ export default function Cards(props: CardsProps) {
               <h2 className="card-title border-b-2 px-2 text-sm">{`${titleCard}`}</h2>
               {collectionProperties.map((property: any, k: number) => {
                 const [key, header] = property
-                const value = data[key as keyof CollectionsDataType]
+                let value = data[key as keyof CollectionsDataType] ?? 0
+                if (key === 'timeAmmount') value = `${value} horas`
+                if (key === 'fee') {
+                  value = `$ ${value.toLocaleString('es-MX', {
+                    useGrouping: true,
+                    minimumFractionDigits: 2,
+                  })}`
+                }
 
                 return (
                   <div key={'cardBody-' + k}>
