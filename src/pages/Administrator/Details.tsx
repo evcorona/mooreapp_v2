@@ -1,7 +1,7 @@
-import { ActivitiesData, CollectionsDataType } from '~/types/objects'
 import { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 
+import { ActivitiesData } from '~/types/objects'
 import Cards from '~/components/Template/AdminPageTemplate/Cards'
 import { DB_SCHEMA } from '~/constants/businessConstants'
 import DetailsHeaderCard from '~/components/DetailsHeaderCard'
