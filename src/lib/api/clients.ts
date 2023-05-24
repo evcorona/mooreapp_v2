@@ -15,6 +15,14 @@ export async function getAll(): Promise<ClientsData[]> {
   return _.get(response, 'data.data.clients', [])
 }
 
+export async function getById(id: string): Promise<ClientsData[]> {
+  const response = await api
+    .get(routes.clients + id, headers)
+    .catch(error => console.error(error))
+
+  return _.get(response, 'data.data.client', [])
+}
+
 export async function createClient(data: ClientsData): Promise<ClientsData> {
   const response = await api.post(routes.clients, data, headers)
 

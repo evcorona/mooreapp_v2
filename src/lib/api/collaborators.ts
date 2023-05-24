@@ -27,6 +27,17 @@ export async function getAll(): Promise<CollaboratorsData[]> {
   return formattedData
 }
 
+export async function getById(id: string): Promise<CollaboratorsData> {
+  const response = await api
+    .get(routes.collaborators + id, headers)
+    .catch(error => console.error(error))
+
+  const data = _.get(response, 'data.data.user', [])
+  const [formattedData] = formatData([data])
+
+  return formattedData
+}
+
 export async function getManagers(): Promise<CollaboratorsData[]> {
   const response = await api
     .get(routes.collaborators + 'filter/managers', headers)

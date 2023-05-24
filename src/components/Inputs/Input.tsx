@@ -24,6 +24,7 @@ export default function Input(props: Props) {
       )}
       <input
         className={clsx(
+          'input',
           'w-full bg-white/75',
           'mt-2 px-4 py-2',
           'text-gray',

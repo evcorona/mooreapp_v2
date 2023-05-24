@@ -53,6 +53,7 @@ export default function ComboBox(props: ComboBoxProps) {
           <div className="relative">
             <Combobox.Input
               className={clsx(
+                'input',
                 'w-full bg-white/75',
                 'mt-2 px-4 py-2 pr-8',
                 'text-gray',

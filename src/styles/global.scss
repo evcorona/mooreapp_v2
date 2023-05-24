@@ -4,9 +4,11 @@
 @import 'tailwindcss/variants';
 
 @import 'react-toastify/dist/ReactToastify.css';
-@import 'react-datepicker/dist/react-datepicker.css';
 
+@import 'react-datepicker/dist/react-datepicker.css';
 @import 'react-datePicker-custom';
+
+@import 'loader.scss';
 
 body {
   margin: 0;

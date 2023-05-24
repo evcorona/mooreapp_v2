@@ -8,17 +8,15 @@ import { useEffect, useState } from 'react'
 
 import AdminDashboard from './pages/Administrator/Dashboard'
 import AdminPageTemplate from './components/Template/AdminPageTemplate/AdminPageTemplate'
-import Administrator from './pages/Administrator/Details'
+import Administrator from './pages/Administrator/Dashboard'
 import Collaborator from './pages/Collaborator/Dashboard'
 import CreateClient from './pages/Administrator/Create/CreateClient'
 import CreateCollaborator from './pages/Administrator/Create/CreateCollaborator'
 import CreateProject from './pages/Administrator/Create/CreateProject'
+import Details from './pages/Administrator/Details'
 import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
-import { getAll as getAllActivities } from './lib/api/activities'
-import { getAll as getAllClients } from './lib/api/clients'
-import { getAll as getAllCollaborators } from './lib/api/collaborators'
-import { getAll as getAllProjects } from './lib/api/projects'
+import getApiQuery from './utils/getApiQuery'
 
 export default function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false)
@@ -60,14 +58,24 @@ export default function App() {
             element={
               <AdminPageTemplate
                 title="clientes"
-                apiQuery={getAllClients}
+                apiQuery={getApiQuery('getAll', 'clients')}
                 dbSchema={DB_SCHEMA.admin.clients}
                 searchPlaceholder="por cliente"
                 details
               />
             }
           />
-          <Route path="/clients/:id" element={<Administrator />} />
+          <Route
+            path="/clients/:id"
+            element={
+              <Details
+                title={'Detalles del cliente'}
+                apiQuery={getApiQuery('getById', 'clients')}
+                dbSchema={DB_SCHEMA.admin.clients}
+                collection="client"
+              />
+            }
+          />
           <Route path="/clients/create" element={<CreateClient />} />
 
           <Route
@@ -75,14 +83,24 @@ export default function App() {
             element={
               <AdminPageTemplate
                 title="proyectos"
-                apiQuery={getAllProjects}
+                apiQuery={getApiQuery('getAll', 'projects')}
                 dbSchema={DB_SCHEMA.admin.projects}
                 searchPlaceholder="por código de proyecto"
                 details
               />
             }
           />
-          <Route path="/projects/:id" element={<Administrator />} />
+          <Route
+            path="/projects/:id"
+            element={
+              <Details
+                title={'Detalles del proyecto'}
+                apiQuery={getApiQuery('getById', 'projects')}
+                dbSchema={DB_SCHEMA.admin.projects}
+                collection="project"
+              />
+            }
+          />
           <Route path="/projects/create" element={<CreateProject />} />
 
           <Route
@@ -90,14 +108,24 @@ export default function App() {
             element={
               <AdminPageTemplate
                 title="colaboradores"
-                apiQuery={getAllCollaborators}
+                apiQuery={getApiQuery('getAll', 'collaborators')}
                 dbSchema={DB_SCHEMA.admin.collaborators}
                 searchPlaceholder="por nombre de colaborador"
                 details
               />
             }
           />
-          <Route path="/collaborators/:id" element={<Administrator />} />
+          <Route
+            path="/collaborators/:id"
+            element={
+              <Details
+                title={'Detalles del colaborador'}
+                apiQuery={getApiQuery('getById', 'collaborators')}
+                dbSchema={DB_SCHEMA.admin.collaborators}
+                collection="collaborator"
+              />
+            }
+          />
           <Route
             path="/collaborators/create"
             element={<CreateCollaborator />}
@@ -108,7 +136,7 @@ export default function App() {
             element={
               <AdminPageTemplate
                 title="actividades"
-                apiQuery={getAllActivities}
+                apiQuery={getApiQuery('getAll', 'activities')}
                 dbSchema={DB_SCHEMA.admin.activities}
                 searchPlaceholder="por colaborador"
               />

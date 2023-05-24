@@ -15,7 +15,7 @@ export default function Table(props: TableProps) {
   const location = useLocation()
 
   return (
-    <div className="hidden lg:block overflow-x-auto shadow-md p-4 rounded-md bg-white">
+    <div className="hidden overflow-x-auto rounded-md bg-white p-4 shadow-md lg:block">
       <table className="table-compact w-full">
         <thead className="border-b-4">
           <tr>
@@ -31,18 +31,26 @@ export default function Table(props: TableProps) {
           {props.data.map((data: any, i: number) => (
             <tr
               key={`row-${i}`}
-              className="border-b-2 hover:bg-gray-light hover:text-moore cursor-default"
+              className="cursor-default border-b-2 hover:bg-gray-light hover:text-moore"
             >
               <td>{i + 1}</td>
               {props.properties.map((property, k) => {
-                const value = data[property]
+                let value = data[property] ?? 0
+                if (property === 'timeAmmount') value = `${value} horas`
+                if (property === 'fee')
+                  value = `$ ${value.toLocaleString('es-MX', {
+                    useGrouping: true,
+                    minimumFractionDigits: 2,
+                  })}`
 
                 return (
                   <td className="whitespace-normal" key={`cell-${k}`}>
-                    {value ?? (
-                      <i className="bg-alert-warning rounded-full px-3 py-2 text-white">
+                    {!value || value === 0 ? (
+                      <i className="rounded-full bg-alert-warning px-2 py-1 text-white">
                         Pendiente
                       </i>
+                    ) : (
+                      value
                     )}
                   </td>
                 )
@@ -50,7 +58,7 @@ export default function Table(props: TableProps) {
               {props.details && (
                 <td className="pl-10">
                   <Link to={`${location.pathname}/${data._id}`}>
-                    <Button className="bg-gray-lighter btn-sm">Detalles</Button>
+                    <Button className="btn-sm bg-gray-lighter">Detalles</Button>
                   </Link>
                 </td>
               )}

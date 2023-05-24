@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { AxiosError } from 'axios'
 import Cards from './Cards'
 import { CollectionsDataType } from '~/types/objects'
+import LoadingCard from '~/components/LoadingCard'
 import NoResultsCard from './NoResultsCard'
 import Table from './Table'
 import Title from '../../Title'
@@ -66,8 +67,7 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
     return (
       <div className="container mx-auto h-screen space-y-4 px-4 pt-20">
         <Title title={props.title} />
-        <div className="h-16 animate-pulse bg-white/80" />
-        <div className="h-96 animate-pulse bg-white/80 shadow-md" />
+        <LoadingCard />
       </div>
     )
   }
@@ -83,9 +83,8 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
         setStartDate={setStartDate}
         isRefetching={isRefetching}
       />
-      {_.isEmpty(dataFiltered) ? (
-        <NoResultsCard />
-      ) : (
+      {_.isEmpty(dataFiltered) && <NoResultsCard />}
+      {!_.isEmpty(dataFiltered) && (
         <>
           <Table
             headers={headers}
