@@ -21,7 +21,7 @@ export default function Cards(props: CardsProps) {
         return (
           <div
             key={'card-' + i}
-            className="card-compact card w-full cursor-default bg-base-100 shadow-xl hover:bg-gray-light hover:text-moore"
+            className="card card-compact w-full cursor-default bg-base-100 shadow-xl hover:bg-gray-light hover:text-moore"
           >
             <div className="card-body flex">
               <h2 className="card-title border-b-2 px-2 text-sm">{`${titleCard}`}</h2>
@@ -40,10 +40,12 @@ export default function Cards(props: CardsProps) {
                   <div key={'cardBody-' + k}>
                     <p className="text-xs">
                       <span className="font-semibold">{`${header}: `}</span>
-                      {value ?? (
+                      {!value || value === 0 ? (
                         <i className="rounded-full bg-alert-warning px-2 py-1 text-white">
                           Pendiente
                         </i>
+                      ) : (
+                        value
                       )}
                     </p>
                   </div>
