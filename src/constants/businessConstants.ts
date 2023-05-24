@@ -39,8 +39,8 @@ export const DB_SCHEMA = {
       rol: 'Rol',
       positionJob: 'Posición',
       area: 'Área',
-      // fee: 'Cuota Hora',
-      // partner: 'Socio',
+      fee: 'Cuota Hora', // TODO: hide on complete table
+      partner: 'Socio', // TODO: hide on complete table
       employmentDate: 'Fecha de inicio',
     },
     activities: {
