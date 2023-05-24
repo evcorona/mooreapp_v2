@@ -33,7 +33,6 @@ export async function getById(id: string): Promise<CollaboratorsData> {
     .catch(error => console.error(error))
 
   const data = _.get(response, 'data.data.user', [])
-  console.log(data)
   const [formattedData] = formatData([data])
 
   return formattedData
