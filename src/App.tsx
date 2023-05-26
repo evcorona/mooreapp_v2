@@ -14,6 +14,7 @@ import CreateClient from './pages/Administrator/Create/CreateClient'
 import CreateCollaborator from './pages/Administrator/Create/CreateCollaborator'
 import CreateProject from './pages/Administrator/Create/CreateProject'
 import Details from './pages/Administrator/Details'
+import EditClient from './pages/Administrator/Edit/EditClient'
 import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
 import getApiQuery from './utils/getApiQuery'
@@ -77,6 +78,7 @@ export default function App() {
             }
           />
           <Route path="/clients/create" element={<CreateClient />} />
+          <Route path="/clients/:id/edit" element={<EditClient />} />
 
           <Route
             path="/projects"

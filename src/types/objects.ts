@@ -17,7 +17,6 @@ export type ClientsData = {
   codeClient: string
   RFC: string
   address: string
-  isActive: boolean
 }
 
 export type ProjectsData = {
@@ -25,7 +24,6 @@ export type ProjectsData = {
   codeProject: string
   clientName: string
   projectType: string
-  isActive: boolean
 }
 
 export type CollaboratorsData = {
@@ -40,7 +38,6 @@ export type CollaboratorsData = {
   area: string
   employeeNumber: string | number
   employmentDate: Date
-  isActive: boolean
 }
 
 export type ActivitiesData = {
@@ -52,7 +49,6 @@ export type ActivitiesData = {
   activityDate: Date
   createdBy: string
   fee: number
-  isActive?: boolean
 }
 
 export type CollectionsDataType =
