@@ -76,7 +76,7 @@ export default function Modal(props: ModalProps) {
                 <Dialog.Description className="text-lg">
                   {props.children}
                 </Dialog.Description>
-                <div className="btn-group w-full">
+                <div className="btn-group w-full gap-2">
                   <Button className="w-1/2" outline onClick={returnHandler}>
                     Regresar
                   </Button>

@@ -12,6 +12,7 @@ export interface Props {
   register?: any
   required?: boolean
   className?: string
+  isLoading?: boolean
   onChange?: (value: any) => any
 }
 
@@ -33,6 +34,7 @@ export default function Input(props: Props) {
           'hover:border-moore',
           'focus:ring focus:ring-moore/40',
           { 'pl-10': props.prefix === 'currency' },
+          { 'cursor-wait': props.isLoading },
           props.className
         )}
         type={props.type}
@@ -41,6 +43,7 @@ export default function Input(props: Props) {
         onChange={props.onChange}
         min={0}
         step="any"
+        disabled={props.isLoading}
         {...props.register(props.name, {
           require: props.required,
           valueAsNumber: props.type === 'number',

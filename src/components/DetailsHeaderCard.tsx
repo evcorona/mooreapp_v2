@@ -1,4 +1,5 @@
 import { InformationCircleIcon, PencilIcon } from '@heroicons/react/24/outline'
+import { Link, useLocation } from 'react-router-dom'
 
 import Button from './Button'
 import { CollectionsDataType } from '~/types/objects'
@@ -11,6 +12,8 @@ interface Props {
   totals: { totalTime: string; totalCost: string }
 }
 export default function DetailsHeaderCard(props: Props) {
+  const location = useLocation()
+
   const schema = {
     ...props.dbSchema,
     totalTime: 'Tiempo Acumulado',
@@ -26,18 +29,24 @@ export default function DetailsHeaderCard(props: Props) {
           <InformationCircleIcon className="w-icon-sm text-gray" />
           Información
         </span>
-        <Button outline className="inline-flex items-center px-4 text-gray">
-          <PencilIcon className="w-5" />
-          {/* TODO:LINK to EDIT */}
-        </Button>
+        <Link to={`${location.pathname}/edit`}>
+          <Button outline className="inline-flex items-center px-4 text-gray">
+            <PencilIcon className="w-5" />
+          </Button>
+        </Link>
       </div>
 
       <div className="grid  grid-cols-3 items-center gap-1.5">
         {collectionItems.map((item, i) => {
           const [property, header] = item
-          const value = data[property as keyof CollectionsDataType]
+          let value = data[property as keyof CollectionsDataType] ?? 0
           const isTotalField =
             property === 'totalTime' || property === 'totalCost'
+          if (property === 'fee')
+            value = `$ ${value.toLocaleString('es-MX', {
+              useGrouping: true,
+              minimumFractionDigits: 2,
+            })}`
 
           return (
             <Fragment key={'details-' + i}>
@@ -47,10 +56,12 @@ export default function DetailsHeaderCard(props: Props) {
                   'font-semibold text-moore': isTotalField,
                 })}
               >
-                {value ?? (
+                {!value || value === 0 ? (
                   <i className="rounded-full bg-alert-warning px-2 py-1 text-white">
                     Pendiente
                   </i>
+                ) : (
+                  value
                 )}
               </span>
             </Fragment>
