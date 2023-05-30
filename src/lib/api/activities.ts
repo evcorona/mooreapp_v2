@@ -15,6 +15,7 @@ function formatData(activities: any[]) {
       ...activity,
       activityDate: activity.activityDate.split('T')[0],
       client: activity.clientID?.clientName ?? activity.client,
+      concept: activity?.projectID?.codeProject ?? activity.concept,
     }
   })
 }
