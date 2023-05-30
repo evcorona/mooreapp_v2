@@ -1,6 +1,11 @@
 import { ClientsData, CollaboratorsData } from '~/types/objects'
 import ProjectForm, { ProjectFormTypes } from '~/components/Forms/ProjectForm'
-import { createProject, errorHandler } from '~/lib/api/projects'
+import {
+  createProject,
+  errorHandler,
+  getById,
+  updateProject,
+} from '~/lib/api/projects'
 import { useMutation, useQuery } from 'react-query'
 
 import { AxiosError } from 'axios'
@@ -9,11 +14,15 @@ import { PROJECTS_DEFAULT_VALUES } from '~/constants/defaultValues'
 import Title from '~/components/Title'
 import { getAll as getAllClients } from '../../../lib/api/clients'
 import { getManagers } from '../../../lib/api/collaborators'
+import { useParams } from 'react-router-dom'
 import { useState } from 'react'
 
-export default function CreateProject() {
+export default function EditProject() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [name, setName] = useState('')
+  const { id = '' } = useParams()
+
+  const { data: projectData } = useQuery('project', () => getById(id))
 
   const { data: allClients = [] } = useQuery<ClientsData[]>(
     'clients',
@@ -27,15 +36,28 @@ export default function CreateProject() {
     'managers',
     getManagers
   )
-  const managersOptions = allManagers.map(manager => {
+  const managerOptions = allManagers.map(manager => {
     return { _id: manager._id, value: `${manager.name} ${manager.lastName}` }
   })
+
+  const clientSelected = clientOptions.find(
+    option => option.value === projectData?.clientName
+  )
+  const managerSelected = managerOptions.find(
+    option => option._id === projectData?.managerID?._id
+  )
+  const initialValues = {
+    client: clientSelected,
+    manager: managerSelected,
+    codeProject: projectData?.codeProject,
+    projectType: projectData?.projectType,
+  }
 
   const {
     mutateAsync,
     isLoading: isSubmitting,
     isSuccess,
-  } = useMutation(createProject, {
+  } = useMutation(updateProject, {
     onSuccess: () => {
       setIsModalOpen(true)
     },
@@ -73,13 +95,13 @@ export default function CreateProject() {
         </p>
       </Modal>
       <div className="container mx-auto space-y-4 px-4 pt-20 md:px-28">
-        <Title title="nuevo proyecto" />
+        <Title title="Editar proyecto" />
         <ProjectForm
-          initialValues={PROJECTS_DEFAULT_VALUES}
+          initialValues={initialValues}
           isSuccess={isSuccess}
           isSubmitting={isSubmitting}
           isClearable
-          managerOptions={managersOptions}
+          managerOptions={managerOptions}
           clientOptions={clientOptions}
           onSubmit={onSubmit}
         />

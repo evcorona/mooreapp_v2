@@ -39,7 +39,7 @@ export default function DetailsHeaderCard(props: Props) {
       <div className="grid  grid-cols-3 items-center gap-1.5">
         {collectionItems.map((item, i) => {
           const [property, header] = item
-          let value = data[property as keyof CollectionsDataType] ?? 0
+          let value = data[property as keyof CollectionsDataType] ?? '0'
           const isTotalField =
             property === 'totalTime' || property === 'totalCost'
           if (property === 'fee')
@@ -56,7 +56,7 @@ export default function DetailsHeaderCard(props: Props) {
                   'font-semibold text-moore': isTotalField,
                 })}
               >
-                {!value || value === 0 ? (
+                {!value || value === '0' ? (
                   <i className="rounded-full bg-alert-warning px-2 py-1 text-white">
                     Pendiente
                   </i>

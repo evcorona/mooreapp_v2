@@ -22,8 +22,18 @@ export type ClientsData = {
 export type ProjectsData = {
   _id: string
   codeProject: string
-  clientName: string
+  clientName?: string
+  managerName?: string
   projectType: string
+  clientID: {
+    _id: string
+    clientName: string
+  }
+  managerID?: {
+    _id: string
+    name: string
+    lastName: string
+  }
 }
 
 export type CollaboratorsData = {
