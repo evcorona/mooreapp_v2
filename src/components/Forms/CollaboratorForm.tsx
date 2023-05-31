@@ -143,9 +143,14 @@ export default function CollaboratorForm(props: Props) {
 
       <div className="btn-group">
         {props.isClearable && (
-          <Button outline className="w-1/2" onClick={() => reset()}>
-            Limpiar
-          </Button>
+          <>
+            <Button outline className="w-1/4" onClick={() => navigate(-1)}>
+              Cancelar
+            </Button>
+            <Button outline className="w-1/4" onClick={() => reset()}>
+              Limpiar
+            </Button>
+          </>
         )}
         {!props.isClearable && (
           <Button outline className="w-1/2" onClick={() => navigate(-1)}>

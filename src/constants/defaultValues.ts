@@ -36,7 +36,7 @@ export const COLLABORATORS_DEFAULT_VALUES = {
   lastName: '',
   employeeNumber: '',
   email: '',
-  rol: '',
+  rol: null,
   positionJob: '',
   area: '',
   fee: 0,
