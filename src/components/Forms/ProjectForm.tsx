@@ -56,16 +56,6 @@ export default function ProjectForm(props: Props) {
       )}
       onSubmit={handleSubmit(props.onSubmit)}
     >
-      <ComboBox
-        name="client"
-        label="Cliente"
-        placeholder="Seleccionar un cliente del listado..."
-        options={props.clientOptions}
-        control={control}
-        defaultValue={props.initialValues.client ?? null}
-        error={errors?.client?.message}
-        required
-      />
       <Input
         label="Código del proyecto"
         type="text"
@@ -73,6 +63,16 @@ export default function ProjectForm(props: Props) {
         register={register}
         placeholder="XXX-XXXX"
         error={errors?.codeProject?.message}
+        required
+      />
+      <ComboBox
+        name="client"
+        label="Cliente"
+        placeholder="Seleccionar un cliente del listado..."
+        options={props.clientOptions}
+        control={control}
+        defaultValue={props.initialValues.client ?? ''}
+        error={errors?.client?.message}
         required
       />
       <Input
@@ -96,9 +96,14 @@ export default function ProjectForm(props: Props) {
 
       <div className="btn-group mt-4 gap-2">
         {props.isClearable && (
-          <Button outline className="w-1/2" onClick={() => reset()}>
-            Limpiar
-          </Button>
+          <>
+            <Button outline className="w-1/4" onClick={() => navigate(-1)}>
+              Cancelar
+            </Button>
+            <Button outline className="w-1/4" onClick={() => reset()}>
+              Limpiar
+            </Button>
+          </>
         )}
         {!props.isClearable && (
           <Button outline className="w-1/2" onClick={() => navigate(-1)}>

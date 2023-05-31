@@ -11,7 +11,7 @@ interface ComboBoxProps {
   placeholder: string
   options: { value: string; _id: string }[]
   defaultValue: { value: string; _id: string } | null
-  error?: string
+  error?: any
   required?: boolean
   control?: any
 }
@@ -38,7 +38,7 @@ export default function ComboBox(props: ComboBoxProps) {
   return (
     <Controller
       control={props.control}
-      defaultValue={props.defaultValue}
+      defaultValue=""
       name={props.name}
       rules={{ required: props.required }}
       render={({ field: { onChange } }) => (

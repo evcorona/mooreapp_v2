@@ -8,7 +8,7 @@ export interface Props {
   prefix?: 'currency' | 'time'
   value?: any
   placeholder?: string
-  error?: string
+  error?: any
   register?: any
   required?: boolean
   className?: string

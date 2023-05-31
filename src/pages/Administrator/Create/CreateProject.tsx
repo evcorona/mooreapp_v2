@@ -64,13 +64,11 @@ export default function CreateProject() {
         buttonText="Agregar otro"
         success
       >
-        <p>
-          El proyecto{' '}
-          <span className="font-bold text-moore underline decoration-moore underline-offset-2">
-            {name}
-          </span>{' '}
-          ha sido creado y esta disponible para la creación de actividades
-        </p>
+        El proyecto{' '}
+        <span className="font-bold text-moore underline decoration-moore underline-offset-2">
+          {name}
+        </span>{' '}
+        ha sido creado y esta disponible para la creación de actividades
       </Modal>
       <div className="container mx-auto space-y-4 px-4 pt-20 md:px-28">
         <Title title="nuevo proyecto" />

@@ -11,7 +11,7 @@ interface ListBoxProps {
   placeholder: string
   options: string[]
   defaultValue: string
-  error?: string
+  error?: any
   required?: boolean
   control?: any
 }

@@ -1,4 +1,5 @@
 import Button from '~/components/Button'
+import { ClientsData } from '~/types/objects'
 import Input from '~/components/Inputs/Input'
 import TextArea from '~/components/Inputs/TextArea'
 import clsx from 'clsx'
@@ -8,22 +9,13 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-export interface ClientFormTypes {
-  _id: string
-  clientName: string
-  group: string
-  codeClient: string
-  RFC: string
-  address: string
-}
-
 interface Props {
-  initialValues: ClientFormTypes
+  initialValues: ClientsData
   isSubmitting: boolean
   isClearable?: boolean
   isLoading?: boolean
   isSuccess?: boolean
-  onSubmit: (values: ClientFormTypes) => void
+  onSubmit: (values: ClientsData) => void
 }
 
 export default function ClientForm(props: Props) {
@@ -106,9 +98,14 @@ export default function ClientForm(props: Props) {
 
       <div className="btn-group">
         {props.isClearable && (
-          <Button outline className="w-1/2" onClick={() => reset()}>
-            Limpiar
-          </Button>
+          <>
+            <Button outline className="w-1/4" onClick={() => navigate(-1)}>
+              Cancelar
+            </Button>
+            <Button outline className="w-1/4" onClick={() => reset()}>
+              Limpiar
+            </Button>
+          </>
         )}
         {!props.isClearable && (
           <Button outline className="w-1/2" onClick={() => navigate(-1)}>
