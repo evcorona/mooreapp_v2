@@ -39,9 +39,9 @@ export const COLLABORATORS_DEFAULT_VALUES = {
   rol: '',
   positionJob: '',
   area: '',
-  fee: '',
+  fee: 0,
   partner: '',
-  employmentDate: '',
+  employmentDate: new Date(),
   _id: '',
 }
 

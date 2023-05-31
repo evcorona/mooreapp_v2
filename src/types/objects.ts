@@ -54,11 +54,24 @@ export type ActivitiesData = {
   _id: string
   activityType: string
   timeAmmount: number
-  client: string
-  concept: string
   activityDate: Date
-  createdBy: string
   fee: number
+  client?: string
+  concept?: string
+  createdBy?: string
+  userID: {
+    _id: string
+    name: string
+    lastName: string
+  }
+  clientID: {
+    _id: string
+    clientName: string
+  }
+  projectID: {
+    _id: string
+    codeProject: string
+  }
 }
 
 export type CollectionsDataType =

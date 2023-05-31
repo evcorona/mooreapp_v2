@@ -1,27 +1,30 @@
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/24/outline'
 import { Listbox, Transition } from '@headlessui/react'
+import { useEffect, useState } from 'react'
 
 import { Controller } from 'react-hook-form'
 import clsx from 'clsx'
-import { useState } from 'react'
 
 interface ListBoxProps {
   name: string
   label: string
   placeholder: string
   options: string[]
+  defaultValue: string
   error?: string
   required?: boolean
   control?: any
 }
 
 export default function ListBox(props: ListBoxProps) {
-  const [selectedOption, setSelectedOption] = useState(null)
+  const [selectedOption, setSelectedOption] = useState('')
+
+  useEffect(() => setSelectedOption(props.defaultValue), [props.defaultValue])
 
   return (
     <Controller
       control={props.control}
-      defaultValue=""
+      defaultValue={props.defaultValue}
       rules={{ required: props.required }}
       name={props.name}
       render={({ field: { onChange } }) => (
