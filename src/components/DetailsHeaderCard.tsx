@@ -39,14 +39,9 @@ export default function DetailsHeaderCard(props: Props) {
       <div className="grid  grid-cols-3 items-center gap-1.5">
         {collectionItems.map((item, i) => {
           const [property, header] = item
-          let value = data[property as keyof CollectionsDataType] ?? '0'
+          let value = data[property as keyof CollectionsDataType]
           const isTotalField =
             property === 'totalTime' || property === 'totalCost'
-          if (property === 'fee')
-            value = `$ ${value.toLocaleString('es-MX', {
-              useGrouping: true,
-              minimumFractionDigits: 2,
-            })}`
 
           return (
             <Fragment key={'details-' + i}>
@@ -56,7 +51,7 @@ export default function DetailsHeaderCard(props: Props) {
                   'font-semibold text-moore': isTotalField,
                 })}
               >
-                {!value || value === '0' ? (
+                {!value ? (
                   <i className="rounded-full bg-alert-warning px-2 py-1 text-white">
                     Pendiente
                   </i>

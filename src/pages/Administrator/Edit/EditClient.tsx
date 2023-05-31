@@ -1,10 +1,11 @@
-import ClientForm, { ClientFormTypes } from '~/components/Forms/ClientForm'
 import { errorHandler, getById, updateClient } from '~/lib/api/clients'
 import { useMutation, useQuery } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { AxiosError } from 'axios'
 import { CLIENTS_DEFAULT_VALUES } from '~/constants/defaultValues'
+import ClientForm from '~/components/Forms/ClientForm'
+import { ClientsData } from '~/types/objects'
 import Title from '~/components/Title'
 import { toast } from 'react-toastify'
 
@@ -23,7 +24,7 @@ export default function EditClient() {
     onError: error => errorHandler(error as AxiosError),
   })
 
-  function onSubmit(values: ClientFormTypes) {
+  function onSubmit(values: ClientsData) {
     mutateAsync({ id, data: values })
   }
 

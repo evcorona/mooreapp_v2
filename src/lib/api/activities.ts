@@ -16,6 +16,14 @@ function formatData(activities: any[]) {
       activityDate: activity.activityDate.split('T')[0],
       client: activity.clientID?.clientName ?? activity.client,
       concept: activity?.projectID?.codeProject ?? activity.concept,
+      createdBy: activity.userID._id
+        ? `${activity.userID.name} ${activity.userID.lastName}`
+        : activity.createdBy,
+      feeFormatted: `$ ${activity.fee.toLocaleString('es-MX', {
+        useGrouping: true,
+        minimumFractionDigits: 2,
+      })}`,
+      timeAmmountFormatted: `${activity.timeAmmount} horas`,
     }
   })
 }
