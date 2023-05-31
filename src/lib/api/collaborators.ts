@@ -76,6 +76,12 @@ export async function updateCollaborator(
   return _.get(response, 'data.data.collaborator')
 }
 
+export async function deleteById(id: string): Promise<void> {
+  await api.delete(routes.collaborators + id, headers)
+
+  return
+}
+
 export function errorHandler(error: AxiosError): void {
   if (!error.response) {
     toast.error(errors.api.network.message)

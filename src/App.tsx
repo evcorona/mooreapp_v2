@@ -74,6 +74,7 @@ export default function App() {
               <Details
                 title={'Detalles del cliente'}
                 apiQuery={getApiQuery('getById', 'clients')}
+                deleteApi={getApiQuery('deleteById', 'clients')}
                 dbSchema={DB_SCHEMA.admin.clients}
                 collection="client"
               />
@@ -100,6 +101,7 @@ export default function App() {
               <Details
                 title={'Detalles del proyecto'}
                 apiQuery={getApiQuery('getById', 'projects')}
+                deleteApi={getApiQuery('deleteById', 'projects')}
                 dbSchema={DB_SCHEMA.admin.projects}
                 collection="project"
               />
@@ -126,6 +128,7 @@ export default function App() {
               <Details
                 title={'Detalles del colaborador'}
                 apiQuery={getApiQuery('getById', 'collaborators')}
+                deleteApi={getApiQuery('deleteById', 'collaborators')}
                 dbSchema={DB_SCHEMA.admin.collaborators}
                 collection="collaborator"
               />

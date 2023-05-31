@@ -1,4 +1,8 @@
-import { InformationCircleIcon, PencilIcon } from '@heroicons/react/24/outline'
+import {
+  InformationCircleIcon,
+  PencilIcon,
+  TrashIcon,
+} from '@heroicons/react/24/outline'
 import { Link, useLocation } from 'react-router-dom'
 
 import Button from './Button'
@@ -10,6 +14,7 @@ interface Props {
   data: CollectionsDataType
   dbSchema: any
   totals: { totalTime: string; totalCost: string }
+  setIsModalOpen: (open: boolean) => void
 }
 export default function DetailsHeaderCard(props: Props) {
   const location = useLocation()
@@ -23,17 +28,32 @@ export default function DetailsHeaderCard(props: Props) {
   const collectionItems: [string, string][] = Object.entries(schema)
 
   return (
-    <div className="cursor-default space-y-2 rounded-md bg-white p-4  text-xs shadow-lg md:text-base">
+    <div className="cursor-default space-y-2 rounded-md bg-white  p-4 text-xs shadow-lg md:text-base">
       <div className="flex items-center justify-between">
-        <span className="inline-flex h-full gap-3 font-bold">
+        <span className="inline-flex h-full items-center gap-3 font-bold">
           <InformationCircleIcon className="w-icon-sm text-gray" />
           Información
         </span>
-        <Link to={`${location.pathname}/edit`}>
-          <Button outline className="inline-flex items-center px-4 text-gray">
-            <PencilIcon className="w-5" />
-          </Button>
-        </Link>
+        <div className="inline-flex w-full items-center justify-end gap-4">
+          <div className="tooltip tooltip-bottom" data-tip="Eliminar">
+            <Button
+              outline
+              className="px-4 text-gray"
+              onClick={() => props.setIsModalOpen(true)}
+            >
+              <TrashIcon className="w-icon-sm" />
+            </Button>
+          </div>
+          <Link
+            to={`${location.pathname}/edit`}
+            className="tooltip tooltip-bottom"
+            data-tip="Editar"
+          >
+            <Button outline className="px-4 text-gray">
+              <PencilIcon className="w-icon-sm" />
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <div className="grid  grid-cols-3 items-center gap-1.5">
