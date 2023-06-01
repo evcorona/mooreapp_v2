@@ -19,6 +19,7 @@ import EditCollaborator from './pages/Administrator/Edit/EditCollaborator'
 import EditProject from './pages/Administrator/Edit/EditProject'
 import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
+import PageNotFound from './pages/PageNotFound'
 import getApiQuery from './utils/getApiQuery'
 import getHeaders from './utils/getHeaders'
 
@@ -157,6 +158,7 @@ export default function App() {
               />
             }
           />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       ) : (
         <Routes>
@@ -167,7 +169,7 @@ export default function App() {
           <Route path="/activities/create" element={<Collaborator />} />
         </Routes>
       )}
-      <footer className="mt-6 p-4 text-center text-xs">
+      <footer className="w-full p-4 text-center text-xs italic text-gray">
         MooreApp made with 💙 by CrownSolutions. v2.0 (2023)
       </footer>
     </div>

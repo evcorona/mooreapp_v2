@@ -24,6 +24,7 @@ export default {
         login: "url('/src/images/bg-login.png')",
         main: "url('/src/images/bg-main.png')",
         noResults: "url('/src/images/no_results.svg')",
+        pageNotFound: "url('/src/images/page_not_found.svg')",
       },
       colors: {
         black: '#212121',
