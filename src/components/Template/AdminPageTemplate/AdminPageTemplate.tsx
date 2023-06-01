@@ -16,7 +16,7 @@ import { useQuery } from 'react-query'
 interface AdminPageTemplateProps {
   title: string
   apiQuery: any
-  dbSchema: any
+  headers: any[]
   searchPlaceholder: string
   details?: boolean
 }
@@ -39,17 +39,11 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
     keepPreviousData: true,
   })
 
-  const headers: string[] = Object.values(props.dbSchema)
-  const properties: string[] = Object.keys(props.dbSchema)
-  const collectionProperties: [string, string][] = Object.entries(
-    props.dbSchema
-  )
-
   function filterData(dataToFilter: any[]) {
     let filterData = dataToFilter
     if (searchInput) {
       filterData = filterData.filter(data => {
-        const searchBy: any = _.first(properties)
+        const searchBy = props.headers[0].accessor
         return data[searchBy].toLowerCase().includes(searchInput.toLowerCase())
       })
     }
@@ -87,13 +81,12 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
       {!_.isEmpty(dataFiltered) && (
         <>
           <Table
-            headers={headers}
-            properties={properties}
+            headers={props.headers}
             data={dataFiltered}
             details={props.details}
           />
           <Cards
-            collectionProperties={collectionProperties}
+            headers={props.headers}
             data={dataFiltered}
             details={props.details}
           />

@@ -20,6 +20,7 @@ import EditProject from './pages/Administrator/Edit/EditProject'
 import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
 import getApiQuery from './utils/getApiQuery'
+import getHeaders from './utils/getHeaders'
 
 export default function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false)
@@ -62,7 +63,7 @@ export default function App() {
               <AdminPageTemplate
                 title="clientes"
                 apiQuery={getApiQuery('getAll', 'clients')}
-                dbSchema={DB_SCHEMA.admin.clients}
+                headers={getHeaders('clients')}
                 searchPlaceholder="por cliente"
                 details
               />
@@ -75,6 +76,7 @@ export default function App() {
                 title={'Detalles del cliente'}
                 apiQuery={getApiQuery('getById', 'clients')}
                 deleteApi={getApiQuery('deleteById', 'clients')}
+                headers={getHeaders('clients')}
                 dbSchema={DB_SCHEMA.admin.clients}
                 collection="client"
               />
@@ -89,7 +91,7 @@ export default function App() {
               <AdminPageTemplate
                 title="proyectos"
                 apiQuery={getApiQuery('getAll', 'projects')}
-                dbSchema={DB_SCHEMA.admin.projects}
+                headers={getHeaders('projects')}
                 searchPlaceholder="por código de proyecto"
                 details
               />
@@ -102,7 +104,7 @@ export default function App() {
                 title={'Detalles del proyecto'}
                 apiQuery={getApiQuery('getById', 'projects')}
                 deleteApi={getApiQuery('deleteById', 'projects')}
-                dbSchema={DB_SCHEMA.admin.projects}
+                headers={getHeaders('projects')}
                 collection="project"
               />
             }
@@ -116,7 +118,7 @@ export default function App() {
               <AdminPageTemplate
                 title="colaboradores"
                 apiQuery={getApiQuery('getAll', 'collaborators')}
-                dbSchema={DB_SCHEMA.admin.collaborators}
+                headers={getHeaders('collaborators')}
                 searchPlaceholder="por nombre de colaborador"
                 details
               />
@@ -129,6 +131,7 @@ export default function App() {
                 title={'Detalles del colaborador'}
                 apiQuery={getApiQuery('getById', 'collaborators')}
                 deleteApi={getApiQuery('deleteById', 'collaborators')}
+                headers={getHeaders('projects')}
                 dbSchema={DB_SCHEMA.admin.collaborators}
                 collection="collaborator"
               />
@@ -149,7 +152,7 @@ export default function App() {
               <AdminPageTemplate
                 title="actividades"
                 apiQuery={getApiQuery('getAll', 'activities')}
-                dbSchema={DB_SCHEMA.admin.activities}
+                headers={getHeaders('activities')}
                 searchPlaceholder="por colaborador"
               />
             }
