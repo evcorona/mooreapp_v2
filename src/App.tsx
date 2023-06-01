@@ -1,8 +1,4 @@
-import {
-  DB_SCHEMA,
-  NAVIGATION_ITEMS,
-  ROLES,
-} from './constants/businessConstants'
+import { NAVIGATION_ITEMS, ROLES } from './constants/businessConstants'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
@@ -77,7 +73,6 @@ export default function App() {
                 apiQuery={getApiQuery('getById', 'clients')}
                 deleteApi={getApiQuery('deleteById', 'clients')}
                 headers={getHeaders('clients')}
-                dbSchema={DB_SCHEMA.admin.clients}
                 collection="client"
               />
             }
@@ -132,7 +127,6 @@ export default function App() {
                 apiQuery={getApiQuery('getById', 'collaborators')}
                 deleteApi={getApiQuery('deleteById', 'collaborators')}
                 headers={getHeaders('projects')}
-                dbSchema={DB_SCHEMA.admin.collaborators}
                 collection="collaborator"
               />
             }
