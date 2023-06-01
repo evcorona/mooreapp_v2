@@ -15,7 +15,7 @@ export default function NavBarDesktop(props: NavBarProps) {
 
   return (
     <>
-      <nav className="hidden md:flex flex-grow justify-around">
+      <nav className="hidden flex-grow justify-around md:flex">
         {props.items.map((item, i) => (
           <Link
             key={`navbarItem-${i}`}
@@ -26,11 +26,11 @@ export default function NavBarDesktop(props: NavBarProps) {
           </Link>
         ))}
       </nav>
-      <div className="dropdown dropdown-end hidden md:block">
+      <div className="dropdown-end dropdown hidden md:block">
         <button
           className={clsx(
             'flex flex-row',
-            'justify-center items-center',
+            'items-center justify-center',
             'hover:text-moore'
           )}
         >
@@ -40,18 +40,18 @@ export default function NavBarDesktop(props: NavBarProps) {
           className={clsx(
             'menu text-center',
             'dropdown-content',
-            'w-52 mt-6 p-4',
-            'bg-white shadow-lg rounded'
+            'mt-6 w-52 p-4',
+            'rounded border bg-white shadow-md'
           )}
         >
-          <p className="menu-title border-b border-gray-lighter p-2 mb-2">
+          <p className="menu-title mb-2 border-b border-gray-lighter p-2">
             Colaborador #1
           </p>
           <button
             className={clsx(
               'flex gap-2 p-2',
-              'justify-center items-center',
-              'text-sm hover:text-moore hover:bg-gray-light'
+              'items-center justify-center',
+              'text-sm hover:bg-gray-light hover:text-moore'
             )}
             onClick={signOut}
           >

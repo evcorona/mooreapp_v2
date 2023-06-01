@@ -74,8 +74,50 @@ export type ActivitiesData = {
   }
 }
 
+export type GeneralInsights = {
+  clientsInsights: number
+  projectsInsights: number
+  collaboratorsInsights: number
+  activitiesInsights: number
+}
+
+export type TopFiveClientsInsights = {
+  clientName: string
+  totalCost: number
+  totalTime: number
+}
+
+export type TopFiveProjectsInsights = {
+  codeProject: string
+  totalCost: number
+  totalTime: number
+}
+
+export type TopFiveCollaboratorsInsights = {
+  name: string
+  lastName: string
+  totalCost: number
+  totalTime: number
+}
+
+export type TopFiveInsights = {
+  topClients: TopFiveClientsInsights[]
+  topProjects: TopFiveProjectsInsights[]
+  topCollaborators: TopFiveCollaboratorsInsights[]
+}
+
+export type DateRangeData = {
+  startDate: Date
+  endDate: Date
+}
+
 export type CollectionsDataType =
   | ClientsData
   | ProjectsData
   | CollaboratorsData
   | ActivitiesData
+
+export type CollectionTopFiveInsights =
+  | TopFiveClientsInsights
+  | TopFiveCollaboratorsInsights
+  | TopFiveProjectsInsights

@@ -51,7 +51,7 @@ export default function ToolsBar(props: ToolsBarProps) {
         'flex flex-wrap',
         'items-center justify-between gap-4',
         'sticky top-20 z-40',
-        'bg-white/60 shadow-lg backdrop-blur-sm',
+        'border bg-white/60 shadow-md backdrop-blur-sm',
         'rounded-md p-4'
       )}
     >

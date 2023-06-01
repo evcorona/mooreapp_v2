@@ -55,3 +55,35 @@ export const ACTIVITIES_DEFAULT_VALUES = {
   timeAmmount: '',
   fee: '',
 }
+
+export const GENERAL_INSIGHTS_DEFAULT_VALUES = {
+  clientsInsights: 0,
+  projectsInsights: 0,
+  collaboratorsInsights: 0,
+  activitiesInsights: 0,
+}
+
+export const TOP_TEN_INSIGHTS_DEFAULT_VALUES = {
+  topClients: [
+    {
+      clientName: '',
+      totalCost: 0,
+      totalTime: 0,
+    },
+  ],
+  topProjects: [
+    {
+      codeProject: '',
+      totalCost: 0,
+      totalTime: 0,
+    },
+  ],
+  topCollaborators: [
+    {
+      name: '',
+      lastName: '',
+      totalCost: 0,
+      totalTime: 0,
+    },
+  ],
+}

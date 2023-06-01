@@ -22,7 +22,7 @@ export default function Cards(props: CardsProps) {
         return (
           <div
             key={'card-' + i}
-            className="card card-compact w-full cursor-default bg-base-100 shadow-xl hover:bg-gray-light hover:text-moore"
+            className="border-xl card card-compact w-full cursor-default bg-base-100 shadow-md hover:bg-gray-light hover:text-moore"
           >
             <div className="card-body flex">
               <h2 className="card-title border-b-2 px-2 text-sm">{`${titleCard}`}</h2>
