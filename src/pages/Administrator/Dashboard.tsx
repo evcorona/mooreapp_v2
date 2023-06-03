@@ -3,7 +3,6 @@ import {
   GeneralInsights,
   TopFiveInsights,
 } from '~/types/objects'
-import DatePicker, { registerLocale } from 'react-datepicker'
 import {
   GENERAL_INSIGHTS_DEFAULT_VALUES,
   TOP_TEN_INSIGHTS_DEFAULT_VALUES,
@@ -14,23 +13,25 @@ import {
 } from '~/constants/dataHeaders/insightsHeaders'
 import { getGeneralInsights, getTopFiveInsights } from '~/lib/api/insights'
 
+import { Chart } from '~/components/Chart'
+import DateRangePicker from '~/components/DateRangePicker'
 import LoadingCard from '~/components/LoadingCard'
 import Title from '~/components/Title'
+import _ from 'lodash'
 import clsx from 'clsx'
-import es from 'date-fns/locale/es'
+import { subWeeks } from 'date-fns'
 import { useQuery } from 'react-query'
 import { useState } from 'react'
 
-registerLocale('es', es)
+//const startOfWeekAgo = subWeeks(new Date(), 1)
+
+const startOfWeekAgo = subWeeks(new Date('2023-01-01'), 1)
 
 export default function Dashboard() {
   const [openAccordion, setOpenAccordion] = useState(0)
-  const [rangeDates, setRangeDates] = useState({
-    startDate: new Date('2023-01-01'),
-    endDate: new Date('2023-01-31'),
-  })
-  const [dateRange, setDateRange] = useState([null, null])
-  const [startDate, endDate] = dateRange
+  const [startDate, setStartDate] = useState(startOfWeekAgo)
+  const [endDate, setEndDate] = useState(new Date())
+
   const {
     data: generalInsights = GENERAL_INSIGHTS_DEFAULT_VALUES,
     isLoading: isGeneralInsightsLoading,
@@ -39,9 +40,17 @@ export default function Dashboard() {
   const {
     data: topFiveInsights = TOP_TEN_INSIGHTS_DEFAULT_VALUES,
     isLoading: isTopFiveInsightsLoading,
-  } = useQuery('topFiveInsights', () => getTopFiveInsights(rangeDates))
+    isRefetching,
+  } = useQuery(['topFiveInsights', startDate, endDate], () =>
+    getTopFiveInsights({ startDate, endDate })
+  )
 
-  if (isGeneralInsightsLoading || isTopFiveInsightsLoading) {
+  function resetPicker() {
+    setStartDate(startOfWeekAgo)
+    setEndDate(new Date())
+  }
+
+  if (isGeneralInsightsLoading) {
     return (
       <div className="container mx-auto h-screen space-y-4 px-4 pt-20">
         <Title title="insights" />
@@ -49,6 +58,8 @@ export default function Dashboard() {
       </div>
     )
   }
+
+  const isActivitiesLoading = isTopFiveInsightsLoading
 
   return (
     <div className="container mx-auto h-screen cursor-default space-y-4 px-4 pt-20">
@@ -68,26 +79,28 @@ export default function Dashboard() {
           )
         })}
       </div>
-      <div className="flex gap-8">
-        <div className="w-full flex-grow">
-          Actividades
-          <DatePicker
-            showIcon
-            dateFormat="MMMM/yyyy"
-            selectsRange={true}
-            startDate={startDate}
-            endDate={endDate}
-            locale="es"
-            placeholderText="Filtrar por fecha"
-            todayButton="Hoy"
-            onChange={update => {
-              setDateRange(update)
-            }}
-            isClearable={true}
-          />
+
+      {/* DatePicker */}
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="flex-grow text-left text-3xl font-bold">Actividades</h1>
+        <DateRangePicker
+          startDate={startDate}
+          setStartDate={setStartDate}
+          endDate={endDate}
+          setEndDate={setEndDate}
+          resetPicker={resetPicker}
+          isClearable={startDate !== startOfWeekAgo}
+          isLoading={isRefetching}
+        />
+      </div>
+
+      {/* Main    */}
+      <div className="gap-4 space-y-4 md:flex">
+        <div className="w-full">
+          <Chart />
         </div>
-        <div className="space-y-2 rounded-md border bg-white shadow-md">
-          <h2 className="border-b bg-gray-light p-4 text-center">Top 5</h2>
+        <div className="space-y-2 rounded-md border bg-white shadow-md md:w-72">
+          <h2 className="border-b bg-gray-light p-2 text-center">Top 5</h2>
           {topFiveInsightsHeaders.map((header, i) => {
             const topInsights =
               topFiveInsights[header.accessor as keyof TopFiveInsights]
@@ -95,14 +108,12 @@ export default function Dashboard() {
               <div
                 tabIndex={0}
                 key={`cardTop-${i}`}
-                className={clsx('collapse-plus collapse', {
+                className={clsx('collapse-arrow collapse', {
                   'collapse-open': openAccordion === i,
                 })}
                 onClick={() => setOpenAccordion(i)}
               >
-                <p className="collapse-title text-xl font-bold">
-                  {header.header}
-                </p>
+                <p className="collapse-title font-bold">{header.header}</p>
                 <ul className="group collapse-content list-inside list-decimal text-sm">
                   {topInsights.map((insight, j) => {
                     let value: any =
@@ -127,7 +138,10 @@ export default function Dashboard() {
                     }
 
                     return (
-                      <li className="p-2 hover:bg-gray-light hover:text-moore">
+                      <li
+                        key={`topInsight-${j}${i}`}
+                        className="p-2 hover:bg-gray-light hover:text-moore"
+                      >
                         {value}
                         <div className="flex gap-4 text-xs text-gray ">
                           <i className="whitespace-nowrap">

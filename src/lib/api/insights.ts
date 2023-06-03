@@ -13,6 +13,7 @@ import { AxiosError } from 'axios'
 import _ from 'lodash'
 import api from '~/lib/api/index'
 import { errors } from '../../constants/errors'
+import { format } from 'date-fns'
 import { toast } from 'react-toastify'
 
 export async function getGeneralInsights(): Promise<GeneralInsights> {
@@ -26,7 +27,9 @@ export async function getGeneralInsights(): Promise<GeneralInsights> {
 export async function getTopFiveInsights(
   dateRange: DateRangeData
 ): Promise<TopFiveInsights> {
-  const dateRangeQuery = `topFive/${dateRange.startDate}/${dateRange.endDate}`
+  const startDate = format(dateRange.startDate, 'yyyy-MM-dd')
+  const endDate = format(dateRange.endDate, 'yyyy-MM-dd')
+  const dateRangeQuery = `topFive/${startDate}/${endDate}`
 
   const response = await api
     .get(routes.insights + dateRangeQuery, headers)
