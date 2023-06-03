@@ -95,7 +95,7 @@ export default function Dashboard() {
       </div>
 
       {/* Main    */}
-      <div className="gap-4 space-y-4 md:flex">
+      <div className="items-center justify-between gap-4 space-y-4 md:flex md:space-y-0">
         <div className="w-full">
           <Chart />
         </div>
