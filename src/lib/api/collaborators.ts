@@ -1,27 +1,17 @@
 import { headers, routes } from './routes'
 
 import { AxiosError } from 'axios'
-import { COLLABORATORS_DEFAULT_VALUES } from '~/constants/defaultValues'
 import { CollaboratorsData } from '~/types/objects'
 import _ from 'lodash'
 import api from './index'
 import { errors } from '../../constants/errors'
 import { toast } from 'react-toastify'
 
-interface UpdateCollaboratorData {
-  id: string
-  data: CollaboratorsData
-}
-
 function formatData(users: any[]) {
   return users.map(user => {
     return {
       ...user,
       employmentDate: user.employmentDate.split('T')[0],
-      feeFormatted: `$ ${user.fee.toLocaleString('es-MX', {
-        useGrouping: true,
-        minimumFractionDigits: 2,
-      })}`,
     }
   })
 }
@@ -42,7 +32,7 @@ export async function getById(id: string): Promise<CollaboratorsData> {
     .get(routes.collaborators + id, headers)
     .catch(error => console.error(error))
 
-  const data = _.get(response, 'data.data.user', COLLABORATORS_DEFAULT_VALUES)
+  const data = _.get(response, 'data.data.user', [])
   const [formattedData] = formatData([data])
 
   return formattedData
@@ -63,21 +53,6 @@ export async function createCollaborator(
   data: CollaboratorsData
 ): Promise<void> {
   await api.post(routes.signup, data, headers)
-
-  return
-}
-
-export async function updateCollaborator(
-  collaboratorData: UpdateCollaboratorData
-): Promise<CollaboratorsData> {
-  const { id, data } = collaboratorData
-  const response = await api.patch(routes.collaborators + id, data, headers)
-
-  return _.get(response, 'data.data.collaborator')
-}
-
-export async function deleteById(id: string): Promise<void> {
-  await api.delete(routes.collaborators + id, headers)
 
   return
 }

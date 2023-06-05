@@ -17,23 +17,15 @@ export type ClientsData = {
   codeClient: string
   RFC: string
   address: string
+  isActive: boolean
 }
 
 export type ProjectsData = {
   _id: string
   codeProject: string
-  clientName?: string
-  managerName?: string
+  clientName: string
   projectType: string
-  clientID: {
-    _id: string
-    clientName: string
-  }
-  managerID?: {
-    _id: string
-    name: string
-    lastName: string
-  }
+  isActive: boolean
 }
 
 export type CollaboratorsData = {
@@ -48,30 +40,19 @@ export type CollaboratorsData = {
   area: string
   employeeNumber: string | number
   employmentDate: Date
+  isActive: boolean
 }
 
 export type ActivitiesData = {
   _id: string
   activityType: string
   timeAmmount: number
+  client: string
+  concept: string
   activityDate: Date
+  createdBy: string
   fee: number
-  client?: string
-  concept?: string
-  createdBy?: string
-  userID: {
-    _id: string
-    name: string
-    lastName: string
-  }
-  clientID: {
-    _id: string
-    clientName: string
-  }
-  projectID: {
-    _id: string
-    codeProject: string
-  }
+  isActive?: boolean
 }
 
 export type CollectionsDataType =

@@ -14,9 +14,6 @@ import CreateClient from './pages/Administrator/Create/CreateClient'
 import CreateCollaborator from './pages/Administrator/Create/CreateCollaborator'
 import CreateProject from './pages/Administrator/Create/CreateProject'
 import Details from './pages/Administrator/Details'
-import EditClient from './pages/Administrator/Edit/EditClient'
-import EditCollaborator from './pages/Administrator/Edit/EditCollaborator'
-import EditProject from './pages/Administrator/Edit/EditProject'
 import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
 import getApiQuery from './utils/getApiQuery'
@@ -74,14 +71,12 @@ export default function App() {
               <Details
                 title={'Detalles del cliente'}
                 apiQuery={getApiQuery('getById', 'clients')}
-                deleteApi={getApiQuery('deleteById', 'clients')}
                 dbSchema={DB_SCHEMA.admin.clients}
                 collection="client"
               />
             }
           />
           <Route path="/clients/create" element={<CreateClient />} />
-          <Route path="/clients/:id/edit" element={<EditClient />} />
 
           <Route
             path="/projects"
@@ -101,14 +96,12 @@ export default function App() {
               <Details
                 title={'Detalles del proyecto'}
                 apiQuery={getApiQuery('getById', 'projects')}
-                deleteApi={getApiQuery('deleteById', 'projects')}
                 dbSchema={DB_SCHEMA.admin.projects}
                 collection="project"
               />
             }
           />
           <Route path="/projects/create" element={<CreateProject />} />
-          <Route path="/projects/:id/edit" element={<EditProject />} />
 
           <Route
             path="/collaborators"
@@ -128,7 +121,6 @@ export default function App() {
               <Details
                 title={'Detalles del colaborador'}
                 apiQuery={getApiQuery('getById', 'collaborators')}
-                deleteApi={getApiQuery('deleteById', 'collaborators')}
                 dbSchema={DB_SCHEMA.admin.collaborators}
                 collection="collaborator"
               />
@@ -137,10 +129,6 @@ export default function App() {
           <Route
             path="/collaborators/create"
             element={<CreateCollaborator />}
-          />
-          <Route
-            path="/collaborators/:id/edit"
-            element={<EditCollaborator />}
           />
 
           <Route
