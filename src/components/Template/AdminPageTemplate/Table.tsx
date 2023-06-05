@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom'
 import Button from '~/components/Button'
 import { CollectionsDataType } from '~/types/objects'
 import _ from 'lodash'
+import clsx from 'clsx'
 
 interface TableProps {
-  headers: string[]
-  properties: string[]
+  headers: any[]
   data: CollectionsDataType[]
   details?: boolean
 }
@@ -16,36 +16,40 @@ export default function Table(props: TableProps) {
 
   return (
     <div className="hidden overflow-x-auto rounded-md bg-white p-4 shadow-md lg:block">
-      <table className="table-compact w-full">
+      <table className="table-compact w-full text-sm">
         <thead className="border-b-4">
           <tr>
-            <th className="text-start">#</th>
-            {props.headers.map((header, i) => (
-              <th key={`tableHeader-${i}`} className="text-start">
-                {header}
-              </th>
-            ))}
+            <th className="text-center">#</th>
+            {props.headers.map(
+              (header, i) =>
+                !header.hideInOverview && (
+                  <th key={`tableHeader-${i}`} className="text-center">
+                    {header.header}
+                  </th>
+                )
+            )}
           </tr>
         </thead>
         <tbody>
           {props.data.map((data: any, i: number) => (
             <tr
               key={`row-${i}`}
-              className="cursor-default border-b-2 hover:bg-gray-light hover:text-moore"
+              className="cursor-default border-b-2 text-center hover:bg-gray-light hover:text-moore"
             >
               <td>{i + 1}</td>
-              {props.properties.map((property, k) => {
-                let value = data[property]
+              {props.headers.map((header, k) => {
+                let value = data[header.accessor]
 
                 return (
-                  <td className="whitespace-normal" key={`cell-${k}`}>
-                    {!value ? (
-                      <i className="rounded-full bg-alert-warning px-2 py-1 text-white">
-                        Pendiente
-                      </i>
-                    ) : (
-                      value
-                    )}
+                  <td className={header.className} key={`cell-${k}`}>
+                    <p
+                      className={clsx({
+                        'm-auto w-fit rounded-full bg-alert-warning px-2 py-1 text-white':
+                          !value,
+                      })}
+                    >
+                      {!value ? 'Pendiente' : value}
+                    </p>
                   </td>
                 )
               })}

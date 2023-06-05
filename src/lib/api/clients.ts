@@ -2,7 +2,6 @@ import { headers, routes } from './routes'
 
 import { AxiosError } from 'axios'
 import { CLIENTS_DEFAULT_VALUES } from '~/constants/defaultValues'
-import { ClientFormTypes } from '~/components/Forms/ClientForm'
 import { ClientsData } from '~/types/objects'
 import _ from 'lodash'
 import api from './index'
@@ -37,11 +36,17 @@ export async function createClient(data: ClientsData): Promise<ClientsData> {
 
 export async function updateClient(
   clientData: UpdateClientData
-): Promise<ClientFormTypes> {
+): Promise<ClientsData> {
   const { id, data } = clientData
   const response = await api.patch(routes.clients + id, data, headers)
 
   return _.get(response, 'data.data.client')
+}
+
+export async function deleteById(id: string): Promise<void> {
+  await api.delete(routes.clients + id, headers)
+
+  return
 }
 
 export function errorHandler(error: AxiosError): void {
