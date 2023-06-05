@@ -23,15 +23,15 @@ export default function Button(props: Props) {
         'flex justify-center gap-4',
         'font-semibold tracking-wide',
         'btn rounded p-2',
-        'border-transparent',
-        'hover:bg-black',
+        'border-transparent outline',
+        'hover:bg-black focus:outline-moore',
         {
           'cursor-not-allowed bg-moore-dark/30 text-white/50 hover:bg-moore-dark/30':
             props.isDisabled,
           'cursor-wait': props.isLoading,
           'bg-moore text-white hover:text-white': props.primary,
           'bg-moore-dark text-white hover:text-white': props.secondary,
-          'bg-transparent text-black hover:border hover:border-moore hover:bg-transparent hover:text-moore':
+          'bg-transparent text-black outline-transparent hover:border hover:border-moore hover:bg-transparent hover:text-moore':
             props.outline,
         },
         props.className

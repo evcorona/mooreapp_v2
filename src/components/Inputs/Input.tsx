@@ -8,10 +8,11 @@ export interface Props {
   prefix?: 'currency' | 'time'
   value?: any
   placeholder?: string
-  error?: string
+  error?: any
   register?: any
   required?: boolean
   className?: string
+  isLoading?: boolean
   onChange?: (value: any) => any
 }
 
@@ -20,7 +21,7 @@ export default function Input(props: Props) {
     <div className="relative w-full">
       <label className="font-bold text-moore">{props.label}</label>
       {props.prefix === 'currency' && (
-        <CurrencyDollarIcon className="absolute bottom-9 left-2 w-5 text-gray" />
+        <CurrencyDollarIcon className="absolute bottom-8 left-2 w-icon text-gray" />
       )}
       <input
         className={clsx(
@@ -32,7 +33,8 @@ export default function Input(props: Props) {
           'rounded border border-gray-lighter',
           'hover:border-moore',
           'focus:ring focus:ring-moore/40',
-          { 'pl-10': props.prefix === 'currency' },
+          { 'pl-11': props.prefix === 'currency' },
+          { 'cursor-wait': props.isLoading },
           props.className
         )}
         type={props.type}
@@ -41,6 +43,7 @@ export default function Input(props: Props) {
         onChange={props.onChange}
         min={0}
         step="any"
+        disabled={props.isLoading}
         {...props.register(props.name, {
           require: props.required,
           valueAsNumber: props.type === 'number',

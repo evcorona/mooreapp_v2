@@ -1,7 +1,10 @@
+import {
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+} from '@heroicons/react/24/outline'
 import { Dialog, Transition } from '@headlessui/react'
 
 import Button from './Button'
-import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { Fragment } from 'react'
 import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
@@ -10,8 +13,11 @@ interface ModalProps {
   isModalOpen: boolean
   title: string
   buttonText: string
-  success: boolean
   children: React.ReactNode
+  success?: boolean
+  deleteMode?: boolean
+  isLoading?: boolean
+  onClick?: () => void
   setIsModalOpen: (isOpen: boolean) => void
 }
 
@@ -57,7 +63,11 @@ export default function Modal(props: ModalProps) {
                 className={clsx(
                   'md:min-w-md absolute w-[90%] md:max-w-lg',
                   'space-y-8',
-                  'rounded-md bg-white p-4 md:p-8'
+                  'rounded-md bg-white p-4 md:p-8',
+                  {
+                    'border-8 border-alert-success': props.success,
+                    'border-8 border-alert-warning': !props.success,
+                  }
                 )}
               >
                 <Dialog.Title
@@ -70,16 +80,31 @@ export default function Modal(props: ModalProps) {
                   {props.success && (
                     <CheckCircleIcon className="w-icon-lg text-alert-success" />
                   )}
+                  {!props.success && (
+                    <ExclamationTriangleIcon className="w-icon-lg text-alert-warning" />
+                  )}
                   {props.title}
                 </Dialog.Title>
 
                 <Dialog.Description className="text-lg">
                   {props.children}
                 </Dialog.Description>
-                <div className="btn-group w-full">
-                  <Button className="w-1/2" outline onClick={returnHandler}>
-                    Regresar
-                  </Button>
+                <div className="btn-group w-full gap-2">
+                  {!props.deleteMode && (
+                    <Button className="w-1/2" outline onClick={returnHandler}>
+                      Regresar
+                    </Button>
+                  )}
+                  {props.deleteMode && (
+                    <Button
+                      className="w-1/2"
+                      outline
+                      onClick={props.onClick}
+                      isLoading={props.isLoading}
+                    >
+                      {!props.isLoading ? 'Eliminar' : 'Eliminando...'}
+                    </Button>
+                  )}
                   <Button
                     primary
                     className="w-1/2"
