@@ -1,6 +1,3 @@
-import { deleteById as deleteClient } from '~/lib/api/clients'
-import { deleteById as deleteCollaborator } from '~/lib/api/collaborators'
-import { deleteById as deleteProject } from '~/lib/api/projects'
 import { getAll as getAllActivities } from '~/lib/api/activities'
 import { getAll as getAllClients } from '~/lib/api/clients'
 import { getAll as getAllCollaborators } from '~/lib/api/collaborators'
@@ -10,35 +7,21 @@ import { getById as getCollaboratorById } from '~/lib/api/collaborators'
 import { getById as getProjectById } from '~/lib/api/projects'
 
 export default function getApiQuery(
-  queryType: 'getAll' | 'getById' | 'deleteById',
+  queryType: 'getAll' | 'getById',
   collection: 'clients' | 'projects' | 'collaborators' | 'activities'
 ) {
   let apiQuery = undefined
 
   switch (collection) {
     case 'clients':
-      apiQuery =
-        queryType === 'getAll'
-          ? getAllClients
-          : queryType === 'getById'
-          ? getClientById
-          : deleteClient
+      apiQuery = queryType === 'getAll' ? getAllClients : getClientById
       break
     case 'projects':
-      apiQuery =
-        queryType === 'getAll'
-          ? getAllProjects
-          : queryType === 'getById'
-          ? getProjectById
-          : deleteProject
+      apiQuery = queryType === 'getAll' ? getAllProjects : getProjectById
       break
     case 'collaborators':
       apiQuery =
-        queryType === 'getAll'
-          ? getAllCollaborators
-          : queryType === 'getById'
-          ? getCollaboratorById
-          : deleteCollaborator
+        queryType === 'getAll' ? getAllCollaborators : getCollaboratorById
       break
     default:
       apiQuery = getAllActivities

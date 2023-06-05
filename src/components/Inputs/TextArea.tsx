@@ -9,7 +9,6 @@ export interface Props {
   register?: any
   required?: boolean
   className?: string
-  isLoading?: boolean
   onChange?: (value: any) => string
 }
 
@@ -26,14 +25,12 @@ export default function TextArea(props: Props) {
           'rounded border border-gray-lighter',
           'hover:border-moore',
           'focus:ring focus:ring-moore/40',
-          { 'cursor-wait': props.isLoading },
           props.className
         )}
         type={props.type}
         placeholder={props.placeholder}
         required={props.required}
         onChange={props.onChange}
-        disabled={props.isLoading}
         {...props.register(props.name, { require: props.required })}
       />
       <p className="mt-1 h-5 text-xs text-alert-error">

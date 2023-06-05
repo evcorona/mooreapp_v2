@@ -1,5 +1,5 @@
 import { Combobox, Transition } from '@headlessui/react'
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useState } from 'react'
 
 import { ChevronUpDownIcon } from '@heroicons/react/24/outline'
 import { Controller } from 'react-hook-form'
@@ -10,14 +10,13 @@ interface ComboBoxProps {
   label: string
   placeholder: string
   options: { value: string; _id: string }[]
-  defaultValue: { value: string; _id: string } | null
-  error?: any
+  error?: string
   required?: boolean
   control?: any
 }
 
 export default function ComboBox(props: ComboBoxProps) {
-  const [selectedOption, setSelectedOption] = useState(props.options[0])
+  const [selectedOption, setSelectedOption] = useState('')
   const [query, setQuery] = useState('')
 
   const filteredOptions =
@@ -28,12 +27,9 @@ export default function ComboBox(props: ComboBoxProps) {
           return optionFormatted.includes(query.toUpperCase())
         })
 
-  const emptyValue = { _id: '', value: 'Sin definir' }
-
-  useEffect(
-    () => setSelectedOption(props.defaultValue ?? emptyValue),
-    [props.defaultValue]
-  )
+  if (!props.required) {
+    props.options.unshift({ _id: '', value: 'Sin definir' })
+  }
 
   return (
     <Controller
@@ -103,19 +99,6 @@ export default function ComboBox(props: ComboBoxProps) {
                   'cursor-pointer'
                 )}
               >
-                {!props.required && (
-                  <Combobox.Option
-                    key={'option-SD'}
-                    value={emptyValue}
-                    className={({ active }) =>
-                      clsx('p-4 hover:bg-gray-light hover:text-moore', {
-                        'bg-gray-light text-moore': active,
-                      })
-                    }
-                  >
-                    {emptyValue.value}
-                  </Combobox.Option>
-                )}
                 {filteredOptions.length === 0 && query !== '' ? (
                   <div className="cursor-default select-none p-4 uppercase">
                     No hay resultados

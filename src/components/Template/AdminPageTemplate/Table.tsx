@@ -35,11 +35,17 @@ export default function Table(props: TableProps) {
             >
               <td>{i + 1}</td>
               {props.properties.map((property, k) => {
-                let value = data[property]
+                let value = data[property] ?? 0
+                if (property === 'timeAmmount') value = `${value} horas`
+                if (property === 'fee')
+                  value = `$ ${value.toLocaleString('es-MX', {
+                    useGrouping: true,
+                    minimumFractionDigits: 2,
+                  })}`
 
                 return (
                   <td className="whitespace-normal" key={`cell-${k}`}>
-                    {!value ? (
+                    {!value || value === 0 ? (
                       <i className="rounded-full bg-alert-warning px-2 py-1 text-white">
                         Pendiente
                       </i>
