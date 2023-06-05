@@ -16,10 +16,12 @@ function formatData(activities: any[]) {
       activityDate: activity.activityDate.split('T')[0],
       client: activity.clientID?.clientName ?? activity.client,
       concept: activity?.projectID?.codeProject ?? activity.concept,
-      feeFormatted: `$ ${activity.fee.toLocaleString('es-MX', {
-        useGrouping: true,
-        minimumFractionDigits: 2,
-      })}`,
+      feeFormatted:
+        activity.fee &&
+        `$ ${activity.fee.toLocaleString('es-MX', {
+          useGrouping: true,
+          minimumFractionDigits: 2,
+        })}`,
       timeAmmountFormatted: `${activity.timeAmmount} horas`,
       createdBy: activity.userID
         ? `${activity.userID.name} ${activity.userID.lastName}`
@@ -41,12 +43,14 @@ export async function getAll(startDate: Date): Promise<ActivitiesData[]> {
   const data = _.get(response, 'data.data.activities', [])
   const formattedData = formatData(data)
 
+  console.log('Here', routePlusQuery)
+
   return formattedData
 }
 
 export async function getById(
   id: string,
-  name: string,
+  name: string | null,
   collection: 'client' | 'project' | 'collaborator'
 ): Promise<ActivitiesData[]> {
   const routePlusId = routes.activities + `${collection}/${id}/${name}`

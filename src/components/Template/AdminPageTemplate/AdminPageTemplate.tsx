@@ -89,6 +89,7 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
             headers={props.headers}
             data={dataFiltered}
             details={props.details}
+            className="lg:hidden"
           />
         </>
       )}

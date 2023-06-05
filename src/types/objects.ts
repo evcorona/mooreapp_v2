@@ -55,7 +55,7 @@ export type ActivitiesData = {
   activityType: string
   timeAmmount: number
   activityDate: Date
-  fee: number
+  fee?: number
   client?: string
   concept?: string
   createdBy?: string

@@ -21,9 +21,10 @@ export default function Button(props: Props) {
       disabled={isDisabled}
       className={clsx(
         'flex justify-center gap-4',
+        'rounded-md p-3',
         'font-semibold tracking-wide',
-        'btn rounded p-2',
-        'border-transparent outline',
+        'btn',
+        'border-transparent',
         'hover:bg-black focus:outline-moore',
         {
           'cursor-not-allowed bg-moore-dark/30 text-white/50 hover:bg-moore-dark/30':

@@ -8,6 +8,7 @@ interface CardsProps {
   data: CollectionsDataType[]
   headers: any
   details?: boolean
+  className?: string
 }
 export default function Cards(props: CardsProps) {
   const [firstHeader, ...headers] = props.headers
@@ -15,17 +16,20 @@ export default function Cards(props: CardsProps) {
   const location = useLocation()
 
   return (
-    <div className="space-y-4 lg:hidden">
+    <div className={clsx('space-y-4', props.className)}>
       {props.data.map((data, i) => {
         const titleCard =
           data[firstHeader.accessor as keyof CollectionsDataType]
+
         return (
           <div
             key={'card-' + i}
-            className="border-xl card card-compact w-full cursor-default bg-base-100 shadow-md hover:bg-gray-light hover:text-moore"
+            className="border-xl card card-compact w-full cursor-default bg-white shadow-md hover:bg-gray-light hover:text-moore"
           >
             <div className="card-body flex">
-              <h2 className="card-title border-b-2 px-2 text-sm">{`${titleCard}`}</h2>
+              <h2 className="card-title border-b-2 px-2 text-sm">
+                {titleCard}
+              </h2>
               {headers.map((header: any, k: number) => {
                 let value = data[header.accessor as keyof CollectionsDataType]
 

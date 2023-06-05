@@ -68,7 +68,7 @@ export default function DateRangePicker(props: Props) {
         </div>
       )}
       {props.isLoading && (
-        <span className="loading-spinner loading-sm loading absolute right-3 text-moore" />
+        <span className="loading loading-spinner loading-sm absolute right-3 text-moore" />
       )}
     </div>
   )
