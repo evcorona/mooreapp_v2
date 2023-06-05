@@ -7,6 +7,11 @@ import api from './index'
 import { errors } from '../../constants/errors'
 import { toast } from 'react-toastify'
 
+interface UpdateProjectData {
+  id: string
+  data: ProjectsData
+}
+
 function formatData(projects: any[]) {
   return projects.map(project => {
     return {
@@ -43,6 +48,15 @@ export async function getById(id: string): Promise<ProjectsData> {
 
 export async function createProject(data: ProjectsData): Promise<ProjectsData> {
   const response = await api.post(routes.projects, data, headers)
+
+  return _.get(response, 'data.data.project')
+}
+
+export async function updateProject(
+  projectData: UpdateProjectData
+): Promise<ProjectsData> {
+  const { id, data } = projectData
+  const response = await api.patch(routes.projects + id, data, headers)
 
   return _.get(response, 'data.data.project')
 }
