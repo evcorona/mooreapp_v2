@@ -15,15 +15,15 @@ export default function Table(props: TableProps) {
   const location = useLocation()
 
   return (
-    <div className="hidden overflow-x-auto rounded-md bg-white p-4 shadow-md lg:block">
+    <div className="hidden overflow-x-auto rounded-md border bg-white p-4 shadow-md lg:block">
       <table className="table-compact w-full text-sm">
         <thead className="border-b-4">
           <tr>
-            <th className="text-center">#</th>
+            <th className="px-6 text-center">#</th>
             {props.headers.map(
               (header, i) =>
                 !header.hideInOverview && (
-                  <th key={`tableHeader-${i}`} className="text-center">
+                  <th key={`tableHeader-${i}`} className="px-6 text-center">
                     {header.header}
                   </th>
                 )

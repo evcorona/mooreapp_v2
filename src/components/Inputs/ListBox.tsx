@@ -76,7 +76,7 @@ export default function ListBox(props: ListBoxProps) {
                 'absolute z-40',
                 'h-fit max-h-60 w-full overflow-scroll',
                 'mt-2',
-                'rounded-md bg-moore-dark py-4 shadow-lg',
+                'rounded-md border bg-moore-dark py-4 shadow-md',
                 'border border-gray-lighter',
                 'text-sm font-semibold text-white ',
                 'cursor-pointer'

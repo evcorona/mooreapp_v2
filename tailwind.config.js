@@ -27,7 +27,8 @@ export default {
         pageNotFound: "url('/src/images/page_not_found.svg')",
       },
       colors: {
-        black: '#212121',
+        black: '#181818',
+        background: '#f9f9f9',
         moore: {
           DEFAULT: '#29aae1',
           dark: '#007baf',

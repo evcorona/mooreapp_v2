@@ -154,7 +154,11 @@ export default function Details(props: DetailsProps) {
         {!_.isEmpty(dataFiltered) && (
           <>
             <Table headers={activitiesHeaders} data={dataFiltered} />
-            <Cards headers={activitiesHeaders} data={dataFiltered} />
+            <Cards
+              headers={activitiesHeaders}
+              data={dataFiltered}
+              className="lg:hidden"
+            />
           </>
         )}
       </div>
