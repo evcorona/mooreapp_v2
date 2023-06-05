@@ -9,7 +9,9 @@ import { useEffect, useState } from 'react'
 import AdminDashboard from './pages/Administrator/Dashboard'
 import AdminPageTemplate from './components/Template/AdminPageTemplate/AdminPageTemplate'
 import Administrator from './pages/Administrator/Dashboard'
-import Collaborator from './pages/Collaborator/Dashboard'
+import CollaboratorActivities from './pages/Collaborator/CollaboratorActivities'
+import CollaboratorDashboard from './pages/Collaborator/CollaboratorDashboard'
+import CreateActivities from './pages/Collaborator/CreateActivities'
 import CreateClient from './pages/Administrator/Create/CreateClient'
 import CreateCollaborator from './pages/Administrator/Create/CreateCollaborator'
 import CreateProject from './pages/Administrator/Create/CreateProject'
@@ -78,7 +80,6 @@ export default function App() {
                 apiQuery={getApiQuery('getById', 'clients')}
                 deleteApi={getApiQuery('deleteById', 'clients')}
                 headers={getHeaders('clients')}
-                dbSchema={DB_SCHEMA.admin.clients}
                 collection="client"
               />
             }
@@ -133,7 +134,6 @@ export default function App() {
                 apiQuery={getApiQuery('getById', 'collaborators')}
                 deleteApi={getApiQuery('deleteById', 'collaborators')}
                 headers={getHeaders('projects')}
-                dbSchema={DB_SCHEMA.admin.collaborators}
                 collection="collaborator"
               />
             }
@@ -162,16 +162,13 @@ export default function App() {
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" element={<Collaborator />} />
-          <Route path="/collaborator" element={<Collaborator />} />
-          <Route path="/activities" element={<Collaborator />} />
-          <Route path="/activities/:id" element={<Collaborator />} />
-          <Route path="/activities/create" element={<Collaborator />} />
+          <Route path="/" element={<CollaboratorDashboard />} />
+          <Route path="/collaborator" element={<CollaboratorDashboard />} />
+          <Route path="/activities" element={<CollaboratorActivities />} />
+          <Route path="/activities/create" element={<CreateActivities />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       )}
-      <footer className="w-full p-4 text-center text-xs italic text-gray">
-        MooreApp made with 💙 by CrownSolutions. v2.0 (2023)
-      </footer>
     </div>
   )
 }

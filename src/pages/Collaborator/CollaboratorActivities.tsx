@@ -1,4 +1,3 @@
-import { format, isSameDay, isToday, startOfMonth } from 'date-fns'
 import { useEffect, useState } from 'react'
 
 import { ActivitiesData } from '~/types/objects'
@@ -15,12 +14,14 @@ import clsx from 'clsx'
 import es from 'date-fns/locale/es'
 import { getAll } from '~/lib/api/activities'
 import { registerLocale } from 'react-datepicker'
+import { startOfMonth } from 'date-fns'
 import { useQuery } from 'react-query'
 
 registerLocale('es', es)
 
 const startOfCurrentMonth = startOfMonth(new Date())
 
+//TODO: apply style in days with register in the calendar
 export default function CollaboratorActivities() {
   const [daySelected, setDaySelected] = useState<Date>(new Date())
   const [monthSelected, setMonthSelected] = useState<Date>(startOfCurrentMonth)
@@ -63,36 +64,38 @@ export default function CollaboratorActivities() {
           className={clsx(
             'row-span-full',
             'flex flex-col',
-            'justify-start gap-2'
+            'justify-start gap-4'
           )}
         >
           <Title title="Actividades" />
-          {totalTime > 0 && (
-            <span
-              className={clsx(
-                'w-full rounded-md bg-moore px-4 py-1 font-bold',
-                'flex gap-2',
-                {
-                  'bg-alert-success': totalTime > 8,
-                  'bg-alert-warning': totalTime < 8,
-                }
-              )}
-            >
-              <ClockIcon className="w-5" />
-              Total: {totalTime}
-            </span>
-          )}
 
           <div className="flex-grow overflow-y-auto pb-4">
             {_.isEmpty(activitiesFiltered) && (
               <NoResultsCard className="h-60" />
             )}
             {!_.isEmpty(activitiesFiltered) && (
-              <Cards data={activitiesFiltered} headers={activitiesHeaders} />
+              <div className="flex flex-col gap-4 md:flex-col-reverse">
+                <span
+                  className={clsx(
+                    'w-full py-1',
+                    'flex items-center',
+                    'font-bold',
+                    'flex gap-2',
+                    {
+                      'text-alert-success': totalTime >= 8,
+                      'text-alert-warning ': totalTime < 8,
+                    }
+                  )}
+                >
+                  <ClockIcon className="w-5" />
+                  Total: {totalTime} horas
+                </span>
+                <Cards data={activitiesFiltered} headers={activitiesHeaders} />
+              </div>
             )}
           </div>
         </section>
-        <section className="flex w-full flex-col items-start gap-4">
+        <section className="flex w-full flex-col items-start gap-4 md:pt-12">
           <Calendar
             onChange={setDaySelected}
             onActiveStartDateChange={calendarNavigationHandler}
