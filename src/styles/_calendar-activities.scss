@@ -1,0 +1,15 @@
+.calendar-activities {
+  .react-calendar__tile--active {
+    background-color: $moore-color;
+    font-weight: bold;
+    &:active,
+    &:focus {
+      background: $moore-color;
+    }
+  }
+
+  .react-calendar__tile--now {
+    background-color: gold;
+    color: black;
+  }
+}

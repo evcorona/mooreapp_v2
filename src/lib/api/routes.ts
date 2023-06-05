@@ -9,6 +9,7 @@ export const routes = {
   projects: `${VITE_API_URL}/projects/`,
   activities: `${VITE_API_URL}/activities/`,
   userActivities: `${VITE_API_URL}/activities/user/`,
+  insights: `${VITE_API_URL}/insights/`,
 }
 
 export const headers = { headers: { Authorization: token } }

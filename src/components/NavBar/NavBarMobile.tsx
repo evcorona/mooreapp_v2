@@ -11,24 +11,24 @@ export default function NavBarMobile(props: NavBarProps) {
   }
 
   return (
-    <nav className="md:hidden navbar-end">
-      <div className="dropdown dropdown-end">
-        <label tabIndex={0} className="btn btn-ghost btn-circle">
+    <nav className="navbar-end md:hidden">
+      <div className="dropdown-end dropdown">
+        <label tabIndex={0} className="btn-ghost btn-circle btn">
           <Bars3Icon className="w-icon" />
         </label>
         <div
           className={clsx(
             'menu space-y-2',
             'dropdown-content text-center',
-            'w-52 mt-4 first-line:mt-3 p-4',
-            'bg-white shadow-lg rounded'
+            'mt-4 w-52 p-4 first-line:mt-3',
+            'rounded border bg-white shadow-md'
           )}
         >
           {props.items.map((item, i) => (
             <Link
               key={`navbarItem-${i}`}
               to={item.to}
-              className="p-2 hover:text-moore hover:bg-gray-light"
+              className="p-2 hover:bg-gray-light hover:text-moore"
             >
               {item.title}
             </Link>
@@ -37,8 +37,8 @@ export default function NavBarMobile(props: NavBarProps) {
           <button
             className={clsx(
               'flex gap-2 p-2',
-              'justify-center items-center',
-              'hover:text-moore hover:bg-gray-light'
+              'items-center justify-center',
+              'hover:bg-gray-light hover:text-moore'
             )}
             onClick={signOut}
           >

@@ -42,7 +42,7 @@ export default function CollaboratorForm(props: Props) {
       className={clsx(
         'rounded px-4 py-8 md:p-8',
         'flex flex-col gap-2',
-        'bg-white shadow-md'
+        'border bg-white shadow-md'
       )}
       onSubmit={handleSubmit(props.onSubmit)}
     >

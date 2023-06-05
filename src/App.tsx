@@ -9,7 +9,9 @@ import { useEffect, useState } from 'react'
 import AdminDashboard from './pages/Administrator/Dashboard'
 import AdminPageTemplate from './components/Template/AdminPageTemplate/AdminPageTemplate'
 import Administrator from './pages/Administrator/Dashboard'
-import Collaborator from './pages/Collaborator/Dashboard'
+import CollaboratorActivities from './pages/Collaborator/CollaboratorActivities'
+import CollaboratorDashboard from './pages/Collaborator/CollaboratorDashboard'
+import CreateActivities from './pages/Collaborator/CreateActivities'
 import CreateClient from './pages/Administrator/Create/CreateClient'
 import CreateCollaborator from './pages/Administrator/Create/CreateCollaborator'
 import CreateProject from './pages/Administrator/Create/CreateProject'
@@ -19,7 +21,9 @@ import EditCollaborator from './pages/Administrator/Edit/EditCollaborator'
 import EditProject from './pages/Administrator/Edit/EditProject'
 import Login from './pages/Login'
 import NavBar from './components/NavBar/NavBar'
+import PageNotFound from './pages/PageNotFound'
 import getApiQuery from './utils/getApiQuery'
+import getHeaders from './utils/getHeaders'
 
 export default function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false)
@@ -46,7 +50,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <div className="fixed -z-50 h-screen w-screen bg-main" />
+      <div className="fixed -z-50 h-screen w-screen bg-background" />
       <NavBar
         items={navigationItems}
         // name={usr}
@@ -62,7 +66,7 @@ export default function App() {
               <AdminPageTemplate
                 title="clientes"
                 apiQuery={getApiQuery('getAll', 'clients')}
-                dbSchema={DB_SCHEMA.admin.clients}
+                headers={getHeaders('clients')}
                 searchPlaceholder="por cliente"
                 details
               />
@@ -75,7 +79,7 @@ export default function App() {
                 title={'Detalles del cliente'}
                 apiQuery={getApiQuery('getById', 'clients')}
                 deleteApi={getApiQuery('deleteById', 'clients')}
-                dbSchema={DB_SCHEMA.admin.clients}
+                headers={getHeaders('clients')}
                 collection="client"
               />
             }
@@ -89,7 +93,7 @@ export default function App() {
               <AdminPageTemplate
                 title="proyectos"
                 apiQuery={getApiQuery('getAll', 'projects')}
-                dbSchema={DB_SCHEMA.admin.projects}
+                headers={getHeaders('projects')}
                 searchPlaceholder="por código de proyecto"
                 details
               />
@@ -102,7 +106,7 @@ export default function App() {
                 title={'Detalles del proyecto'}
                 apiQuery={getApiQuery('getById', 'projects')}
                 deleteApi={getApiQuery('deleteById', 'projects')}
-                dbSchema={DB_SCHEMA.admin.projects}
+                headers={getHeaders('projects')}
                 collection="project"
               />
             }
@@ -116,7 +120,7 @@ export default function App() {
               <AdminPageTemplate
                 title="colaboradores"
                 apiQuery={getApiQuery('getAll', 'collaborators')}
-                dbSchema={DB_SCHEMA.admin.collaborators}
+                headers={getHeaders('collaborators')}
                 searchPlaceholder="por nombre de colaborador"
                 details
               />
@@ -129,7 +133,7 @@ export default function App() {
                 title={'Detalles del colaborador'}
                 apiQuery={getApiQuery('getById', 'collaborators')}
                 deleteApi={getApiQuery('deleteById', 'collaborators')}
-                dbSchema={DB_SCHEMA.admin.collaborators}
+                headers={getHeaders('projects')}
                 collection="collaborator"
               />
             }
@@ -149,24 +153,22 @@ export default function App() {
               <AdminPageTemplate
                 title="actividades"
                 apiQuery={getApiQuery('getAll', 'activities')}
-                dbSchema={DB_SCHEMA.admin.activities}
+                headers={getHeaders('activities')}
                 searchPlaceholder="por colaborador"
               />
             }
           />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       ) : (
         <Routes>
-          <Route path="/" element={<Collaborator />} />
-          <Route path="/collaborator" element={<Collaborator />} />
-          <Route path="/activities" element={<Collaborator />} />
-          <Route path="/activities/:id" element={<Collaborator />} />
-          <Route path="/activities/create" element={<Collaborator />} />
+          <Route path="/" element={<CollaboratorDashboard />} />
+          <Route path="/collaborator" element={<CollaboratorDashboard />} />
+          <Route path="/activities" element={<CollaboratorActivities />} />
+          <Route path="/activities/create" element={<CreateActivities />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       )}
-      <footer className="mt-6 p-4 text-center text-xs">
-        MooreApp made with 💙 by CrownSolutions. v2.0 (2023)
-      </footer>
     </div>
   )
 }
