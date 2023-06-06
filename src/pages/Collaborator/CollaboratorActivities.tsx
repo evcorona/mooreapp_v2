@@ -5,6 +5,7 @@ import Button from '~/components/Button'
 import Calendar from 'react-calendar'
 import Cards from '~/components/Template/AdminPageTemplate/Cards'
 import { ClockIcon } from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom'
 import NoResultsCard from '~/components/Template/AdminPageTemplate/NoResultsCard'
 import { OnArgs } from 'react-calendar/dist/cjs/shared/types'
 import Title from '~/components/Title'
@@ -28,10 +29,15 @@ export default function CollaboratorActivities() {
   const [activitiesFiltered, setActivitiesFiltered] = useState<
     ActivitiesData[]
   >([])
-
   const { data: allActivities = [], isLoading } = useQuery(
     ['selfActivities', monthSelected],
     () => getAll(monthSelected)
+  )
+
+  const [daySelectedString] = daySelected.toISOString().split('T')
+  const totalTimePerDay = activitiesFiltered.reduce(
+    (sum, activity) => sum + activity.timeAmmount,
+    0
   )
 
   function calendarNavigationHandler({ activeStartDate, view }: OnArgs) {
@@ -44,18 +50,12 @@ export default function CollaboratorActivities() {
 
   function filterBySelectedDay() {
     const activities = allActivities.filter(activity => {
-      const [daySelectedString] = daySelected.toISOString().split('T')
       return activity.activityDate.toString() === daySelectedString
     })
     setActivitiesFiltered(activities)
   }
 
   useEffect(() => filterBySelectedDay(), [daySelected])
-
-  const totalTime = activitiesFiltered.reduce(
-    (sum, activity) => sum + activity.timeAmmount,
-    0
-  )
 
   return (
     <div className="container mx-auto h-screen space-y-4 p-4 pt-20">
@@ -82,13 +82,13 @@ export default function CollaboratorActivities() {
                     'font-bold',
                     'flex gap-2',
                     {
-                      'text-alert-success': totalTime >= 8,
-                      'text-alert-warning ': totalTime < 8,
+                      'text-alert-success': totalTimePerDay >= 8,
+                      'text-alert-warning ': totalTimePerDay < 8,
                     }
                   )}
                 >
                   <ClockIcon className="w-5" />
-                  Total: {totalTime} horas
+                  Total: {totalTimePerDay} horas
                 </span>
                 <Cards data={activitiesFiltered} headers={activitiesHeaders} />
               </div>
@@ -113,7 +113,11 @@ export default function CollaboratorActivities() {
             )}
           />
           <Button primary className="w-full">
-            Agrega actividades
+            <Link
+              to={`/activities/create?daySelected=${daySelectedString}&totalTime=${totalTimePerDay}`}
+            >
+              Agrega actividades
+            </Link>
           </Button>
         </section>
       </main>

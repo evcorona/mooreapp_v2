@@ -1,6 +1,6 @@
+import { ActivitiesData, ProjectsData } from '~/types/objects'
 import { headers, routes } from './routes'
 
-import { ActivitiesData } from '~/types/objects'
 import { AxiosError } from 'axios'
 import _ from 'lodash'
 import api from './index'
@@ -64,6 +64,13 @@ export async function getById(
   return formattedData
 }
 
+export async function createActivity(data: ProjectsData): Promise<void> {
+  await api
+    .post(routes.activities, data, headers)
+    .catch(error => console.error(error))
+
+  return
+}
 export function errorHandler(error: AxiosError): void {
   if (!error.response) {
     toast.error(errors.api.network.message)

@@ -46,6 +46,18 @@ export async function getById(id: string): Promise<ProjectsData> {
   return formattedData
 }
 
+export async function getProjectsByClientId(
+  id: string
+): Promise<ProjectsData[]> {
+  const response = await api
+    .get(routes.projects + `client/${id}`, headers)
+    .catch(error => console.error(error))
+
+  const data = _.get(response, 'data.data.projects', [])
+
+  return data
+}
+
 export async function createProject(data: ProjectsData): Promise<ProjectsData> {
   const response = await api.post(routes.projects, data, headers)
 

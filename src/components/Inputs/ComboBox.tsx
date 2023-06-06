@@ -10,10 +10,10 @@ interface ComboBoxProps {
   label: string
   placeholder: string
   options: { value: string; _id: string }[]
-  defaultValue: { value: string; _id: string } | null
   error?: any
-  required?: boolean
   control?: any
+  required?: boolean
+  defaultValue?: { value: string; _id: string } | null
 }
 
 export default function ComboBox(props: ComboBoxProps) {
@@ -28,7 +28,7 @@ export default function ComboBox(props: ComboBoxProps) {
           return optionFormatted.includes(query.toUpperCase())
         })
 
-  const emptyValue = { _id: '', value: 'Sin definir' }
+  const emptyValue = { _id: '', value: props.required ? '' : 'Sin definir' }
 
   useEffect(
     () => setSelectedOption(props.defaultValue ?? emptyValue),
@@ -57,9 +57,8 @@ export default function ComboBox(props: ComboBoxProps) {
           <div className="relative">
             <Combobox.Input
               className={clsx(
-                'input',
                 'w-full bg-white/75',
-                'mt-2 px-4 py-2 pr-8',
+                'mt-2 px-4 py-3',
                 'text-gray',
                 'caret-moore outline-none',
                 'rounded border border-gray-lighter',
