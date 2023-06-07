@@ -24,6 +24,7 @@ export type ProjectsData = {
   codeProject: string
   clientName?: string
   managerName?: string
+  durationType?: string[]
   projectType: string
   clientID: {
     _id: string
@@ -51,10 +52,10 @@ export type CollaboratorsData = {
 }
 
 export type ActivitiesData = {
-  _id: string
+  _id?: string
   activityType: string
   timeAmmount: number
-  activityDate: Date
+  activityDate: Date | string
   fee?: number
   client?: string
   concept?: string

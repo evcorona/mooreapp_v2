@@ -47,10 +47,11 @@ export async function getById(id: string): Promise<ProjectsData> {
 }
 
 export async function getProjectsByClientId(
-  id: string
+  id: string,
+  type: string
 ): Promise<ProjectsData[]> {
   const response = await api
-    .get(routes.projects + `client/${id}`, headers)
+    .get(routes.projects + `client/${id}/${type}`, headers)
     .catch(error => console.error(error))
 
   const data = _.get(response, 'data.data.projects', [])

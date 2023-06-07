@@ -91,6 +91,7 @@ export default function Dashboard() {
           resetPicker={resetPicker}
           isClearable={startDate !== startOfWeekAgo}
           isLoading={isRefetching}
+          className="md:w-72"
         />
       </div>
 

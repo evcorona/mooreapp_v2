@@ -43,8 +43,6 @@ export async function getAll(startDate: Date): Promise<ActivitiesData[]> {
   const data = _.get(response, 'data.data.activities', [])
   const formattedData = formatData(data)
 
-  console.log('Here', routePlusQuery)
-
   return formattedData
 }
 
@@ -64,7 +62,7 @@ export async function getById(
   return formattedData
 }
 
-export async function createActivity(data: ProjectsData): Promise<void> {
+export async function createActivity(data: ActivitiesData): Promise<void> {
   await api
     .post(routes.activities, data, headers)
     .catch(error => console.error(error))

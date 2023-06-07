@@ -1,12 +1,8 @@
-import { ActivitiesData, ClientsData, ProjectsData } from '~/types/objects'
+import { ActivitiesData, ProjectsData } from '~/types/objects'
 import {
   createActivity,
   errorHandler as errorActivityHandler,
 } from '~/lib/api/activities'
-import {
-  errorHandler as errorClientHandler,
-  getAll as getAllClients,
-} from '~/lib/api/clients'
 import {
   errorHandler as errorProjectHandler,
   getProjectsByClientId,
@@ -17,7 +13,10 @@ import { useMutation, useQuery } from 'react-query'
 import { AxiosError } from 'axios'
 import Button from '../Button'
 import ComboBox from '~/components/Inputs/ComboBox'
+import DateRangePicker from '~/components/DateRangePicker'
 import Input from '~/components/Inputs/Input'
+import { Tab } from '@headlessui/react'
+import Toggle from '~/components/Toggle'
 import clsx from 'clsx'
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
@@ -27,21 +26,16 @@ interface Props {
   setOpen: (open: boolean) => void
 }
 
-export default function ProfessionalActivityForm(props: Props) {
-  const [clientSelected, setClientSelected] = useState<string>('')
-  const { data: allClients = [] } = useQuery<ClientsData[]>(
-    'clients',
-    getAllClients,
-    { onError: error => errorClientHandler(error as AxiosError) }
-  )
-  const clientOptions = allClients.map(client => {
-    return { _id: client._id, value: client.clientName }
-  })
+export default function PersonalActivityForm(props: Props) {
+  const [inputType, setInputType] = useState<string[]>([])
+  const [startDate, setStartDate] = useState(null)
+  const [endDate, setEndDate] = useState(null)
+  const [toggleValue, setToggleValue] = useState(false)
+  const [disableToggle, setDisableToggle] = useState(false)
 
   const { data: clientProjects = [] } = useQuery<ProjectsData[]>({
-    queryKey: ['projects', clientSelected],
-    queryFn: () => getProjectsByClientId(clientSelected, 'professional'),
-    enabled: !!clientSelected,
+    queryKey: ['projects'],
+    queryFn: () => getProjectsByClientId('11111', 'personal'),
     onError: error => errorProjectHandler(error as AxiosError),
   })
 
@@ -49,6 +43,7 @@ export default function ProfessionalActivityForm(props: Props) {
     return {
       _id: project._id,
       value: project.codeProject,
+      inputType: project.durationType,
     }
   })
 
@@ -69,22 +64,22 @@ export default function ProfessionalActivityForm(props: Props) {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      client: {
-        _id: '',
-        value: '',
-      },
       project: {
         _id: '',
         value: '',
+        inputType: [''],
       },
       timeAmmount: 0,
+      activityDate: '',
     },
     mode: 'onChange',
     //resolver: zodResolver(schema),
     shouldUseNativeValidation: false,
   })
 
-  const clientValue = watch('client')
+  const projectValue = watch('project')
+  const hasDateRangeInput = inputType.includes('dateRange')
+  const hasTimeInput = inputType.includes('time')
 
   function onSubmit(values: any) {
     const data: ActivitiesData = {
@@ -98,40 +93,69 @@ export default function ProfessionalActivityForm(props: Props) {
     mutateAsync(data)
   }
 
-  useEffect(() => setClientSelected(clientValue._id), [clientValue])
+  function resetPicker() {
+    setStartDate(null)
+    setEndDate(null)
+  }
+
+  useEffect(() => setInputType(projectValue.inputType), [projectValue])
 
   return (
     <form
-      className="flex flex-col gap-2 rounded px-4 py-8 md:p-8"
+      className="flex flex-col rounded px-4 py-8 md:p-8"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <ComboBox
-        name="client"
-        label="Cliente"
-        placeholder="Seleccionar un cliente del listado..."
-        options={clientOptions}
-        control={control}
-        error={errors?.client?.message}
-        required
-      />
       <ComboBox
         name="project"
         label="Proyecto"
         placeholder="Seleccionar un proyecto del listado..."
         options={projectOptions}
+        œ
         control={control}
         error={errors?.project?.message}
         required
       />
-      <Input
-        label="Horas trabajadas"
-        type="number"
-        name="timeAmmount"
-        prefix="time"
-        required
-        register={register}
-        error={errors?.timeAmmount?.message}
-      />
+      <Tab.Group>
+        <Tab.List className="space-x-4 text-right">
+          <Tab
+            disabled={!hasDateRangeInput}
+            className="rounded-md border px-4 py-2"
+          >
+            Por días
+          </Tab>
+          <Tab disabled={!hasTimeInput} className="rounded-md border px-4 py-2">
+            Por horas
+          </Tab>
+        </Tab.List>
+
+        <Tab.Panels>
+          <Tab.Panel>
+            <DateRangePicker
+              label="Rango de fechas"
+              isTodayMaxDate
+              startDate={startDate}
+              endDate={endDate}
+              isClearable={startDate !== null}
+              setEndDate={setEndDate}
+              setStartDate={setStartDate}
+              resetPicker={resetPicker}
+              className="pt-2"
+            />
+          </Tab.Panel>
+          <Tab.Panel>
+            <Input
+              label="Horas ocupadas"
+              type="number"
+              name="timeAmmount"
+              prefix="time"
+              required
+              register={register}
+              error={errors?.timeAmmount?.message}
+            />
+          </Tab.Panel>
+        </Tab.Panels>
+      </Tab.Group>
+
       <div className="btn-group mt-4 gap-2">
         <Button outline className="w-1/2" onClick={() => reset()}>
           Limpiar

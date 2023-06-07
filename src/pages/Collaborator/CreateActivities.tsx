@@ -1,24 +1,21 @@
 import { BriefcaseIcon, ClockIcon, UserIcon } from '@heroicons/react/24/outline'
 
+import PersonalActivityForm from '~/components/Forms/PersonalActivityForm'
 import ProfessionalActivityForm from '~/components/Forms/ProfessionalActivityForm'
 import { Tab } from '@headlessui/react'
-import Title from '~/components/Title'
-import { useParams } from 'react-router-dom'
 
-export default function CreateActivities() {
-  const params = useParams()
+interface Props {
+  date: string
+  time: number
+  setOpen: (open: boolean) => void
+}
 
-  console.log(params)
-
+export default function CreateActivities(props: Props) {
   return (
-    <div className="container mx-auto h-screen space-y-4 p-4 pt-20">
-      <div className="flex justify-between">
-        <Title title="Agregar actividad" />
-        <p className="text-2xl font-bold">2023/05/05</p>
-      </div>
-      <div className="flex items-center gap-4 text-alert-success">
+    <div className="container mx-auto h-screen space-y-4 p-4">
+      <div className="flex items-center gap-2 text-alert-success">
         <ClockIcon className="w-5" />
-        <span className="font-bold">Total registrado:</span> 0 horas
+        <span className="font-bold">Total registrado:</span> {props.time} horas
       </div>
       <div>
         <Tab.Group>
@@ -34,9 +31,14 @@ export default function CreateActivities() {
           </Tab.List>
           <Tab.Panels className="mt-4 rounded-md border bg-white shadow-md">
             <Tab.Panel>
-              <ProfessionalActivityForm />
+              <ProfessionalActivityForm
+                date={props.date}
+                setOpen={props.setOpen}
+              />
             </Tab.Panel>
-            <Tab.Panel>Content 2</Tab.Panel>
+            <Tab.Panel>
+              <PersonalActivityForm date={props.date} setOpen={props.setOpen} />
+            </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
       </div>

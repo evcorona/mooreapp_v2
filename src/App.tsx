@@ -165,7 +165,10 @@ export default function App() {
           <Route path="/" element={<CollaboratorDashboard />} />
           <Route path="/collaborator" element={<CollaboratorDashboard />} />
           <Route path="/activities" element={<CollaboratorActivities />} />
-          <Route path="/activities/create" element={<CreateActivities />} />
+          <Route
+            path="/activities/create/:date/:time"
+            element={<CreateActivities />}
+          />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       )}

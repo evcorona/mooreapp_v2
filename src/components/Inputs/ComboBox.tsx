@@ -58,7 +58,7 @@ export default function ComboBox(props: ComboBoxProps) {
             <Combobox.Input
               className={clsx(
                 'w-full bg-white/75',
-                'mt-2 px-4 py-3',
+                'mt-2 px-4 py-3 pr-8',
                 'text-gray',
                 'caret-moore outline-none',
                 'rounded border border-gray-lighter',
