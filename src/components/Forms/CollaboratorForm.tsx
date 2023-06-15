@@ -1,4 +1,4 @@
-import Button from '~/components/Button'
+import Button from '~/components/Buttons/Button'
 import { CollaboratorsData } from '~/types/objects'
 import Input from '~/components/Inputs/Input'
 import ListBox from '~/components/Inputs/ListBox'

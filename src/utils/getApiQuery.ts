@@ -1,3 +1,4 @@
+import { deleteById as deleteActivity } from '~/lib/api/activities'
 import { deleteById as deleteClient } from '~/lib/api/clients'
 import { deleteById as deleteCollaborator } from '~/lib/api/collaborators'
 import { deleteById as deleteProject } from '~/lib/api/projects'
@@ -39,6 +40,9 @@ export default function getApiQuery(
           : queryType === 'getById'
           ? getCollaboratorById
           : deleteCollaborator
+      break
+    case 'activities':
+      apiQuery = queryType === 'deleteById' ? deleteActivity : getAllActivities
       break
     default:
       apiQuery = getAllActivities

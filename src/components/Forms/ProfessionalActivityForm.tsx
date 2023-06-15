@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 
 import { AxiosError } from 'axios'
-import Button from '../Button'
+import Button from '../Buttons/Button'
 import ComboBox from '~/components/Inputs/ComboBox'
 import Input from '~/components/Inputs/Input'
 import clsx from 'clsx'
@@ -87,7 +87,7 @@ export default function ProfessionalActivityForm(props: Props) {
   const clientValue = watch('client')
 
   function onSubmit(values: any) {
-    const data: ActivitiesData = {
+    const data: any = {
       clientID: values.client._id,
       projectID: values.project._id,
       timeAmmount: values.timeAmmount,
@@ -102,7 +102,7 @@ export default function ProfessionalActivityForm(props: Props) {
 
   return (
     <form
-      className="flex flex-col gap-2 rounded px-4 py-8 md:p-8"
+      className="flex animate-appear flex-col gap-2"
       onSubmit={handleSubmit(onSubmit)}
     >
       <ComboBox
@@ -132,17 +132,18 @@ export default function ProfessionalActivityForm(props: Props) {
         register={register}
         error={errors?.timeAmmount?.message}
       />
-      <div className="btn-group mt-4 gap-2">
-        <Button outline className="w-1/2" onClick={() => reset()}>
+      <div className="join join-horizontal">
+        <Button outline className="join-item w-1/2" onClick={() => reset()}>
           Limpiar
         </Button>
         <Button
           isDisabled={!isValid}
           isSubmit
           primary
-          className={clsx('w-1/2', {
+          className={clsx('join-item w-1/2', {
             'border-brand-gray border-2': !isValid,
-            'bg-brand/50 hover:bg-brand/60 border-0': isValid,
+            'bg-brand/50 hover:bg-brand/60 border-2 border-transparent':
+              isValid,
           })}
         >
           {isSubmitting ? 'Guardando...' : 'Guardar'}

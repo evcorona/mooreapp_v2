@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import Button from '~/components/Button'
+import Button from '~/components/Buttons/Button'
 import { CSVLink } from 'react-csv'
 import { CollectionsDataType } from '~/types/objects'
 import DateMonthPicker from './DateMonthPicker'

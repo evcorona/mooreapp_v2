@@ -3,7 +3,7 @@ import * as z from 'zod'
 import { errorHandler, login } from '../lib/api/login'
 
 import { AxiosError } from 'axios'
-import Button from '../components/Button'
+import Button from '../components/Buttons/Button'
 import Input from '../components/Inputs/Input'
 import { LoginData } from '../types/objects'
 import clsx from 'clsx'

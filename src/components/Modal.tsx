@@ -1,10 +1,11 @@
 import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
+  TrashIcon,
 } from '@heroicons/react/24/outline'
 import { Dialog, Transition } from '@headlessui/react'
 
-import Button from './Button'
+import Button from './Buttons/Button'
 import { Fragment } from 'react'
 import clsx from 'clsx'
 import { useNavigate } from 'react-router-dom'
@@ -45,7 +46,7 @@ export default function Modal(props: ModalProps) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black/30" />
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-[1px] transition-opacity" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -89,19 +90,20 @@ export default function Modal(props: ModalProps) {
                 <Dialog.Description className="text-lg">
                   {props.children}
                 </Dialog.Description>
-                <div className="btn-group w-full gap-2">
+                <div className="join w-full gap-2">
                   {!props.deleteMode && (
-                    <Button className="w-1/2" outline onClick={returnHandler}>
+                    <Button className="w-1/2" onClick={returnHandler}>
                       Regresar
                     </Button>
                   )}
                   {props.deleteMode && (
                     <Button
-                      className="w-1/2"
-                      outline
                       onClick={props.onClick}
                       isLoading={props.isLoading}
+                      outline="error"
+                      className="w-1/2"
                     >
+                      <TrashIcon className="w-5" />
                       {!props.isLoading ? 'Eliminar' : 'Eliminando...'}
                     </Button>
                   )}

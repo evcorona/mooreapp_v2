@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { Link, useLocation } from 'react-router-dom'
 
-import Button from './Button'
+import Button from './Buttons/Button'
 import { CollectionsDataType } from '~/types/objects'
 import { Fragment } from 'react'
 import clsx from 'clsx'
@@ -28,7 +28,7 @@ export default function DetailsHeaderCard(props: Props) {
         <div className="inline-flex w-full items-center justify-end gap-4">
           <div className="tooltip tooltip-bottom" data-tip="Eliminar">
             <Button
-              outline
+              outline="error"
               className="px-4 text-gray"
               onClick={() => props.setIsModalOpen(true)}
             >
@@ -40,7 +40,7 @@ export default function DetailsHeaderCard(props: Props) {
             className="tooltip tooltip-bottom"
             data-tip="Editar"
           >
-            <Button outline className="px-4 text-gray">
+            <Button outline="info" className="px-4 text-gray">
               <PencilIcon className="w-icon-sm" />
             </Button>
           </Link>

@@ -24,6 +24,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         pauseOnHover={false}
         limit={3}
         theme="colored"
+        className="md:w-fit"
       />
       <App />
     </BrowserRouter>

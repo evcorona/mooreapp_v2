@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 
-import Button from '~/components/Button'
+import Button from '~/components/Buttons/Button'
 import { CollectionsDataType } from '~/types/objects'
 import _ from 'lodash'
 import clsx from 'clsx'

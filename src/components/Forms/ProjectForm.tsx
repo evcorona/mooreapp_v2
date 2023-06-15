@@ -1,4 +1,4 @@
-import Button from '~/components/Button'
+import Button from '~/components/Buttons/Button'
 import ComboBox from '../Inputs/ComboBox'
 import Input from '~/components/Inputs/Input'
 import { PROJECTS_FORM_DEFAULT_VALUES } from '~/constants/defaultValues'

@@ -9,7 +9,7 @@ interface ComboBoxProps {
   name: string
   label: string
   placeholder: string
-  options: { value: string; _id: string }[]
+  options: { value: string; _id: string; inputType?: string[] }[]
   error?: any
   control?: any
   required?: boolean
@@ -24,8 +24,7 @@ export default function ComboBox(props: ComboBoxProps) {
     query === ''
       ? props.options
       : props.options.filter(option => {
-          const optionFormatted = option.value.toUpperCase()
-          return optionFormatted.includes(query.toUpperCase())
+          return option.value.includes(query.toUpperCase())
         })
 
   const emptyValue = { _id: '', value: props.required ? '' : 'Sin definir' }

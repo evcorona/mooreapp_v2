@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom'
 
-import Button from '~/components/Button'
+import Button from '~/components/Buttons/Button'
 import { CollectionsDataType } from '~/types/objects'
+import DeleteButton from '~/components/Buttons/DeleteButton'
 import clsx from 'clsx'
 
 interface CardsProps {
@@ -9,6 +10,10 @@ interface CardsProps {
   headers: any
   details?: boolean
   className?: string
+  deleteButton?: boolean
+  refetch?: () => void
+  setIdSelected?: (id: any) => void
+  collection?: 'clients' | 'projects' | 'collaborators'
 }
 export default function Cards(props: CardsProps) {
   const [firstHeader, ...headers] = props.headers
@@ -27,9 +32,19 @@ export default function Cards(props: CardsProps) {
             className="border-xl card card-compact w-full cursor-default bg-white shadow-md hover:bg-gray-light hover:text-moore"
           >
             <div className="card-body flex">
-              <h2 className="card-title border-b-2 px-2 text-sm">
-                {titleCard}
-              </h2>
+              <div className="card-title flex justify-between">
+                <h2 className="text-sm">{titleCard}</h2>
+                {!props.deleteButton && (
+                  <div className="card-actions justify-end">
+                    <DeleteButton
+                      collection={props.collection ?? 'activities'}
+                      data={data}
+                      refetch={props.refetch ?? function () {}}
+                    />
+                  </div>
+                )}
+              </div>
+
               {headers.map((header: any, k: number) => {
                 let value = data[header.accessor as keyof CollectionsDataType]
 
@@ -54,7 +69,9 @@ export default function Cards(props: CardsProps) {
               {props.details && (
                 <div className="card-actions justify-end">
                   <Link to={`${location.pathname}/${data._id}`}>
-                    <Button className="btn-sm bg-gray-lighter">Detalles</Button>
+                    <Button small className="bg-gray-lighter">
+                      Detalles
+                    </Button>
                   </Link>
                 </div>
               )}

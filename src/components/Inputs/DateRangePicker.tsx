@@ -23,7 +23,8 @@ interface Props {
 export default function DateRangePicker(props: Props) {
   const CustomPickerInput = forwardRef((pickerProps: any, ref: any) => (
     <button
-      className={clsx('relative flex w-full items-center gap-2', 'px-2 py-2', {
+      type="button"
+      className={clsx('relative flex w-full items-center gap-2 p-2', {
         'cursor-wait text-gray-lighter': props.isLoading,
       })}
       disabled={props.isLoading}
@@ -69,12 +70,13 @@ export default function DateRangePicker(props: Props) {
           disabled={props.isLoading}
         />
         {isClearable && (
-          <div
+          <button
+            type="reset"
             className="absolute right-1 cursor-pointer p-2 text-moore hover:text-moore-light active:text-black"
             onClick={props.resetPicker}
           >
             <XCircleIcon className="w-6" />
-          </div>
+          </button>
         )}
         {props.isLoading && (
           <span className="loading loading-spinner loading-sm absolute right-3 text-moore" />

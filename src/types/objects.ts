@@ -52,7 +52,7 @@ export type CollaboratorsData = {
 }
 
 export type ActivitiesData = {
-  _id?: string
+  _id: string
   activityType: string
   timeAmmount: number
   activityDate: Date | string

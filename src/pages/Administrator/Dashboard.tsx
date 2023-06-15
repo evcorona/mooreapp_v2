@@ -14,7 +14,7 @@ import {
 import { getGeneralInsights, getTopFiveInsights } from '~/lib/api/insights'
 
 import { Chart } from '~/components/Chart'
-import DateRangePicker from '~/components/DateRangePicker'
+import DateRangePicker from '~/components/Inputs/DateRangePicker'
 import LoadingCard from '~/components/LoadingCard'
 import Title from '~/components/Title'
 import _ from 'lodash'

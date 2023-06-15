@@ -1,4 +1,4 @@
-import Button from '~/components/Button'
+import Button from '~/components/Buttons/Button'
 import { CSVLink } from 'react-csv'
 import { CollectionsDataType } from '~/types/objects'
 import SearchInput from '~/components/Inputs/SearchInput'

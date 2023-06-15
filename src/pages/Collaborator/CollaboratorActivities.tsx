@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { ActivitiesData } from '~/types/objects'
-import Button from '~/components/Button'
+import Button from '~/components/Buttons/Button'
 import Calendar from 'react-calendar'
 import Cards from '~/components/Template/AdminPageTemplate/Cards'
 import { ClockIcon } from '@heroicons/react/24/outline'
@@ -25,16 +25,20 @@ const startOfCurrentMonth = startOfMonth(new Date())
 
 //TODO: apply style in days with register in the calendar
 export default function CollaboratorActivities() {
-  const [open, setOpen] = useState(false)
+  const [openSlideOver, setOpenSlideOver] = useState(false)
   const [daySelected, setDaySelected] = useState<Date>(new Date())
   const [monthSelected, setMonthSelected] = useState<Date>(startOfCurrentMonth)
   const [activitiesFiltered, setActivitiesFiltered] = useState<
     ActivitiesData[]
   >([])
-  const { data: allActivities = [], isLoading } = useQuery(
-    ['selfActivities', monthSelected],
-    () => getAll(monthSelected)
-  )
+
+  const { data: allActivities = [], refetch } = useQuery<ActivitiesData[]>({
+    queryKey: ['selfActivities', monthSelected],
+    queryFn: () => getAll(monthSelected),
+    onSuccess(data) {
+      filterBySelectedDay(data)
+    },
+  })
 
   const [daySelectedString] = daySelected.toISOString().split('T')
   const totalTimePerDay = activitiesFiltered.reduce(
@@ -50,22 +54,33 @@ export default function CollaboratorActivities() {
     }
   }
 
-  function filterBySelectedDay() {
-    const activities = allActivities.filter(activity => {
+  function filterBySelectedDay(data: ActivitiesData[] = []) {
+    const activitiesToFilter = data.length > 0 ? data : allActivities
+
+    const activities = activitiesToFilter.filter(activity => {
       return activity.activityDate.toString() === daySelectedString
     })
     setActivitiesFiltered(activities)
+  }
+
+  function openHandler(value: boolean) {
+    refetch()
+    setOpenSlideOver(value)
   }
 
   useEffect(() => filterBySelectedDay(), [daySelected])
 
   return (
     <>
-      <SlideOver open={open} setOpen={setOpen} title="Crear actividad">
+      <SlideOver
+        open={openSlideOver}
+        setOpen={setOpenSlideOver}
+        title="Crear actividad"
+      >
         <CreateActivities
           date={daySelectedString}
           time={totalTimePerDay}
-          setOpen={setOpen}
+          setOpen={openHandler}
         />
       </SlideOver>
       <div className="container mx-auto h-screen space-y-4 p-4 pt-20">
@@ -102,6 +117,7 @@ export default function CollaboratorActivities() {
                   <Cards
                     data={activitiesFiltered}
                     headers={activitiesHeaders}
+                    refetch={refetch}
                   />
                 </div>
               )}
@@ -124,7 +140,11 @@ export default function CollaboratorActivities() {
                 'calendar-activities'
               )}
             />
-            <Button primary className="w-full" onClick={() => setOpen(true)}>
+            <Button
+              primary
+              className="w-full"
+              onClick={() => setOpenSlideOver(true)}
+            >
               Agregar actividad
             </Button>
           </section>

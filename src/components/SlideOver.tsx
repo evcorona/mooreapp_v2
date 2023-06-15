@@ -1,9 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
 
-import CollaboratorActivities from '~/pages/Collaborator/CollaboratorActivities'
-import CreateActivities from '~/pages/Collaborator/CreateActivities'
-import ProfessionalActivityForm from './Forms/ProfessionalActivityForm'
+import { Fragment } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
 interface Props {
@@ -27,7 +24,7 @@ export default function SlideOver(props: Props) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-[1px] transition-opacity" />
         </Transition.Child>
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
@@ -41,7 +38,7 @@ export default function SlideOver(props: Props) {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto w-screen max-w-2xl">
+                <Dialog.Panel className="pointer-events-auto w-screen max-w-2xl pl-14">
                   <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
                       <div className="flex items-start justify-between">
@@ -51,7 +48,7 @@ export default function SlideOver(props: Props) {
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
-                            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-moore focus:ring-offset-2"
                             onClick={() => setOpen(false)}
                           >
                             <span className="sr-only">Close panel</span>
@@ -60,7 +57,7 @@ export default function SlideOver(props: Props) {
                         </div>
                       </div>
                     </div>
-                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
+                    <div className="relative flex-1 p-4 md:p-6">
                       {props.children}
                     </div>
                   </div>
