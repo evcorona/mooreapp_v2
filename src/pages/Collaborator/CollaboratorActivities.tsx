@@ -1,11 +1,12 @@
+import { ClockIcon, PlusIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 
 import { ActivitiesData } from '~/types/objects'
 import Button from '~/components/Buttons/Button'
 import Calendar from 'react-calendar'
 import Cards from '~/components/Template/AdminPageTemplate/Cards'
-import { ClockIcon } from '@heroicons/react/24/outline'
 import CreateActivities from './CreateActivities'
+import LoadingCard from '~/components/LoadingCard'
 import NoResultsCard from '~/components/Template/AdminPageTemplate/NoResultsCard'
 import { OnArgs } from 'react-calendar/dist/cjs/shared/types'
 import SlideOver from '~/components/SlideOver'
@@ -32,7 +33,11 @@ export default function CollaboratorActivities() {
     ActivitiesData[]
   >([])
 
-  const { data: allActivities = [], refetch } = useQuery<ActivitiesData[]>({
+  const {
+    data: allActivities = [],
+    isLoading,
+    refetch,
+  } = useQuery<ActivitiesData[]>({
     queryKey: ['selfActivities', monthSelected],
     queryFn: () => getAll(monthSelected),
     onSuccess(data) {
@@ -72,6 +77,7 @@ export default function CollaboratorActivities() {
 
   return (
     <>
+      {isLoading && <LoadingCard />}
       <SlideOver
         open={openSlideOver}
         setOpen={setOpenSlideOver}
@@ -145,6 +151,7 @@ export default function CollaboratorActivities() {
               className="w-full"
               onClick={() => setOpenSlideOver(true)}
             >
+              <PlusIcon className="w-5" />
               Agregar actividad
             </Button>
           </section>

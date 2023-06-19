@@ -25,6 +25,8 @@ export default {
         main: "url('/src/images/bg-main.png')",
         noResults: "url('/src/images/no_results.svg')",
         pageNotFound: "url('/src/images/page_not_found.svg')",
+        personalData: "url('/src/images/personal-data.svg')",
+        wellDone: "url('/src/images/well-done.svg')",
       },
       colors: {
         black: '#181818',

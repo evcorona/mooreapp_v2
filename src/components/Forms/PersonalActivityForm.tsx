@@ -51,7 +51,6 @@ export default function PersonalActivityForm(props: Props) {
   const { mutateAsync, isLoading: isSubmitting } = useMutation(createActivity, {
     onSuccess: data => {
       props.setOpen(false)
-      console.log(data.length)
       toast.success('Actividad creada correctamente')
     },
     onError: error => errorActivityHandler(error as AxiosError),

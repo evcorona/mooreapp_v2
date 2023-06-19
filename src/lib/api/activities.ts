@@ -62,6 +62,13 @@ export async function getById(
   return formattedData
 }
 
+export async function getMissingActivities(): Promise<string[]> {
+  const response = await api
+    .get(routes.activities + 'collaborator/missingActivities', headers)
+    .catch(error => console.error(error))
+  return _.get(response, 'data.data.activities', [])
+}
+
 export async function createActivity(
   data: ActivitiesData
 ): Promise<ActivitiesData[]> {

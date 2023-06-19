@@ -18,10 +18,12 @@ function formatData(users: any[]) {
     return {
       ...user,
       employmentDate: user.employmentDate.split('T')[0],
-      feeFormatted: `$ ${user.fee.toLocaleString('es-MX', {
-        useGrouping: true,
-        minimumFractionDigits: 2,
-      })}`,
+      feeFormatted:
+        user.fee &&
+        `$ ${user.fee.toLocaleString('es-MX', {
+          useGrouping: true,
+          minimumFractionDigits: 2,
+        })}`,
     }
   })
 }
@@ -33,6 +35,17 @@ export async function getAll(): Promise<CollaboratorsData[]> {
 
   const data = _.get(response, 'data.data.users', [])
   const formattedData = formatData(data)
+
+  return formattedData
+}
+
+export async function getSelf(): Promise<CollaboratorsData> {
+  const response = await api
+    .get(routes.collaborators + 'self', headers)
+    .catch(error => console.error(error))
+
+  const data = _.get(response, 'data.data.user', [])
+  const [formattedData] = formatData([data])
 
   return formattedData
 }
