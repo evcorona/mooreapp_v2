@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 
 import { Fragment } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
 
 interface Props {
   open: boolean
@@ -24,7 +25,13 @@ export default function SlideOver(props: Props) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 backdrop-blur-[1px] transition-opacity" />
+          <div
+            className={clsx(
+              'fixed inset-0',
+              'bg-gray-500 bg-opacity-75',
+              'backdrop-blur-[1px] transition-opacity'
+            )}
+          />
         </Transition.Child>
         <div className="fixed inset-0 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
@@ -48,7 +55,13 @@ export default function SlideOver(props: Props) {
                         <div className="ml-3 flex h-7 items-center">
                           <button
                             type="button"
-                            className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-moore focus:ring-offset-2"
+                            className={clsx(
+                              'rounded-md',
+                              'bg-white',
+                              'text-gray-400 hover:text-gray-500',
+                              'focus:outline-none',
+                              'focus:ring-2 focus:ring-moore focus:ring-offset-2'
+                            )}
                             onClick={() => setOpen(false)}
                           >
                             <span className="sr-only">Close panel</span>

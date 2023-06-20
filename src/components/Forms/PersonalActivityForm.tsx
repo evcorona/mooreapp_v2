@@ -19,9 +19,11 @@ import { ProjectsData } from '~/types/objects'
 import { Tab } from '@headlessui/react'
 import _ from 'lodash'
 import clsx from 'clsx'
+import schema from '~/schemas/personalActivitySchema'
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import { utcToZonedTime } from 'date-fns-tz'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 interface Props {
   date: string
@@ -49,7 +51,7 @@ export default function PersonalActivityForm(props: Props) {
   })
 
   const { mutateAsync, isLoading: isSubmitting } = useMutation(createActivity, {
-    onSuccess: data => {
+    onSuccess: () => {
       props.setOpen(false)
       toast.success('Actividad creada correctamente')
     },
@@ -71,10 +73,10 @@ export default function PersonalActivityForm(props: Props) {
         value: '',
         inputType: [''],
       },
-      timeAmmount: 0,
+      timeAmmount: null,
     },
     mode: 'onChange',
-    //resolver: zodResolver(schema),
+    resolver: zodResolver(schema),
     shouldUseNativeValidation: false,
   })
 
@@ -110,7 +112,7 @@ export default function PersonalActivityForm(props: Props) {
 
   useEffect(() => {
     resetPicker()
-    setValue('timeAmmount', 0)
+    setValue('timeAmmount', null)
   }, [selectedIndex])
 
   const zonedDate = utcToZonedTime(new Date(props.date), 'Greenwich')

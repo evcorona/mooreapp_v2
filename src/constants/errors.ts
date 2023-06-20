@@ -20,6 +20,7 @@ export const errors = {
       status: 409,
       messageEmail: 'El email registrado ya existe',
       messageProject: 'El código del proyecto registrado ya existe',
+      messageActivity: 'La actividad registrada ya existe',
     },
   },
 }

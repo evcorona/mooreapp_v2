@@ -19,7 +19,7 @@ export default function DetailsHeaderCard(props: Props) {
   const location = useLocation()
 
   return (
-    <div className="cursor-default space-y-2 rounded-md border  bg-white p-4 text-xs shadow-md md:text-base">
+    <div className="cursor-default space-y-2 rounded-md border bg-white p-4 text-xs shadow-md md:text-base">
       <div className="flex items-center justify-between">
         <span className="inline-flex h-full items-center gap-3 font-bold">
           <InformationCircleIcon className="w-icon-sm text-gray" />
