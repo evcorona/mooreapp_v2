@@ -128,7 +128,7 @@ export default function App() {
                 title={'Detalles del colaborador'}
                 apiQuery={getApiQuery('getById', 'collaborators')}
                 deleteApi={getApiQuery('deleteById', 'collaborators')}
-                headers={getHeaders('projects')}
+                headers={getHeaders('collaborators')}
                 collection="collaborator"
               />
             }

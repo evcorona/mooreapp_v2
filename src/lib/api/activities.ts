@@ -51,7 +51,9 @@ export async function getById(
   name: string | null,
   collection: 'client' | 'project' | 'collaborator'
 ): Promise<ActivitiesData[]> {
-  const routePlusId = routes.activities + `${collection}/${id}/${name}`
+  const routePlusId =
+    routes.activities +
+    `${collection}/${id}/${collection === 'collaborator' ? '' : name}`
   const response = await api
     .get(routePlusId, headers)
     .catch(error => console.error(error))

@@ -29,7 +29,7 @@ export default function DetailsHeaderCard(props: Props) {
           <div className="tooltip tooltip-bottom" data-tip="Eliminar">
             <Button
               outline="error"
-              className="btn-sm btn-square md:btn-md"
+              className="btn-square btn-sm md:btn-md"
               onClick={() => props.setIsModalOpen(true)}
             >
               <TrashIcon className="w-5 md:w-icon-sm" />
@@ -40,7 +40,7 @@ export default function DetailsHeaderCard(props: Props) {
             className="tooltip tooltip-bottom"
             data-tip="Editar"
           >
-            <Button outline="info" className="btn-sm btn-square md:btn-md">
+            <Button outline="info" className="btn-square btn-sm md:btn-md">
               <PencilIcon className="w-5 md:w-icon-sm" />
             </Button>
           </Link>
