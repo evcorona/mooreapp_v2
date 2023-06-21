@@ -1,6 +1,6 @@
 import Button from '~/components/Buttons/Button'
 import { CollaboratorsData } from '~/types/objects'
-import CreateActivities from './CreateActivities'
+import CreateActivities from '~/components/Pages/Collaborator/CreateActivities'
 import LoadingCard from '~/components/LoadingCard'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import SlideOver from '~/components/SlideOver'

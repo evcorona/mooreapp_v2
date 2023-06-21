@@ -29,16 +29,16 @@ export default [
     className: 'whitespace-nowrap',
     hideInOverview: false,
   },
-  // {
-  //   header: 'Costo',
-  //   accessor: 'feeFormatted',
-  //   className: 'whitespace-nowrap text-end',
-  //   hideInOverview: false,
-  // },
   {
     header: 'Tiempo',
     accessor: 'timeAmmountFormatted',
     className: 'whitespace-nowrap',
+    hideInOverview: false,
+  },
+  {
+    header: 'Costo',
+    accessor: 'feeFormatted',
+    className: 'whitespace-nowrap text-start',
     hideInOverview: false,
   },
 ]

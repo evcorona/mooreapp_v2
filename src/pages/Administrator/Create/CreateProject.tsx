@@ -7,8 +7,8 @@ import { AxiosError } from 'axios'
 import Modal from '~/components/Modal'
 import { PROJECTS_DEFAULT_VALUES } from '~/constants/defaultValues'
 import Title from '~/components/Title'
-import { getAll as getAllClients } from '../../../lib/api/clients'
-import { getManagers } from '../../../lib/api/collaborators'
+import { getAll as getAllClients } from '~/lib/api/clients'
+import { getManagers } from '~/lib/api/collaborators'
 import { useState } from 'react'
 
 export default function CreateProject() {

@@ -1,29 +1,24 @@
-import {
-  DB_SCHEMA,
-  NAVIGATION_ITEMS,
-  ROLES,
-} from './constants/businessConstants'
+import { NAVIGATION_ITEMS, ROLES } from '~/constants/businessConstants'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import AdminDashboard from './pages/Administrator/Dashboard'
-import AdminPageTemplate from './components/Template/AdminPageTemplate/AdminPageTemplate'
-import Administrator from './pages/Administrator/Dashboard'
-import CollaboratorActivities from './pages/Collaborator/CollaboratorActivities'
-import CollaboratorDashboard from './pages/Collaborator/CollaboratorDashboard'
-import CreateActivities from './pages/Collaborator/CreateActivities'
-import CreateClient from './pages/Administrator/Create/CreateClient'
-import CreateCollaborator from './pages/Administrator/Create/CreateCollaborator'
-import CreateProject from './pages/Administrator/Create/CreateProject'
-import Details from './pages/Administrator/Details'
-import EditClient from './pages/Administrator/Edit/EditClient'
-import EditCollaborator from './pages/Administrator/Edit/EditCollaborator'
-import EditProject from './pages/Administrator/Edit/EditProject'
-import Login from './pages/Login'
-import NavBar from './components/NavBar/NavBar'
-import PageNotFound from './pages/PageNotFound'
-import getApiQuery from './utils/getApiQuery'
-import getHeaders from './utils/getHeaders'
+import AdminDashboard from '~/pages/Administrator/Dashboard'
+import AdminPageTemplate from '~/components/Pages/Administrator/Template'
+import Administrator from '~/pages/Administrator/Dashboard'
+import CollaboratorActivities from '~/pages/Collaborator/CollaboratorActivities'
+import CollaboratorDashboard from '~/pages/Collaborator/CollaboratorDashboard'
+import CreateClient from '~/pages/Administrator/Create/CreateClient'
+import CreateCollaborator from '~/pages/Administrator/Create/CreateCollaborator'
+import CreateProject from '~/pages/Administrator/Create/CreateProject'
+import Details from '~/pages/Administrator/Details'
+import EditClient from '~/pages/Administrator/Edit/EditClient'
+import EditCollaborator from '~/pages/Administrator/Edit/EditCollaborator'
+import EditProject from '~/pages/Administrator/Edit/EditProject'
+import Login from '~/pages/Login'
+import NavBar from '~/components/NavBar/NavBar'
+import PageNotFound from '~/pages/PageNotFound'
+import getApiQuery from '~/utils/getApiQuery'
+import getHeaders from '~/utils/getHeaders'
 
 export default function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false)
@@ -165,10 +160,6 @@ export default function App() {
           <Route path="/" element={<CollaboratorDashboard />} />
           <Route path="/collaborator" element={<CollaboratorDashboard />} />
           <Route path="/activities" element={<CollaboratorActivities />} />
-          <Route
-            path="/activities/create/:date/:time"
-            element={<CreateActivities />}
-          />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       )}

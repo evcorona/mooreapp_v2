@@ -1,24 +1,14 @@
-import * as z from 'zod'
-
-import { errorHandler, login } from '../lib/api/login'
+import { errorHandler, login } from '~/lib/api/login'
 
 import { AxiosError } from 'axios'
-import Button from '../components/Buttons/Button'
-import Input from '../components/Inputs/Input'
+import Button from '~/components/Buttons/Button'
+import Input from '~/components/Inputs/Input'
 import { LoginData } from '../types/objects'
 import clsx from 'clsx'
 import { useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 import { zodResolver } from '@hookform/resolvers/zod'
-
-const schema = z.object({
-  email: z
-    .string()
-    .email({ message: 'Introduce un email válido' })
-    .nonempty({ message: 'Campo requerido' }),
-  password: z.string().nonempty({ message: 'Campo requerido' }),
-})
-
+import schema from '~/schemas/loginSchema'
 export default function Login(): JSX.Element {
   const { mutateAsync, isLoading } = useMutation(login, {
     onSuccess: loginData => {
@@ -86,7 +76,7 @@ export default function Login(): JSX.Element {
           type="password"
           name="password"
           register={register}
-          placeholder="********************"
+          placeholder="************"
           error={errors?.password?.message}
           required
         />

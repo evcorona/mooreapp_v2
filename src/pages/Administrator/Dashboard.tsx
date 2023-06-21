@@ -95,12 +95,16 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Main    */}
-      <div className="items-center justify-between gap-4 space-y-4 md:flex md:space-y-0">
-        <div className="w-full">
+      {/* Main */}
+      <div
+        className={clsx(
+          'grid-cols-[24rem_minmax(24rem,1fr)] gap-4 space-y-4 lg:grid'
+        )}
+      >
+        <div className="lg:order-last">
           <Chart />
         </div>
-        <div className="space-y-2 rounded-md border bg-white shadow-md md:w-72">
+        <div className="space-y-2 rounded-md border bg-white shadow-md lg:w-96">
           <h2 className="border-b bg-gray-light p-2 text-center">Top 5</h2>
           {topFiveInsightsHeaders.map((header, i) => {
             const topInsights =

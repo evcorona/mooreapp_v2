@@ -29,12 +29,12 @@ export default function Cards(props: CardsProps) {
         return (
           <div
             key={'card-' + i}
-            className="border-xl card card-compact w-full cursor-default bg-white shadow-md hover:bg-gray-light hover:text-moore"
+            className="border-xl card-compact card w-full cursor-default bg-white shadow-md hover:bg-gray-light hover:text-moore"
           >
             <div className="card-body flex">
               <div className="card-title flex justify-between">
                 <h2 className="text-sm">{titleCard}</h2>
-                {!props.deleteButton && (
+                {props.deleteButton && (
                   <div className="card-actions justify-end">
                     <DeleteButton
                       collection={props.collection ?? 'activities'}
@@ -69,7 +69,7 @@ export default function Cards(props: CardsProps) {
               {props.details && (
                 <div className="card-actions justify-end">
                   <Link to={`${location.pathname}/${data._id}`}>
-                    <Button small className="bg-gray-lighter">
+                    <Button primary className="btn-sm bg-gray-lighter">
                       Detalles
                     </Button>
                   </Link>

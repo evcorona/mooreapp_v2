@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react'
 import { ActivitiesData } from '~/types/objects'
 import Button from '~/components/Buttons/Button'
 import Calendar from 'react-calendar'
-import Cards from '~/components/Template/AdminPageTemplate/Cards'
-import CreateActivities from './CreateActivities'
+import Cards from '~/components/Cards'
+import CreateActivities from '~/components/Pages/Collaborator/CreateActivities'
 import LoadingCard from '~/components/LoadingCard'
-import NoResultsCard from '~/components/Template/AdminPageTemplate/NoResultsCard'
+import NoResultsCard from '~/components/NoResultsCard'
 import { OnArgs } from 'react-calendar/dist/cjs/shared/types'
 import SlideOver from '~/components/SlideOver'
 import Title from '~/components/Title'
@@ -124,6 +124,7 @@ export default function CollaboratorActivities() {
                     data={activitiesFiltered}
                     headers={activitiesHeaders}
                     refetch={refetch}
+                    deleteButton
                   />
                 </div>
               )}

@@ -1,7 +1,7 @@
 import { ArrowRightOnRectangleIcon, Bars3Icon } from '@heroicons/react/24/solid'
 
 import { Link } from 'react-router-dom'
-import { NavBarProps } from '../../types/objects'
+import { NavBarProps } from '~/types/objects'
 import clsx from 'clsx'
 
 export default function NavBarMobile(props: NavBarProps) {

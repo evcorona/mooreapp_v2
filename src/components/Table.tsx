@@ -54,9 +54,11 @@ export default function Table(props: TableProps) {
                 )
               })}
               {props.details && (
-                <td className="pl-10">
+                <td className="p-2 pl-10">
                   <Link to={`${location.pathname}/${data._id}`}>
-                    <Button className="btn-sm bg-gray-lighter">Detalles</Button>
+                    <Button primary className=" bg-gray-lighter">
+                      Detalles
+                    </Button>
                   </Link>
                 </td>
               )}

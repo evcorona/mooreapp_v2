@@ -1,10 +1,10 @@
-import { headers, routes } from './routes'
+import { headers, routes } from '~/lib/api/routes'
 
 import { ActivitiesData } from '~/types/objects'
 import { AxiosError } from 'axios'
 import _ from 'lodash'
-import api from './index'
-import { errors } from '../../constants/errors'
+import api from '~/lib/api/index'
+import { errors } from '~/constants/errors'
 import format from 'date-fns/format'
 import { startOfMonth } from 'date-fns'
 import { toast } from 'react-toastify'

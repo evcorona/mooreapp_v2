@@ -1,8 +1,8 @@
-import './styles/global.scss'
+import '~/styles/global.scss'
 
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-import App from './App.tsx'
+import App from '~/App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom/client'
 import { ToastContainer } from 'react-toastify'

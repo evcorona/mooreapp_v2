@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { Link, useLocation } from 'react-router-dom'
 
-import Button from './Buttons/Button'
+import Button from '../../Buttons/Button'
 import { CollectionsDataType } from '~/types/objects'
 import { Fragment } from 'react'
 import clsx from 'clsx'
@@ -19,7 +19,7 @@ export default function DetailsHeaderCard(props: Props) {
   const location = useLocation()
 
   return (
-    <div className="cursor-default space-y-2 rounded-md border bg-white p-4 text-xs shadow-md md:text-base">
+    <div className="cursor-default space-y-2 rounded-md border bg-white p-4 text-sm shadow-md md:text-base">
       <div className="flex items-center justify-between">
         <span className="inline-flex h-full items-center gap-3 font-bold">
           <InformationCircleIcon className="w-icon-sm text-gray" />
@@ -29,10 +29,10 @@ export default function DetailsHeaderCard(props: Props) {
           <div className="tooltip tooltip-bottom" data-tip="Eliminar">
             <Button
               outline="error"
-              className="px-4 text-gray"
+              className="btn-square btn-sm md:btn-md"
               onClick={() => props.setIsModalOpen(true)}
             >
-              <TrashIcon className="w-icon-sm" />
+              <TrashIcon className="w-5 md:w-icon-sm" />
             </Button>
           </div>
           <Link
@@ -40,8 +40,8 @@ export default function DetailsHeaderCard(props: Props) {
             className="tooltip tooltip-bottom"
             data-tip="Editar"
           >
-            <Button outline="info" className="px-4 text-gray">
-              <PencilIcon className="w-icon-sm" />
+            <Button outline="info" className="btn-square btn-sm md:btn-md">
+              <PencilIcon className="w-5 md:w-icon-sm" />
             </Button>
           </Link>
         </div>

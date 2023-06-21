@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
-import NavBarDesktop from './NavBarDesktop'
-import NavBarMobile from './NavBarMobile'
-import { NavBarProps } from '../../types/objects'
-import logo from '../../images/logo-minimized.png'
+import NavBarDesktop from '~/components/NavBar/NavBarDesktop'
+import NavBarMobile from '~/components/NavBar/NavBarMobile'
+import { NavBarProps } from '~/types/objects'
+import logo from '~/images/logo-minimized.png'
 
 export default function NavBar(props: NavBarProps) {
   return (

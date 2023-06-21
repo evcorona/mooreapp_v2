@@ -42,7 +42,7 @@ export default function DeleteButton(props: Props) {
         deleteMode
       >
         {message}
-        <p className="mt-4 italic">Esta acción es irreversible</p>
+        <span className="mt-4 italic">Esta acción es irreversible</span>
       </Modal>
       <Button
         outline="error"

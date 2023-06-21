@@ -1,7 +1,11 @@
-import { ActivitiesData } from '~/types/objects'
 import _ from 'lodash'
 
-export default function getActivitiesTotal(activities: ActivitiesData[]) {
+interface Activities {
+  fee: number
+  timeAmmount: number
+}
+
+export default function getActivitiesTotal(activities: Activities[]) {
   const totalTime = _.reduce(
     activities,
     (sum, activity) => (sum = sum + activity.timeAmmount),
