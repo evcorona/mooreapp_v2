@@ -24,7 +24,6 @@ registerLocale('es', es)
 
 const startOfCurrentMonth = startOfMonth(new Date())
 
-//TODO: apply style in days with register in the calendar
 export default function CollaboratorActivities() {
   const [openSlideOver, setOpenSlideOver] = useState(false)
   const [daySelected, setDaySelected] = useState<Date>(new Date())
