@@ -29,7 +29,7 @@ export default function EditClient() {
   }
 
   return (
-    <div className="container mx-auto space-y-4 px-4 pt-20 md:px-28">
+    <div className="container mx-auto space-y-4 px-4 pb-4 pt-20 md:px-28">
       <Title title="Editar Cliente" />
       <ClientForm
         onSubmit={onSubmit}

@@ -109,7 +109,7 @@ export default function Details(props: DetailsProps) {
 
   if (isSelfLoading || isAllDataLoading) {
     return (
-      <div className="container mx-auto h-screen space-y-4 px-4 pt-20">
+      <div className="container mx-auto h-screen space-y-4 px-4 pb-4 pt-20">
         <Title title={props.title} />
         <LoadingCard />
       </div>
@@ -137,7 +137,7 @@ export default function Details(props: DetailsProps) {
           registradas, es irreversible
         </p>
       </Modal>
-      <div className="container mx-auto space-y-4 px-4 pt-20">
+      <div className="container mx-auto space-y-4 px-4 pb-4 pt-20">
         <Title title={props.title} />
         <DetailsHeaderCard
           data={{ ...selfData, ...totals }}

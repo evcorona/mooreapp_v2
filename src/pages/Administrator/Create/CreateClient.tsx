@@ -39,7 +39,7 @@ export default function CreateClient() {
         </span>{' '}
         ha sido creado y esta disponible para asignación de proyectos
       </Modal>
-      <div className="container mx-auto space-y-4 px-4 pt-20 md:px-28">
+      <div className="container mx-auto space-y-4 px-4 pb-4 pt-20 md:px-28">
         <Title title="Nuevo Cliente" />
         <ClientForm
           onSubmit={onSubmit}

@@ -27,7 +27,7 @@ export default [
   {
     header: 'Posición',
     accessor: 'positionJob',
-    className: 'whitespace-nowrap',
+    className: '',
   },
   {
     header: 'Area',

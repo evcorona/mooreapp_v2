@@ -59,7 +59,7 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto h-screen space-y-4 px-4 pt-20">
+      <div className="container mx-auto h-screen space-y-4 px-4 pb-4 pt-20">
         <Title title={props.title} />
         <LoadingCard />
       </div>
@@ -67,7 +67,7 @@ export default function AdminPageTemplate(props: AdminPageTemplateProps) {
   }
 
   return (
-    <div className="container mx-auto space-y-4 px-4 pt-20">
+    <div className="container mx-auto space-y-4 px-4 pb-4 pt-20">
       <Title title={props.title} />
       <ToolsBar
         setSearchInput={setSearchInput}

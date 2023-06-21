@@ -42,7 +42,7 @@ export default function CreateCollaborator() {
         </span>{' '}
         ha sido creado para acceder al portal
       </Modal>
-      <div className="container mx-auto space-y-4 px-4 pt-20 md:px-28">
+      <div className="container mx-auto space-y-4 px-4 pb-4 pt-20 md:px-28">
         <Title title="nuevo colaborador" />
         <CollaboratorForm
           onSubmit={onSubmit}

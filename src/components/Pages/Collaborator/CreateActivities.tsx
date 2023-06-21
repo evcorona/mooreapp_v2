@@ -13,7 +13,7 @@ interface Props {
 
 export default function CreateActivities(props: Props) {
   return (
-    <Tab.Group as="div" className="container mx-auto h-full space-y-6">
+    <Tab.Group as="div" className="container mx-auto h-full space-y-6 pb-4">
       <Tab.List className="join join-horizontal h-20 w-full border border-moore bg-white">
         <Tab
           className={clsx(

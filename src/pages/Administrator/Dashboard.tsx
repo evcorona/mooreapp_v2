@@ -23,9 +23,7 @@ import { subWeeks } from 'date-fns'
 import { useQuery } from 'react-query'
 import { useState } from 'react'
 
-//const startOfWeekAgo = subWeeks(new Date(), 1)
-
-const startOfWeekAgo = subWeeks(new Date('2023-01-01'), 1)
+const startOfWeekAgo = subWeeks(new Date(), 1)
 
 export default function Dashboard() {
   const [openAccordion, setOpenAccordion] = useState(0)
@@ -52,7 +50,7 @@ export default function Dashboard() {
 
   if (isGeneralInsightsLoading) {
     return (
-      <div className="container mx-auto h-screen space-y-4 px-4 pt-20">
+      <div className="container mx-auto h-screen space-y-4 px-4 pb-4 pt-20">
         <Title title="insights" />
         <LoadingCard />
       </div>
@@ -62,7 +60,7 @@ export default function Dashboard() {
   const isActivitiesLoading = isTopFiveInsightsLoading
 
   return (
-    <div className="container mx-auto h-screen cursor-default space-y-4 px-4 pt-20">
+    <div className="container mx-auto h-screen cursor-default space-y-4 px-4 pb-4 pt-20">
       <div className="stats stats-horizontal w-full rounded-md border bg-white text-center shadow-md">
         {generalInsightsHeaders.map((header, i) => {
           const value =
@@ -89,6 +87,7 @@ export default function Dashboard() {
           endDate={endDate}
           setEndDate={setEndDate}
           resetPicker={resetPicker}
+          isTodayMaxDate
           isClearable={startDate !== startOfWeekAgo}
           isLoading={isRefetching}
           className="md:w-72"

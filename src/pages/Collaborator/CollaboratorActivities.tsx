@@ -89,7 +89,7 @@ export default function CollaboratorActivities() {
           setOpen={openHandler}
         />
       </SlideOver>
-      <div className="container mx-auto h-screen space-y-4 p-4 pt-20">
+      <div className="container mx-auto h-screen space-y-4 p-4 pb-4 pt-20">
         <main className="grid h-full grid-rows-2 gap-4 md:grid-cols-2">
           <section
             className={clsx(

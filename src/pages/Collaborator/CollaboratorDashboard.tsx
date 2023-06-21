@@ -28,7 +28,7 @@ export default function CollaboratorDashboard() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto h-screen space-y-4 px-4 pt-20">
+      <div className="container mx-auto h-screen space-y-4 px-4 pb-4 pt-20">
         <Title title="¡Bienvenido!" />
         <LoadingCard />
       </div>
@@ -54,7 +54,7 @@ export default function CollaboratorDashboard() {
       >
         <CreateActivities date={daySelected} time={0} setOpen={openHandler} />
       </SlideOver>
-      <div className="container mx-auto h-screen space-y-4 px-4 pt-20">
+      <div className="container mx-auto h-screen space-y-4 px-4 pb-4 pt-20">
         <Title title="¡Bienvenido!" />
         <div className="flex cursor-default flex-col gap-4 md:flex-row">
           <div className="rounded-md border-r bg-white px-4 pb-4 text-center shadow-md">

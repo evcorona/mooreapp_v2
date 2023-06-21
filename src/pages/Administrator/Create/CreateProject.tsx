@@ -70,7 +70,7 @@ export default function CreateProject() {
         </span>{' '}
         ha sido creado y esta disponible para la creación de actividades
       </Modal>
-      <div className="container mx-auto space-y-4 px-4 pt-20 md:px-28">
+      <div className="container mx-auto space-y-4 px-4 pb-4 pt-20 md:px-28">
         <Title title="nuevo proyecto" />
         <ProjectForm
           initialValues={PROJECTS_DEFAULT_VALUES}
