@@ -124,6 +124,7 @@ export default function CollaboratorActivities() {
                     data={activitiesFiltered}
                     headers={activitiesHeaders}
                     refetch={refetch}
+                    isCollaboratorView
                     deleteButton
                   />
                 </div>

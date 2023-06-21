@@ -11,9 +11,10 @@ interface CardsProps {
   details?: boolean
   className?: string
   deleteButton?: boolean
+  isCollaboratorView: boolean
+  collection?: 'clients' | 'projects' | 'collaborators'
   refetch?: () => void
   setIdSelected?: (id: any) => void
-  collection?: 'clients' | 'projects' | 'collaborators'
 }
 export default function Cards(props: CardsProps) {
   const [firstHeader, ...headers] = props.headers
@@ -29,7 +30,7 @@ export default function Cards(props: CardsProps) {
         return (
           <div
             key={'card-' + i}
-            className="border-xl card-compact card w-full cursor-default bg-white shadow-md hover:bg-gray-light hover:text-moore"
+            className="border-xl card card-compact w-full cursor-default bg-white shadow-md hover:bg-gray-light hover:text-moore"
           >
             <div className="card-body flex">
               <div className="card-title flex justify-between">
@@ -47,6 +48,9 @@ export default function Cards(props: CardsProps) {
 
               {headers.map((header: any, k: number) => {
                 let value = data[header.accessor as keyof CollectionsDataType]
+
+                if (props.isCollaboratorView && header.hideForCollaborator)
+                  return
 
                 return (
                   <div key={'cardBody-' + k}>
