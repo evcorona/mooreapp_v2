@@ -72,18 +72,22 @@ export default function ToolsBar(props: ToolsBarProps) {
         />
       )}
       <div className="join w-full md:w-fit">
-        <Button
-          secondary
-          className={clsx('btn-sm join-item w-1/2 md:btn-md', {
+        <div
+          className={clsx('join-item w-1/2', {
             'w-full': location.pathname === '/activities',
           })}
-          isLoading={props.isRefetching}
-          isDisabled={_.isEmpty(props.data)}
         >
           <CSVLink filename={fileName} data={exportData}>
-            Exportar
+            <Button
+              secondary
+              className="btn-sm w-full md:btn-md"
+              isLoading={props.isRefetching}
+              isDisabled={_.isEmpty(props.data)}
+            >
+              Exportar
+            </Button>
           </CSVLink>
-        </Button>
+        </div>
         {location.pathname !== '/activities' && (
           <Button
             primary
