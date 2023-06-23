@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 export interface ProjectFormTypes {
   codeProject: string
   projectType: string
-  client: { value: string; _id: string }
+  client: { value: string; _id: string; codeClient: string }
   manager?: { value: string; _id: string }
 }
 
@@ -35,7 +35,9 @@ export default function ProjectForm(props: Props) {
     register,
     handleSubmit,
     reset,
+    watch,
     control,
+    setValue,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: PROJECTS_FORM_DEFAULT_VALUES,
@@ -45,6 +47,19 @@ export default function ProjectForm(props: Props) {
     shouldUseNativeValidation: false,
   })
 
+  const clientValue = watch('client')
+  const projectValue = watch('codeProject')
+
+  useEffect(() => {
+    if (!clientValue?.codeClient || !projectValue) return
+
+    let codeProject = props.initialValues.codeProject
+
+    const isSameClient = props.initialValues.client._id === clientValue._id
+    if (!isSameClient) codeProject = clientValue.codeClient + '-'
+
+    setValue('codeProject', codeProject)
+  }, [clientValue])
   useEffect(() => reset(), [props.isSuccess])
 
   return (
@@ -56,15 +71,6 @@ export default function ProjectForm(props: Props) {
       )}
       onSubmit={handleSubmit(props.onSubmit)}
     >
-      <Input
-        label="Código del proyecto"
-        type="text"
-        name="codeProject"
-        register={register}
-        placeholder="XXX-XXXX"
-        error={errors?.codeProject?.message}
-        required
-      />
       <ComboBox
         name="client"
         label="Cliente"
@@ -73,6 +79,15 @@ export default function ProjectForm(props: Props) {
         control={control}
         defaultValue={props.initialValues.client ?? ''}
         error={errors?.client?.message}
+        required
+      />
+      <Input
+        label="Código del proyecto"
+        type="text"
+        name="codeProject"
+        register={register}
+        placeholder="XXX-XXXX"
+        error={errors?.codeProject?.message}
         required
       />
       <Input
@@ -94,27 +109,25 @@ export default function ProjectForm(props: Props) {
         error={errors?.manager?.message}
       />
 
-      <div className="btn-group mt-4 gap-2">
+      <div className="join">
         {props.isClearable && (
           <>
-            <Button outline className="w-1/4" onClick={() => navigate(-1)}>
-              Cancelar
-            </Button>
-            <Button outline className="w-1/4" onClick={() => reset()}>
+            <Button className="join-item w-1/2" onClick={() => reset()}>
               Limpiar
             </Button>
           </>
         )}
         {!props.isClearable && (
-          <Button outline className="w-1/2" onClick={() => navigate(-1)}>
+          <Button className="join-item w-1/2" onClick={() => navigate(-1)}>
             Cancelar
           </Button>
         )}
         <Button
           isDisabled={!isValid}
+          isLoading={props.isLoading}
           isSubmit
           primary
-          className={clsx('w-1/2', {
+          className={clsx('join-item w-1/2', {
             'border-brand-gray border-2': !isValid,
             'bg-brand/50 hover:bg-brand/60 border-0': isValid,
           })}

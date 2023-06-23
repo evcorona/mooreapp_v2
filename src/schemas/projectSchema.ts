@@ -5,6 +5,7 @@ export default z.object({
     .string()
     .trim()
     .toUpperCase()
+    .min(5)
     .nonempty({ message: 'Campo requerido' }),
   projectType: z
     .string()

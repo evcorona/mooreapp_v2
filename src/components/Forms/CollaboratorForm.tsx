@@ -141,19 +141,16 @@ export default function CollaboratorForm(props: Props) {
         />
       </div>
 
-      <div className="btn-group">
+      <div className="join">
         {props.isClearable && (
           <>
-            <Button outline className="w-1/4" onClick={() => navigate(-1)}>
-              Cancelar
-            </Button>
-            <Button outline className="w-1/4" onClick={() => reset()}>
+            <Button className="join-item w-1/2" onClick={() => reset()}>
               Limpiar
             </Button>
           </>
         )}
         {!props.isClearable && (
-          <Button outline className="w-1/2" onClick={() => navigate(-1)}>
+          <Button className="join-item w-1/2" onClick={() => navigate(-1)}>
             Cancelar
           </Button>
         )}
@@ -162,7 +159,7 @@ export default function CollaboratorForm(props: Props) {
           isLoading={props.isLoading}
           isSubmit
           primary
-          className={clsx('w-1/2', {
+          className={clsx('join-item w-1/2', {
             'border-brand-gray border-2': !isValid,
             'bg-brand/50 hover:bg-brand/60 border-0': isValid,
           })}

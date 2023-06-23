@@ -47,7 +47,7 @@ export default function Dashboard() {
     getTopFiveInsights({ startDate, endDate })
   )
 
-  const { data: chartData = [] } = useQuery(
+  const { data: chartData = [], isLoading: isChartDataLoading } = useQuery(
     ['chartData', startDate, endDate],
     () => getActivitiesDataForChart({ startDate, endDate })
   )
@@ -66,113 +66,118 @@ export default function Dashboard() {
     )
   }
 
-  const isActivitiesLoading = isTopFiveInsightsLoading
+  const isActivitiesLoading = isTopFiveInsightsLoading || isChartDataLoading
 
   return (
-    <div className="container mx-auto h-screen cursor-default space-y-4 px-4 pb-4 pt-20">
-      <div className="stats stats-horizontal w-full rounded-md border bg-white text-center shadow-md">
-        {generalInsightsHeaders.map((header, i) => {
-          const value =
-            generalInsights[header.accessor as keyof GeneralInsights]
-          return (
-            <div key={`gralInsight-${i}`} className="group stat">
-              <p className="stat-value group-hover:text-moore">
-                {value.toLocaleString()}
-              </p>
-              <p className="stat-title group-hover:text-moore">
-                {header.header}
-              </p>
-            </div>
-          )
-        })}
-      </div>
-
-      {/* DatePicker */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="flex-grow text-left text-3xl font-bold">Actividades</h1>
-        <DateRangePicker
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate}
-          setEndDate={setEndDate}
-          resetPicker={resetPicker}
-          isTodayMaxDate
-          isClearable={startDate !== startOfWeekAgo}
-          isLoading={isRefetching}
-          className="md:w-72"
-        />
-      </div>
-
-      {/* Main */}
-      <div
-        className={clsx(
-          'grid-cols-[24rem_minmax(24rem,1fr)] gap-4 space-y-4 lg:grid'
-        )}
-      >
-        <div className="lg:order-last">
-          <Chart chartData={chartData} />
-        </div>
-        <div className="space-y-2 rounded-md border bg-white shadow-md lg:w-96">
-          <h2 className="border-b bg-gray-light p-2 text-center">Top 5</h2>
-          {topFiveInsightsHeaders.map((header, i) => {
-            const topInsights =
-              topFiveInsights[header.accessor as keyof TopFiveInsights]
+    <>
+      {isActivitiesLoading && <LoadingCard />}
+      <div className="container mx-auto h-screen cursor-default space-y-4 px-4 pb-4 pt-20">
+        <div className="stats stats-horizontal w-full rounded-md border bg-white text-center shadow-md">
+          {generalInsightsHeaders.map((header, i) => {
+            const value =
+              generalInsights[header.accessor as keyof GeneralInsights]
             return (
-              <div
-                tabIndex={0}
-                key={`cardTop-${i}`}
-                className={clsx('collapse-arrow collapse', {
-                  'collapse-open': openAccordion === i,
-                })}
-                onClick={() => setOpenAccordion(i)}
-              >
-                <p className="collapse-title font-bold">{header.header}</p>
-                <ul className="group collapse-content list-inside list-decimal text-sm">
-                  {topInsights.map((insight, j) => {
-                    let value: any =
-                      insight[
-                        header.subAccessor as keyof CollectionTopFiveInsights
-                      ]
-
-                    const totalCost = `$ ${insight.totalCost.toLocaleString(
-                      'es-MX',
-                      {
-                        useGrouping: true,
-                        minimumFractionDigits: 2,
-                      }
-                    )}`
-                    const totalTime = `${insight.totalTime} horas`
-
-                    if (Array.isArray(header.subAccessor)) {
-                      const [first, second] = header.subAccessor
-                      value = `${
-                        insight[first as keyof CollectionTopFiveInsights]
-                      } ${insight[second as keyof CollectionTopFiveInsights]}`
-                    }
-
-                    return (
-                      <li
-                        key={`topInsight-${j}${i}`}
-                        className="p-2 hover:bg-gray-light hover:text-moore"
-                      >
-                        {value}
-                        <div className="flex gap-4 text-xs text-gray ">
-                          <i className="whitespace-nowrap">
-                            Costo: {totalCost}
-                          </i>
-                          <i className="whitespace-nowrap">
-                            Tiempo: {totalTime}
-                          </i>
-                        </div>
-                      </li>
-                    )
-                  })}
-                </ul>
+              <div key={`gralInsight-${i}`} className="group stat">
+                <p className="stat-value group-hover:text-moore">
+                  {value.toLocaleString()}
+                </p>
+                <p className="stat-title group-hover:text-moore">
+                  {header.header}
+                </p>
               </div>
             )
           })}
         </div>
+
+        {/* DatePicker */}
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h1 className="flex-grow text-left text-3xl font-bold">
+            Actividades
+          </h1>
+          <DateRangePicker
+            startDate={startDate}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
+            resetPicker={resetPicker}
+            isTodayMaxDate
+            isClearable={startDate !== startOfWeekAgo}
+            isLoading={isRefetching}
+            className="md:w-72"
+          />
+        </div>
+
+        {/* Main */}
+        <div
+          className={clsx(
+            'grid-cols-[24rem_minmax(24rem,1fr)] gap-8 space-y-4 lg:grid'
+          )}
+        >
+          <div className="w-full lg:order-last">
+            <Chart chartData={chartData} />
+          </div>
+          <div className="space-y-2 rounded-md border bg-white shadow-md lg:w-96">
+            <h2 className="border-b bg-gray-light p-2 text-center">Top 5</h2>
+            {topFiveInsightsHeaders.map((header, i) => {
+              const topInsights =
+                topFiveInsights[header.accessor as keyof TopFiveInsights]
+              return (
+                <div
+                  tabIndex={0}
+                  key={`cardTop-${i}`}
+                  className={clsx('collapse-arrow collapse', {
+                    'collapse-open': openAccordion === i,
+                  })}
+                  onClick={() => setOpenAccordion(i)}
+                >
+                  <p className="collapse-title font-bold">{header.header}</p>
+                  <ul className="group collapse-content list-inside list-decimal text-sm">
+                    {topInsights.map((insight, j) => {
+                      let value: any =
+                        insight[
+                          header.subAccessor as keyof CollectionTopFiveInsights
+                        ]
+
+                      const totalCost = `$ ${insight.totalCost.toLocaleString(
+                        'es-MX',
+                        {
+                          useGrouping: true,
+                          minimumFractionDigits: 2,
+                        }
+                      )}`
+                      const totalTime = `${insight.totalTime} horas`
+
+                      if (Array.isArray(header.subAccessor)) {
+                        const [first, second] = header.subAccessor
+                        value = `${
+                          insight[first as keyof CollectionTopFiveInsights]
+                        } ${insight[second as keyof CollectionTopFiveInsights]}`
+                      }
+
+                      return (
+                        <li
+                          key={`topInsight-${j}${i}`}
+                          className="p-2 hover:bg-gray-light hover:text-moore"
+                        >
+                          {value}
+                          <div className="flex gap-4 text-xs text-gray ">
+                            <i className="whitespace-nowrap">
+                              Costo: {totalCost}
+                            </i>
+                            <i className="whitespace-nowrap">
+                              Tiempo: {totalTime}
+                            </i>
+                          </div>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

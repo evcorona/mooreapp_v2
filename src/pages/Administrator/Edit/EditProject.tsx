@@ -22,7 +22,11 @@ export default function EditProject() {
     getAllClients
   )
   const clientOptions = allClients.map(client => {
-    return { _id: client._id, value: client.clientName }
+    return {
+      _id: client._id,
+      value: client.clientName,
+      codeClient: client.codeClient,
+    }
   })
 
   //Get all managers to conform combobox options

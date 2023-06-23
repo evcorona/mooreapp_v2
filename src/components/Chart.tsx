@@ -25,6 +25,8 @@ ChartJS.register(
   Legend
 )
 const options = {
+  updateMode: 'resize',
+  redraw: true,
   responsive: true,
   plugins: {
     legend: {

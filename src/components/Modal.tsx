@@ -87,12 +87,12 @@ export default function Modal(props: ModalProps) {
                   {props.title}
                 </Dialog.Title>
 
-                <Dialog.Description className="text-lg">
+                <Dialog.Description className="cursor-default text-lg">
                   {props.children}
                 </Dialog.Description>
-                <div className="join w-full gap-2">
+                <div className="join w-full">
                   {!props.deleteMode && (
-                    <Button className="w-1/2" onClick={returnHandler}>
+                    <Button className="join-item w-1/2" onClick={returnHandler}>
                       Regresar
                     </Button>
                   )}
@@ -101,7 +101,7 @@ export default function Modal(props: ModalProps) {
                       onClick={props.onClick}
                       isLoading={props.isLoading}
                       outline="error"
-                      className="w-1/2"
+                      className="join-item w-1/2"
                     >
                       <TrashIcon className="w-5" />
                       {!props.isLoading ? 'Eliminar' : 'Eliminando...'}
@@ -109,7 +109,7 @@ export default function Modal(props: ModalProps) {
                   )}
                   <Button
                     primary
-                    className="w-1/2"
+                    className="join-item w-1/2"
                     onClick={() => props.setIsModalOpen(false)}
                   >
                     {props.buttonText}

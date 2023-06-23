@@ -99,7 +99,7 @@ export default function CollaboratorDashboard() {
                   <p className="hidden whitespace-nowrap md:block">
                     {format(
                       utcToZonedTime(new Date(date), 'Greenwich'),
-                      'EEEE dd, MMMM yyyy',
+                      'EEEE, dd MMMM yyyy',
                       {
                         locale: es,
                       }
@@ -108,7 +108,7 @@ export default function CollaboratorDashboard() {
                   <p className="whitespace-nowrap md:hidden">
                     {format(
                       utcToZonedTime(new Date(date), 'Greenwich'),
-                      'E dd MMM yyyy',
+                      'E, dd MMM yyyy',
                       {
                         locale: es,
                       }

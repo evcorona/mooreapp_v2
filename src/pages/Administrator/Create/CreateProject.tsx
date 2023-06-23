@@ -20,7 +20,11 @@ export default function CreateProject() {
     getAllClients
   )
   const clientOptions = allClients.map(client => {
-    return { _id: client._id, value: client.clientName }
+    return {
+      _id: client._id,
+      value: client.clientName,
+      codeClient: client.codeClient,
+    }
   })
 
   const { data: allManagers = [] } = useQuery<CollaboratorsData[]>(

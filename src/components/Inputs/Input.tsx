@@ -5,6 +5,7 @@ export interface Props {
   type: 'text' | 'email' | 'password' | 'number' | 'date'
   label: string
   name: string
+  defaultValue?: string
   prefix?: 'currency' | 'time'
   value?: any
   placeholder?: string
@@ -40,6 +41,7 @@ export default function Input(props: Props) {
         placeholder={props.placeholder}
         required={props.required}
         onChange={props.onChange}
+        defaultValue={props.defaultValue}
         min={0}
         step="any"
         disabled={props.isLoading}

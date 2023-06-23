@@ -19,8 +19,10 @@ import Button from '../Buttons/Button'
 import ComboBox from '~/components/Inputs/ComboBox'
 import Input from '~/components/Inputs/Input'
 import clsx from 'clsx'
+import schema from '~/schemas/professionalActivitySchema'
 import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 interface Props {
   date: string
@@ -80,7 +82,7 @@ export default function ProfessionalActivityForm(props: Props) {
       timeAmmount: 0,
     },
     mode: 'onChange',
-    //resolver: zodResolver(schema),
+    resolver: zodResolver(schema),
     shouldUseNativeValidation: false,
   })
 

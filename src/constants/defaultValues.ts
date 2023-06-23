@@ -27,7 +27,7 @@ export const PROJECTS_DEFAULT_VALUES = {
 export const PROJECTS_FORM_DEFAULT_VALUES = {
   codeProject: '',
   projectType: '',
-  client: { value: '', _id: '' },
+  client: { value: '', _id: '', codeClient: '' },
   manager: { value: '', _id: '' },
 }
 
