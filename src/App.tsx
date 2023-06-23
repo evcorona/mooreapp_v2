@@ -20,6 +20,8 @@ import PageNotFound from '~/pages/PageNotFound'
 import getApiQuery from '~/utils/getApiQuery'
 import getHeaders from '~/utils/getHeaders'
 
+//TODO: Reflect position in Navbar
+//TODO: Change export CSV from backend instead of frontend
 export default function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false)
   const [isAdmin, setIsAdmin] = useState<boolean>(false)

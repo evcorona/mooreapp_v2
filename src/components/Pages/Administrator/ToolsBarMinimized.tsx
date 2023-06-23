@@ -16,7 +16,7 @@ interface ToolsBarProps {
 }
 
 export default function ToolsBarMinimized(props: ToolsBarProps) {
-  const exportData = props.data.map(({ _id, isActive, ...data }) => data)
+  const exportData = props.data.map(({ _id, ...data }) => data)
   const fileName = `mooreapp-${props.fileName}-${format(
     new Date(),
     'yyyyMMdd'

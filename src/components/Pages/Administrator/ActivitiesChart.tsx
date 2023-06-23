@@ -11,7 +11,7 @@ import {
 } from 'chart.js'
 
 import { Bar } from 'react-chartjs-2'
-import NoResultsCard from './NoResultsCard'
+import NoResultsCard from '../../NoResultsCard'
 import _ from 'lodash'
 
 ChartJS.register(
@@ -51,7 +51,7 @@ interface Props {
   chartData: any
 }
 
-export function Chart(props: Props) {
+export default function ActivitiesChart(props: Props) {
   if (!props.chartData) return
   if (!props.chartData.data) return
 

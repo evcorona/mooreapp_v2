@@ -24,7 +24,7 @@ export default function ToolsBar(props: ToolsBarProps) {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const exportData = props.data.map(({ _id, isActive, ...data }) => data)
+  const exportData = props.data.map(({ _id, ...data }) => data)
   const fileName = `mooreapp${location.pathname.replace('/', '_')}_${format(
     new Date(),
     'yyyyMMdd'

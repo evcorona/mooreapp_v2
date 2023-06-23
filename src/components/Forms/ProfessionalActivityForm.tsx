@@ -1,4 +1,4 @@
-import { ActivitiesData, ClientsData, ProjectsData } from '~/types/objects'
+import { ClientsData, ProjectsData } from '~/types/objects'
 import {
   createActivity,
   errorHandler as errorActivityHandler,
@@ -135,7 +135,7 @@ export default function ProfessionalActivityForm(props: Props) {
         error={errors?.timeAmmount?.message}
       />
       <div className="join join-horizontal">
-        <Button outline className="join-item w-1/2" onClick={() => reset()}>
+        <Button className="join-item w-1/2" onClick={() => reset()}>
           Limpiar
         </Button>
         <Button
