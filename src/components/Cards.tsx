@@ -11,7 +11,7 @@ interface CardsProps {
   details?: boolean
   className?: string
   deleteButton?: boolean
-  isCollaboratorView: boolean
+  isCollaboratorView?: boolean
   collection?: 'clients' | 'projects' | 'collaborators'
   refetch?: () => void
   setIdSelected?: (id: any) => void
