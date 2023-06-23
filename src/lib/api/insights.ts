@@ -38,6 +38,20 @@ export async function getTopFiveInsights(
   return _.get(response, 'data.data.insights', TOP_TEN_INSIGHTS_DEFAULT_VALUES)
 }
 
+export async function getActivitiesDataForChart(
+  dateRange: DateRangeData
+): Promise<any> {
+  const startDate = format(dateRange.startDate, 'yyyy-MM-dd')
+  const endDate = format(dateRange.endDate, 'yyyy-MM-dd')
+  const dateRangeQuery = `activities/${startDate}/${endDate}`
+
+  const response = await api
+    .get(routes.insights + dateRangeQuery, headers)
+    .catch(error => console.error(error))
+
+  return _.get(response, 'data.data.insights', [])
+}
+
 export function errorHandler(error: AxiosError): void {
   if (!error.response) {
     toast.error(errors.api.network.message)

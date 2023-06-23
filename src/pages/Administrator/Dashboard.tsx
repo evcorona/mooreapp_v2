@@ -11,7 +11,11 @@ import {
   generalInsightsHeaders,
   topFiveInsightsHeaders,
 } from '~/constants/dataHeaders/insightsHeaders'
-import { getGeneralInsights, getTopFiveInsights } from '~/lib/api/insights'
+import {
+  getActivitiesDataForChart,
+  getGeneralInsights,
+  getTopFiveInsights,
+} from '~/lib/api/insights'
 
 import { Chart } from '~/components/Chart'
 import DateRangePicker from '~/components/Inputs/DateRangePicker'
@@ -41,6 +45,11 @@ export default function Dashboard() {
     isRefetching,
   } = useQuery(['topFiveInsights', startDate, endDate], () =>
     getTopFiveInsights({ startDate, endDate })
+  )
+
+  const { data: chartData = [] } = useQuery(
+    ['chartData', startDate, endDate],
+    () => getActivitiesDataForChart({ startDate, endDate })
   )
 
   function resetPicker() {
@@ -101,7 +110,7 @@ export default function Dashboard() {
         )}
       >
         <div className="lg:order-last">
-          <Chart />
+          <Chart chartData={chartData} />
         </div>
         <div className="space-y-2 rounded-md border bg-white shadow-md lg:w-96">
           <h2 className="border-b bg-gray-light p-2 text-center">Top 5</h2>

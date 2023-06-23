@@ -10,7 +10,6 @@ import {
 } from 'chart.js'
 
 import { Line } from 'react-chartjs-2'
-import { faker } from '@faker-js/faker'
 
 ChartJS.register(
   CategoryScale,
@@ -29,25 +28,41 @@ const options = {
     },
     title: {
       display: true,
-      text: 'Relación de total de actividades',
+      text: 'Relación del total de actividades',
     },
   },
 }
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Número de actividades',
-      data: labels.map(() => faker.number.int({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-  ],
+interface Props {
+  chartData: any
 }
 
-export function Chart() {
+export function Chart(props: Props) {
+  if (!props.chartData) return
+  if (!props.chartData.data) return
+
+  const data = {
+    labels: props.chartData.labels,
+    datasets: [
+      {
+        label: 'Numero de actividades',
+        data: props.chartData.data.map((item: any) => item.totalActivities),
+        borderColor: '#29aae1',
+        backgroundColor: '#29aae1',
+      },
+      // {
+      //   label: 'Costo total',
+      //   data: props.chartData.data.map((item: any) => item.totalCost),
+      //   borderColor: 'rgb(255, 99, 132)',
+      //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      // },
+      // {
+      //   label: 'Tiempo total',
+      //   data: props.chartData.data.map((item: any) => item.totalTime),
+      //   borderColor: 'rgb(255, 99, 132)',
+      //   backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      // },
+    ],
+  }
   return <Line options={options} data={data} />
 }
