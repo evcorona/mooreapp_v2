@@ -2,9 +2,8 @@ import { NAVIGATION_ITEMS, ROLES } from '~/constants/businessConstants'
 import { Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-import AdminDashboard from '~/pages/Administrator/Dashboard'
+import AdminDashboard from '~/pages/Administrator/AdminDashboard'
 import AdminPageTemplate from '~/components/Pages/Administrator/Template'
-import Administrator from '~/pages/Administrator/Dashboard'
 import CollaboratorActivities from '~/pages/Collaborator/CollaboratorActivities'
 import CollaboratorDashboard from '~/pages/Collaborator/CollaboratorDashboard'
 import CreateClient from '~/pages/Administrator/Create/CreateClient'
@@ -55,7 +54,7 @@ export default function App() {
       />
       {isAdmin ? (
         <Routes>
-          <Route path="/" element={<Administrator />} />
+          <Route path="/" element={<AdminDashboard />} />
           <Route path="/administrator" element={<AdminDashboard />} />
           <Route
             path="/clients"

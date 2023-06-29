@@ -40,7 +40,7 @@ export type ProjectsData = {
 export type CollaboratorsData = {
   _id: string
   email: string
-  rol: string
+  rol: string | null
   name: string
   lastName: string
   positionJob: string

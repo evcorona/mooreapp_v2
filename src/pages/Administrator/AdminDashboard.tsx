@@ -29,7 +29,7 @@ import { useState } from 'react'
 
 const startOfWeekAgo = subWeeks(new Date(), 1)
 
-export default function Dashboard() {
+export default function AdminDashboard() {
   const [openAccordion, setOpenAccordion] = useState(0)
   const [startDate, setStartDate] = useState(startOfWeekAgo)
   const [endDate, setEndDate] = useState(new Date())

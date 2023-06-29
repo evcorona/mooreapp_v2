@@ -4,7 +4,7 @@ export default function LoadingCard() {
   return (
     <div
       className={clsx(
-        'absolute bottom-10 right-10',
+        'absolute bottom-10 right-10 z-40',
         'w-full',
         'flex items-end justify-end gap-4',
         'text-lg font-semibold tracking-wide text-moore'

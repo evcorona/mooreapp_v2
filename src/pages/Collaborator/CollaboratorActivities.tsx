@@ -26,7 +26,7 @@ const startOfCurrentMonth = startOfMonth(new Date())
 
 export default function CollaboratorActivities() {
   const [openSlideOver, setOpenSlideOver] = useState(false)
-  const [daySelected, setDaySelected] = useState<Date>(new Date())
+  const [daySelected, setDaySelected] = useState<any>(new Date())
   const [monthSelected, setMonthSelected] = useState<Date>(startOfCurrentMonth)
   const [activitiesFiltered, setActivitiesFiltered] = useState<
     ActivitiesData[]
@@ -135,7 +135,6 @@ export default function CollaboratorActivities() {
               onChange={setDaySelected}
               onActiveStartDateChange={calendarNavigationHandler}
               showNeighboringMonth
-              showYearNumbers
               value={daySelected}
               minDate={new Date('2021-01-02')}
               maxDate={new Date()}
@@ -143,7 +142,7 @@ export default function CollaboratorActivities() {
               minDetail="decade"
               className={clsx(
                 'rounded-md border-gray-light shadow-md',
-                'h-[21rem] w-full p-4',
+                'w-full p-4',
                 'calendar-activities'
               )}
             />
