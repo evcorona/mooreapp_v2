@@ -112,6 +112,18 @@ export type DateRangeData = {
   endDate: Date
 }
 
+export type ActivitiesChartData = {
+  activityDate: string
+  totalActivities: number
+  totalCost: number
+  totalTime: number
+}
+
+export type ActivitiesChartDataType = {
+  data: ActivitiesChartData[]
+  labels: string[]
+}
+
 export type CollectionsDataType =
   | ClientsData
   | ProjectsData

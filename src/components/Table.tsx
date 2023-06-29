@@ -38,7 +38,7 @@ export default function Table(props: TableProps) {
             >
               <td>{i + 1}</td>
               {props.headers.map((header, k) => {
-                let value = data[header.accessor]
+                const value = data[header.accessor]
 
                 return (
                   <td className={header.className} key={`cell-${k}`}>

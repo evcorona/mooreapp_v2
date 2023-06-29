@@ -40,6 +40,7 @@ export default function Cards(props: CardsProps) {
                     <DeleteButton
                       collection={props.collection ?? 'activities'}
                       data={data}
+                      // eslint-disable-next-line @typescript-eslint/no-empty-function
                       refetch={props.refetch ?? function () {}}
                     />
                   </div>
@@ -47,7 +48,7 @@ export default function Cards(props: CardsProps) {
               </div>
 
               {headers.map((header: any, k: number) => {
-                let value = data[header.accessor as keyof CollectionsDataType]
+                const value = data[header.accessor as keyof CollectionsDataType]
 
                 if (props.isCollaboratorView && header.hideForCollaborator)
                   return

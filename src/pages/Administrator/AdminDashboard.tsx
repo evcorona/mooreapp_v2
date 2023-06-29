@@ -20,6 +20,7 @@ import {
 import ActivitiesChart from '~/components/Pages/Administrator/ActivitiesChart'
 import DateRangePicker from '~/components/Inputs/DateRangePicker'
 import LoadingCard from '~/components/LoadingCard'
+import NoResultsCard from '~/components/NoResultsCard'
 import Title from '~/components/Title'
 import _ from 'lodash'
 import clsx from 'clsx'
@@ -47,7 +48,7 @@ export default function AdminDashboard() {
     getTopFiveInsights({ startDate, endDate })
   )
 
-  const { data: chartData = [], isLoading: isChartDataLoading } = useQuery(
+  const { data: chartData = null, isLoading: isChartDataLoading } = useQuery(
     ['chartData', startDate, endDate],
     () => getActivitiesDataForChart({ startDate, endDate })
   )
@@ -114,7 +115,11 @@ export default function AdminDashboard() {
           )}
         >
           <div className="w-full lg:order-last">
-            <ActivitiesChart chartData={chartData} />
+            {!chartData ? (
+              <NoResultsCard />
+            ) : (
+              <ActivitiesChart chartData={chartData} />
+            )}
           </div>
           <div className="space-y-2 rounded-md border bg-white shadow-md lg:w-96">
             <h2 className="border-b bg-gray-light p-2 text-center">Top 5</h2>

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-extra-non-null-assertion */
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useMutation, useQuery } from 'react-query'
@@ -64,7 +66,7 @@ export default function Details(props: DetailsProps) {
   const { data: allData = [], isLoading: isAllDataLoading } = useQuery({
     queryKey: ['activitiesBy', props.collection],
     queryFn: () => getById(selfData._id, selfData[name], props.collection),
-    enabled: Boolean(selfData?._id)!!,
+    enabled: Boolean(selfData._id)!!,
     onSuccess(data: ActivitiesData[]) {
       setFileName(
         `${props.collection}-details-${selfData[name]

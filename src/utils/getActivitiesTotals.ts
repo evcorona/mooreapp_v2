@@ -8,7 +8,7 @@ export default function getActivitiesTotal(activities: ActivitiesData[]) {
     0
   )
 
-  let totalCost = activities.reduce((acc, activity) => {
+  const totalCost = activities.reduce((acc, activity) => {
     const { fee = 0 } = activity
     return (acc = acc + fee)
   }, 0)

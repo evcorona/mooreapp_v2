@@ -10,14 +10,14 @@ interface ListBoxProps {
   label: string
   placeholder: string
   options: string[]
-  defaultValue: string
+  defaultValue: string | null
   error?: any
   required?: boolean
   control?: any
 }
 
 export default function ListBox(props: ListBoxProps) {
-  const [selectedOption, setSelectedOption] = useState('')
+  const [selectedOption, setSelectedOption] = useState<string | null>(null)
 
   useEffect(() => setSelectedOption(props.defaultValue), [props.defaultValue])
 

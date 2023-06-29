@@ -1,4 +1,5 @@
 import {
+  ActivitiesChartDataType,
   DateRangeData,
   GeneralInsights,
   TopFiveInsights,
@@ -40,7 +41,7 @@ export async function getTopFiveInsights(
 
 export async function getActivitiesDataForChart(
   dateRange: DateRangeData
-): Promise<any> {
+): Promise<ActivitiesChartDataType | null> {
   const startDate = format(dateRange.startDate, 'yyyy-MM-dd')
   const endDate = format(dateRange.endDate, 'yyyy-MM-dd')
   const dateRangeQuery = `activities/${startDate}/${endDate}`
@@ -49,7 +50,7 @@ export async function getActivitiesDataForChart(
     .get(routes.insights + dateRangeQuery, headers)
     .catch(error => console.error(error))
 
-  return _.get(response, 'data.data.insights', [])
+  return _.get(response, 'data.data.insights', null)
 }
 
 export function errorHandler(error: AxiosError): void {

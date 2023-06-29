@@ -10,8 +10,8 @@ import {
   Tooltip,
 } from 'chart.js'
 
+import { ActivitiesChartDataType } from '~/types/objects'
 import { Bar } from 'react-chartjs-2'
-import NoResultsCard from '../../NoResultsCard'
 import _ from 'lodash'
 
 ChartJS.register(
@@ -48,13 +48,10 @@ const options = {
 }
 
 interface Props {
-  chartData: any
+  chartData: ActivitiesChartDataType
 }
 
 export default function ActivitiesChart(props: Props) {
-  if (!props.chartData) return
-  if (!props.chartData.data) return
-
   const data = {
     labels: props.chartData.labels,
     datasets: [
@@ -66,12 +63,5 @@ export default function ActivitiesChart(props: Props) {
       },
     ],
   }
-  return (
-    <>
-      {_.isEmpty(props.chartData.data) && <NoResultsCard />}
-      {!_.isEmpty(props.chartData.data) && (
-        <Bar options={options} data={data} />
-      )}
-    </>
-  )
+  return <Bar options={options} data={data} />
 }
